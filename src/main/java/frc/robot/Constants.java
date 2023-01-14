@@ -27,6 +27,11 @@ public final class Constants {
 
     // Never exceed 12 volts //
     public static final double kmaxDriveVoltage = 12;
+
+    public static final double kdriveEncoderNativeUnitsPerRev = 42;
+
+    public static final double kdriveGearRatio = 0;
+    public static final double kwheelDiameterInches = 0;
   }
 
   public static class Operator {

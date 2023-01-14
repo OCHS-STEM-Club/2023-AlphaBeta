@@ -4,9 +4,12 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -25,7 +28,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private MotorControllerGroup rightDriveGroup;
   private DifferentialDrive drive;
 
-  // private final AHRS navX = new AHRS();C
+  private RelativeEncoder leftEncoder;
+  private RelativeEncoder rightEncoder;
+
+ private final Gyro navX = new AHRS();
+
+
+
+
 
 
   /** Creates a new Drivetrain. */
@@ -45,7 +55,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // Set up Differential Drive
     drive = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
 
-  
+    leftEncoder = leftDrive1.getEncoder();
+    rightEncoder = rightDrive1.getEncoder();
+    
+    double conversionFactor = (((1 / Constants.DriveTrain.kdriveEncoderNativeUnitsPerRev) / Constants.DriveTrain.kdriveGearRatio) * 
+    Math.PI * Constants.DriveTrain.kwheelDiameterInches) * Constants.DriveTrain.kinchesToMeters;
+
+    leftEncoder.setPositionConversionFactor(conversionFactor);
+    rightEncoder.setPositionConversionFactor(conversionFactor);
   }
 
   @Override
