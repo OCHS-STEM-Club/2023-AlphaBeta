@@ -30,8 +30,8 @@ public final class Constants {
 
     // Drive Encoder Values //
     public static final double kdriveEncoderNativeUnitsPerRev = 42;
-    public static final double kdriveGearRatio = 7;
-    public static final double kwheelDiameterInches = 5;
+    public static final double kdriveGearRatio = 8.16; 
+    public static final double kwheelDiameterInches = 5; // TODO: Temporary wheel diameter
 
     public static final double kinchesToMeters = 0.0254;
   }
