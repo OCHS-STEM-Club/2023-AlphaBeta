@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -23,6 +24,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private CANSparkMax rightDrive2;
   private MotorControllerGroup rightDriveGroup;
   private DifferentialDrive drive;
+
+  // private final AHRS navX = new AHRS();C
 
 
   /** Creates a new Drivetrain. */
@@ -41,6 +44,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     
     // Set up Differential Drive
     drive = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
+
   
   }
 
@@ -50,9 +54,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
   
   public void driveWithXbox(CommandXboxController xboxController) {
+    // System.out.printf("Controller: forward: %f, turn: %f\n", xboxController.getLeftY(), xboxController.getRightX());
     drive.arcadeDrive(
       xboxController.getLeftY()*Constants.DriveTrain.kspeedMultiplier, 
       xboxController.getRightX()*Constants.DriveTrain.kspeedMultiplier
     );
+    
+    // drive.arcadeDrive(1, 0);
+  }
+
+  public void testMotors() {
+    // leftDriveGroup.setVoltage(7);
+    // rightDriveGroup.setVoltage(7);
+    leftDriveGroup.set(1);
   }
 }

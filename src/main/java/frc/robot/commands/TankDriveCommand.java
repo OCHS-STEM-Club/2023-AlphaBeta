@@ -32,6 +32,7 @@ public class TankDriveCommand extends CommandBase {
   public void execute() {
     //System.out.println("tankdrive command execute");
     m_drivetrainSubsystem.driveWithXbox(RobotContainer.m_driverController);
+    //m_drivetrainSubsystem.testMotors();
   }
 
   // Called once the command ends or is interrupted.

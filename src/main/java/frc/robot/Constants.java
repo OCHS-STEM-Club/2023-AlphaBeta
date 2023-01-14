@@ -24,6 +24,9 @@ public final class Constants {
     public static final int krightDrive2Id = 8;
 
     public static final double kspeedMultiplier = 0.5;
+
+    // Never exceed 12 volts //
+    public static final double kmaxDriveVoltage = 12;
   }
 
   public static class Operator {
