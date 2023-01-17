@@ -11,9 +11,17 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -33,12 +41,21 @@ public class RobotContainer {
   public static final CommandXboxController m_driverController = new CommandXboxController(
       Constants.Operator.kdriverControllerPort);
 
+  // public static final XboxController m_driverController = new XboxController(
+  //     Constants.Operator.kdriverControllerPort);
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    //new JoystickButton(m_driverController, XboxController.Axis.kLeftTrigger.value); //TODO: CHANGE//
+    m_driverController.leftTrigger(0.5)
+      .onTrue(new InstantCommand(() -> m_drivetrainSubsystem.setMaxOutput(1)))
+      .onFalse(new InstantCommand(() -> m_drivetrainSubsystem.setMaxOutput(0.5)));
+      
+
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
   }
@@ -65,13 +82,25 @@ public class RobotContainer {
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() {
+    // Create a voltage constraint to ensure we don't accelerate too fast in auto 
+    DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+      new SimpleMotorFeedforward(
+        Constants.Trajectory.ksVolts, 
+        Constants.Trajectory.kvVoltSecondsPerMeter,
+        Constants.Trajectory.kaVoltSecondsSquaredPerMeter),
+      Constants.Trajectory.kDriveKinematics,
+      10
+    );
+
     // An example command will be run in autonomous
     // return Autos.exampleAuto(m_exampleSubsystem);
-  // }
+    return null; //TODO: Return statement
+  }
 }

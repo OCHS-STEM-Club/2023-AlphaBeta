@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -34,10 +36,22 @@ public final class Constants {
     public static final double kwheelDiameterInches = 5; // TODO: Temporary wheel diameter
 
     public static final double kinchesToMeters = 0.0254;
+
+   
   }
 
   public static class Operator {
     public static final int kdriverControllerPort = 0;
     public static final int koperatorControllerPort = 1;
+  }
+
+  public static class Trajectory {
+    public static final int ksVolts = 0; // TODO: SysID
+    public static final int kvVoltSecondsPerMeter = 0;
+    public static final int kaVoltSecondsSquaredPerMeter = 0;
+
+    public static final double kTrackwidthMeters = 0; // TODO: Track width
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
   }
 }

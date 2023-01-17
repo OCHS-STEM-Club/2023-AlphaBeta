@@ -88,4 +88,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // rightDriveGroup.setVoltage(7);
     leftDriveGroup.set(1);
   }
+
+  public void mobilitySubsystem() {
+    drive.arcadeDrive(-0.5, 0);
+  }
+
+  public void setMaxOutput(double maxOutput) {
+    drive.setMaxOutput(maxOutput);
+  }
 }
