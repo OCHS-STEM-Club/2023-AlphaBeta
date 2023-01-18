@@ -9,6 +9,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -34,7 +37,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
  private final Gyro navX = new AHRS();
 
 
-
+private final DifferentialDriveOdometry m_odometry;
 
 
 
@@ -66,6 +69,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     leftEncoder.setPositionConversionFactor(conversionFactor);
     rightEncoder.setPositionConversionFactor(conversionFactor);
 
+    // Resetting all parameters to 0
+    resetOdometryParameters();
+    m_odometry =
+    new DifferentialDriveOdometry(
+      navX.getRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition());
+  
+
   }
 
   @Override
@@ -95,5 +105,31 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public void setMaxOutput(double maxOutput) {
     drive.setMaxOutput(maxOutput);
+  }
+
+  public Pose2d getPose() {
+    return m_odometry.getPoseMeters(); 
+  }
+
+  public void resetOdometryParameters() {
+    leftEncoder.setPosition(0); 
+    rightEncoder.setPosition(0);
+    navX.reset();
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
+  }
+
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    leftDriveGroup.setVoltage(leftVolts);
+    rightDriveGroup.setVoltage(rightVolts);
+      drive.feed();
+  }
+
+  public void resetOdometry(Pose2d pose) {
+    resetOdometryParameters();
+    m_odometry.resetPosition(
+      navX.getRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition(), pose);
   }
 }

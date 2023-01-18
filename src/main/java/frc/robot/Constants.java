@@ -53,5 +53,13 @@ public final class Constants {
     public static final double kTrackwidthMeters = 0; // TODO: Track width
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
+
+    public static final double kRamseteB = 0; //TODO: Ramsete
+    public static final double kRamseteZeta = 0;
+    public static final double kPDriveVel = 0;
+
+
+    public static final double kMaxSpeedMetersPerSecond = 0; //TODO: Acceleration & Speed
+    public static final double kMaxAccelerationMetersPerSecondSquared = 0;
   }
 }
