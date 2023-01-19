@@ -31,7 +31,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private RelativeEncoder leftEncoder;
   private RelativeEncoder rightEncoder;
 
- private final Gyro navX = new AHRS();
+ //private final Gyro navX = new AHRS();
 
 
 
@@ -74,7 +74,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
   
   public void driveWithXbox(CommandXboxController xboxController) {
-    // System.out.printf("Controller: forward: %f, turn: %f\n", xboxController.getLeftY(), xboxController.getRightX());
+    System.out.printf("Controller: forward: %f, turn: %f\n", xboxController.getLeftY(), xboxController.getRightX());
     drive.arcadeDrive(
       xboxController.getLeftY()*Constants.DriveTrain.kspeedMultiplier, 
       xboxController.getRightX()*Constants.DriveTrain.kspeedMultiplier
