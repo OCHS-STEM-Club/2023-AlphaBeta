@@ -11,9 +11,11 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -30,8 +32,8 @@ public class RobotContainer {
   private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public static final CommandXboxController m_driverController = new CommandXboxController(
-      Constants.Operator.kdriverControllerPort);
+  public static CommandXboxController m_driverController;
+ // public static XboxController m_driverController;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -41,6 +43,10 @@ public class RobotContainer {
     configureBindings();
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
+
+    m_driverController = new CommandXboxController(Constants.Operator.kdriverControllerPort);
+    //m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
+
   }
 
   /**
