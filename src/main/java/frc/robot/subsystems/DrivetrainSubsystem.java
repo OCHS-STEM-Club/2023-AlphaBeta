@@ -12,7 +12,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -83,7 +82,7 @@ private final DifferentialDriveOdometry m_odometry;
     // This method will be called once per scheduler run
   }
   
-  public void driveWithXbox(CommandXboxController xboxController) {
+  public void driveWithXbox(XboxController xboxController) {
     // System.out.printf("Controller: forward: %f, turn: %f\n", xboxController.getLeftY(), xboxController.getRightX());
     drive.arcadeDrive(
       xboxController.getLeftY()*Constants.DriveTrain.kspeedMultiplier, 

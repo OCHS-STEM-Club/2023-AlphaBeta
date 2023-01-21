@@ -62,4 +62,9 @@ public final class Constants {
     public static final double kMaxSpeedMetersPerSecond = 0; //TODO: Acceleration & Speed
     public static final double kMaxAccelerationMetersPerSecondSquared = 0;
   }
+
+  public static final class LED {
+    public static final int PWMPORT = 0;
+    public static final int BUFFERSIZE = 120;
+}
 }

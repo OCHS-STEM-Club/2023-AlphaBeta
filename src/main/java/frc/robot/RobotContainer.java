@@ -4,13 +4,9 @@
 
 package frc.robot;
 
-import frc.robot.Constants;
-import frc.robot.Constants.DriveTrain;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 
 import java.util.List;
 
@@ -24,13 +20,11 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 
@@ -50,8 +44,12 @@ public class RobotContainer {
   private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public static final CommandXboxController m_driverController = new CommandXboxController(
+  public static final XboxController m_driverController = new XboxController(
       Constants.Operator.kdriverControllerPort);
+  public static final XboxController m_operatorController = new XboxController(
+      Constants.Operator.kdriverControllerPort);
+
+  public final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
 
   // public static final XboxController m_driverController = new XboxController(
   //     Constants.Operator.kdriverControllerPort);
@@ -63,9 +61,13 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
     //new JoystickButton(m_driverController, XboxController.Axis.kLeftTrigger.value); //TODO: CHANGE//
-    m_driverController.leftTrigger(0.5)
-      .onTrue(new InstantCommand(() -> m_drivetrainSubsystem.setMaxOutput(1)))
-      .onFalse(new InstantCommand(() -> m_drivetrainSubsystem.setMaxOutput(0.5)));
+    if (m_driverController.getLeftTriggerAxis() > 0.5) {
+      m_drivetrainSubsystem.setMaxOutput(1);
+    } else {
+      m_drivetrainSubsystem.setMaxOutput(0.5);
+    }
+      // .onTrue(new InstantCommand(() -> m_drivetrainSubsystem.setMaxOutput(1)))
+      // .onFalse(new InstantCommand(() -> m_drivetrainSubsystem.setMaxOutput(0.5)));
       
 
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
@@ -87,6 +89,8 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    
+    m_LEDSubsystem.setBallLEDs(m_operatorController);
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
