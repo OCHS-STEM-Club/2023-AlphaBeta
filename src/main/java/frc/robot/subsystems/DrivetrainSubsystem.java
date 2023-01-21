@@ -44,17 +44,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
     leftDrive1 = new CANSparkMax(Constants.DriveTrain.kleftDrive1Id, MotorType.kBrushless);
     leftDrive2 = new CANSparkMax(Constants.DriveTrain.kleftDrive2Id, MotorType.kBrushless);
     leftDriveGroup = new MotorControllerGroup(leftDrive1, leftDrive2);
-    leftDriveGroup.setInverted(true);
+    leftDriveGroup.setInverted(false);
 
     // Set up right drivetrain motors
     rightDrive1 = new CANSparkMax(Constants.DriveTrain.krightDrive1Id, MotorType.kBrushless);
     rightDrive2 = new CANSparkMax (Constants.DriveTrain.krightDrive2Id, MotorType.kBrushless);
     rightDriveGroup = new MotorControllerGroup(rightDrive1, rightDrive2);
-    rightDriveGroup.setInverted(false);
+    rightDriveGroup.setInverted(true);
     
     // Set up Differential Drive
     drive = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
 
+
+    /* 
     leftEncoder = leftDrive1.getEncoder();
     rightEncoder = rightDrive1.getEncoder();
     
@@ -65,7 +67,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // Set conversion factor for both encoders
     leftEncoder.setPositionConversionFactor(conversionFactor);
     rightEncoder.setPositionConversionFactor(conversionFactor);
-
+*/
   }
 
   @Override
@@ -74,7 +76,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
   
   public void driveWithXbox(CommandXboxController xboxController) {
-    System.out.printf("Controller: forward: %f, turn: %f\n", xboxController.getLeftY(), xboxController.getRightX());
+    //System.out.printf("Controller: forward: %f, turn: %f\n", xboxController.getLeftY(), xboxController.getRightX());
     drive.arcadeDrive(
       xboxController.getLeftY()*Constants.DriveTrain.kspeedMultiplier, 
       xboxController.getRightX()*Constants.DriveTrain.kspeedMultiplier
@@ -83,9 +85,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // drive.arcadeDrive(1, 0);
   }
 
-  public void testMotors() {
-    // leftDriveGroup.setVoltage(7);
-    // rightDriveGroup.setVoltage(7);
-    leftDriveGroup.set(1);
-  }
+  // public void testMotors() {
+  //   // leftDriveGroup.setVoltage(7);
+  //   // rightDriveGroup.setVoltage(7);
+  //   leftDriveGroup.set(1);
+  // }
 }
