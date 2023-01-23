@@ -36,13 +36,6 @@ public final class Constants {
     public static final double kwheelDiameterInches = 5; // TODO: Temporary wheel diameter
 
     public static final double kinchesToMeters = 0.0254;
-
-   
-  }
-
-  public static class Operator {
-    public static final int kdriverControllerPort = 0;
-    public static final int koperatorControllerPort = 1;
   }
 
   public static class Trajectory {
@@ -63,8 +56,13 @@ public final class Constants {
     public static final double kMaxAccelerationMetersPerSecondSquared = 0;
   }
 
-  public static final class LED {
+  public static class Operator {
+    public static final int kdriverControllerPort = 0;
+    public static final int koperatorControllerPort = 1;
+  }
+
+  public static class LED {
     public static final int PWMPORT = 0;
     public static final int BUFFERSIZE = 120;
-}
+  }
 }
