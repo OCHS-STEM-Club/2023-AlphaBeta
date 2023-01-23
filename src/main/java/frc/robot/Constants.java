@@ -40,4 +40,9 @@ public final class Constants {
     public static final int kdriverControllerPort = 0;
     public static final int koperatorControllerPort = 1;
   }
+
+  public static class LED {
+    public static final int PWMPORT = 0;
+    public static final int BUFFERSIZE = 0;
+  }
 }
