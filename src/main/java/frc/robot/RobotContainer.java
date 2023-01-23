@@ -65,6 +65,8 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
+   // m_LEDSubsystem.setBallLEDs(m_operatorController);
+
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
     // cancelling on release.
