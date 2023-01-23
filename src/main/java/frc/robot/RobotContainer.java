@@ -11,6 +11,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -31,8 +32,15 @@ public class RobotContainer {
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
 
+  public static final XboxController m_driverController = new XboxController(
+      Constants.Operator.kdriverControllerPort);
+  public static final XboxController m_operatorController = new XboxController(
+      Constants.Operator.kdriverControllerPort);
+
+  public final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
+
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public static CommandXboxController m_driverController;
+  //public static CommandXboxController m_driverController;
  // public static XboxController m_driverController;
 
   /**
@@ -44,8 +52,10 @@ public class RobotContainer {
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
 
-    m_driverController = new CommandXboxController(Constants.Operator.kdriverControllerPort);
+    //m_driverController = new CommandXboxController(Constants.Operator.kdriverControllerPort);
     //m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
+
+  
 
   }
 

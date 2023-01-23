@@ -42,8 +42,10 @@ public class LEDSubsystem extends SubsystemBase {
 
   public void setBallLEDs(XboxController xboxController) {
     if (xboxController.getBButtonPressed() == true) {
+      System.out.print("B Button Pressed");
       setFrontAll(Color.kRed);
     } else if (xboxController.getAButtonPressed() == true) {
+      System.out.print("A Button Pressed");
       setFrontAll(Color.kGreen);
     } else {
       setFrontAll(Color.kBlue); // Off

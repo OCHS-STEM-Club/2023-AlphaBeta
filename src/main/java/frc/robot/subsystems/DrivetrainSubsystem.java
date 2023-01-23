@@ -75,7 +75,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   
-  public void driveWithXbox(CommandXboxController xboxController) {
+  public void driveWithXbox(XboxController xboxController) {
     //System.out.printf("Controller: forward: %f, turn: %f\n", xboxController.getLeftY(), xboxController.getRightX());
     drive.arcadeDrive(
       xboxController.getLeftY()*Constants.DriveTrain.kspeedMultiplier, 
