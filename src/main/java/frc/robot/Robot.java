@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.util.Color;
@@ -21,6 +23,10 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  //private AddressableLED m_led;
+  //private AddressableLEDBuffer m_ledBuffer;
+
   //public final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
 
   /**
@@ -34,6 +40,9 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     System.out.println("test");
+
+    //m_led = new AddressableLED(Constants.LED.PWMPORT);
+    //m_ledBuffer = new AddressableLEDBuffer(Constants.LED.BUFFERSIZE);
     
 
   }
@@ -52,6 +61,14 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    
+    System.out.println("test");
+
+    //m_LEDSubsystem.setBallLEDs(m_robotContainer.m_operatorController);
+
+    
+
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
