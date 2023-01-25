@@ -34,7 +34,7 @@ public class LEDSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   
-  private void setFrontAll(Color color) {
+  public void setFrontAll(Color color) {
     for (var i = 0; i < m_ledBuffer.getLength() / 2; i++) {
       m_ledBuffer.setLED(i, color);
     }
@@ -48,8 +48,12 @@ public class LEDSubsystem extends SubsystemBase {
       System.out.print("A Button Pressed");
       setFrontAll(Color.kGreen);
     } else {
-      setFrontAll(Color.kBlue); // Off
+      setFrontAll(Color.kBlue); 
     }
+  }
+
+  public void setBall(Color color) {
+    // m_ledBuffer.setFrontAll(Color.kBlue); 
   }
 }
 

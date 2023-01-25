@@ -43,6 +43,6 @@ public final class Constants {
 
   public static class LED {
     public static final int PWMPORT = 0;
-    public static final int BUFFERSIZE = 0;
+    public static final int BUFFERSIZE = 6;
   }
 }
