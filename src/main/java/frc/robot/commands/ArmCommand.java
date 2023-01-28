@@ -5,35 +5,27 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
 
-public class TankDriveCommand extends CommandBase {
+public class ArmCommand extends CommandBase {
+  /** Creates a new ArmCommand. */
+  private final ArmSubsystem m_armSubsystem;
 
-  private final DrivetrainSubsystem m_drivetrainSubsystem;
-
-  /** Creates a new TankDrive. */
-  public TankDriveCommand(DrivetrainSubsystem drivetrain) {
-      m_drivetrainSubsystem = drivetrain;
-      addRequirements(drivetrain);
-    }
+  public ArmCommand(ArmSubsystem arm) {
+    m_armSubsystem = arm;
+    addRequirements(arm);
     // Use addRequirements() here to declare subsystem dependencies.
-  
+  }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    //System.out.println("tankdrive command initialize");
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println("tankdrive command execute");
-    m_drivetrainSubsystem.driveWithXbox(RobotContainer.m_driverController);
-    
-    //m_drivetrainSubsystem.testMotors();
+  m_armSubsystem.armMotorUp(RobotContainer.m_operatorController);
   }
 
   // Called once the command ends or is interrupted.

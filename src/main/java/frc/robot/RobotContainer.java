@@ -6,8 +6,10 @@ package frc.robot;
 
 import frc.robot.Constants;
 import frc.robot.Constants.DriveTrain;
+import frc.robot.commands.ArmCommand;
 import frc.robot.commands.Autos;
 import frc.robot.commands.TankDriveCommand;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,8 +31,12 @@ public class RobotContainer {
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
 
+  private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
+  private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
+
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public static CommandXboxController m_driverController;
+  public static XboxController m_driverController;
+  public static XboxController m_operatorController;
  // public static XboxController m_driverController;
 
   /**
@@ -42,7 +48,11 @@ public class RobotContainer {
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
 
-    m_driverController = new CommandXboxController(Constants.Operator.kdriverControllerPort);
+    m_armCommand.addRequirements(m_armSubsystem);
+    m_armSubsystem.setDefaultCommand(m_armCommand);
+
+    m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
+    m_operatorController = new XboxController(Constants.Operator.koperatorControllerPort);
     //m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
 
   }

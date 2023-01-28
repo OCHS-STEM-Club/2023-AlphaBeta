@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -75,7 +74,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   
-  public void driveWithXbox(CommandXboxController xboxController) {
+  public void driveWithXbox(XboxController xboxController) {
     //System.out.printf("Controller: forward: %f, turn: %f\n", xboxController.getLeftY(), xboxController.getRightX());
     drive.arcadeDrive(
       xboxController.getLeftY()*Constants.DriveTrain.kspeedMultiplier, 

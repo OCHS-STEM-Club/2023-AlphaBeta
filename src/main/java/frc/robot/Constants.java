@@ -40,4 +40,8 @@ public final class Constants {
     public static final int kdriverControllerPort = 0;
     public static final int koperatorControllerPort = 1;
   }
+
+public static class Arm {
+  public static final int karmMotor = 4;
+}
 }
