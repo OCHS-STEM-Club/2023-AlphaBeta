@@ -43,5 +43,6 @@ public final class Constants {
 
 public static class Arm {
   public static final int karmMotor = 4;
+  public static final double kspeedMultiplier = 0.5;
 }
 }

@@ -5,7 +5,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+//import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,10 +14,10 @@ import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
 
-  private TalonFX armMotor;
+  private TalonSRX armMotor;
   /** Creates a new ArmSystem. */
   public ArmSubsystem() {
-    armMotor = new TalonFX(Constants.Arm.karmMotor);
+    armMotor = new TalonSRX(Constants.Arm.karmMotor);
   }
 
   @Override
@@ -25,10 +26,10 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void armMotorUp(XboxController xboxController) {
-    armMotor.set(ControlMode.PercentOutput, xboxController.getPOV(0) * Constants.DriveTrain.kspeedMultiplier );
+    armMotor.set(ControlMode.PercentOutput, xboxController.getPOV(0) * Constants.Arm.kspeedMultiplier);
   }
 
   public void armMotorDown(XboxController xboxController) {
-    armMotor.set(ControlMode.PercentOutput, xboxController.getPOV(180) * Constants.DriveTrain.kspeedMultiplier );
+    armMotor.set(ControlMode.PercentOutput, xboxController.getPOV(180) * Constants.Arm.kspeedMultiplier);
   }
 }

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -54,8 +55,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // Set up Differential Drive
     drive = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
 
-
-    /* 
     leftEncoder = leftDrive1.getEncoder();
     rightEncoder = rightDrive1.getEncoder();
     
@@ -66,7 +65,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // Set conversion factor for both encoders
     leftEncoder.setPositionConversionFactor(conversionFactor);
     rightEncoder.setPositionConversionFactor(conversionFactor);
-*/
+
   }
 
   @Override
@@ -82,6 +81,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     );
     
     // drive.arcadeDrive(1, 0);
+  }
+
+  public void printEncoders() {
+    System.out.println(leftEncoder);
   }
 
   // public void testMotors() {
