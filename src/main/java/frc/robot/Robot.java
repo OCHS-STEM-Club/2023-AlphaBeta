@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   //private AddressableLED m_led;
   //private AddressableLEDBuffer m_ledBuffer;
 
-  //public final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
+  public final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -38,6 +38,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    m_LEDSubsystem.initalizeLEDLength();
 
     System.out.println("test");
 
@@ -65,7 +67,7 @@ public class Robot extends TimedRobot {
     
     System.out.println("test");
 
-    //m_LEDSubsystem.setBallLEDs(m_robotContainer.m_operatorController);
+    m_LEDSubsystem.setBallLEDs(m_robotContainer.m_operatorController);
 
     
 

@@ -35,7 +35,7 @@ public class RobotContainer {
   public static final XboxController m_driverController = new XboxController(
       Constants.Operator.kdriverControllerPort);
   public static final XboxController m_operatorController = new XboxController(
-      Constants.Operator.kdriverControllerPort);
+      Constants.Operator.koperatorControllerPort);
 
   // public final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
 
