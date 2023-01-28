@@ -155,4 +155,8 @@ public class RobotContainer {
     // return Autos.exampleAuto(m_exampleSubsystem);
     return ramsetecommand.andThen(() -> m_drivetrainSubsystem.tankDriveVolts(0, 0)); 
   }
+
+  public double navXvalues() {
+    return m_drivetrainSubsystem.getnavXValues();
+  }
 }

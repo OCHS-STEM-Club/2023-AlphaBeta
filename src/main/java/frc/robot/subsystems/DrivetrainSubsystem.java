@@ -33,7 +33,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private RelativeEncoder leftEncoder;
   private RelativeEncoder rightEncoder;
 
- private final Gyro navX = new AHRS();
+ private final AHRS navX = new AHRS();
 
 
 private final DifferentialDriveOdometry m_odometry;
@@ -130,5 +130,9 @@ private final DifferentialDriveOdometry m_odometry;
     resetOdometryParameters();
     m_odometry.resetPosition(
       navX.getRotation2d(), leftEncoder.getPosition(), rightEncoder.getPosition(), pose);
+  }
+
+  public double getnavXValues() {
+    return navX.getAngle();
   }
 }
