@@ -24,9 +24,6 @@ public class LEDSubsystem extends SubsystemBase {
 
   /** Creates a new LEDSubsystem. */
   public LEDSubsystem() {
-   // m_led.setLength(m_ledBuffer.getLength());
-    // m_led.setData(m_ledBuffer);
-    // m_led.start();
   }
 
   @Override
@@ -35,15 +32,15 @@ public class LEDSubsystem extends SubsystemBase {
   }
   
   public void setFrontAll(Color color) {
-    // hue = (hue + 2) % 360;
-    // float period = 0.2f; // seconds
-    // color = ((int)(System.currentTimeMillis() / 1000 * period) % 2 == 0) ? Color.kBlue : Color.kWhite;
+     //hue = (hue + 2) % 360;
+     //float period = 0.2f; // seconds
+     //color = ((int)(System.currentTimeMillis() / 1000 * period) % 2 == 0) ? Color.kBlue : Color.kWhite;
     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
       m_ledBuffer.setLED(i, color);
-      // m_ledBuffer.setHSV(i, (int) hue, 255, 128);
+       //m_ledBuffer.setHSV(i, (int) hue, 255, 128);
     }
     m_led.setData(m_ledBuffer);
-    System.out.println(m_ledBuffer.getLength());
+    //System.out.println(m_ledBuffer.getLength());
   }
 
   //  public void setFrontAll(Color color) {
@@ -56,11 +53,11 @@ public class LEDSubsystem extends SubsystemBase {
   public void setBallLEDs(XboxController xboxController) {
     System.out.print("setball intialized");
     if (xboxController.getBButton() == true) {
-      System.out.print("B Button Pressed");
-      setFrontAll(Color.kRed);
+      //System.out.print("B Button Pressed");
+      setFrontAll(Color.kYellow);
     } else if (xboxController.getAButton() == true) {
-      System.out.print("A Button Pressed");
-      setFrontAll(Color.kGreen);
+      //System.out.print("A Button Pressed");
+      setFrontAll(Color.kDarkOrchid);
     } else {
       setFrontAll(Color.kBlue); 
     }

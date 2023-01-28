@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
 
     m_LEDSubsystem.initalizeLEDLength();
 
-    System.out.println("test");
+    //System.out.println("test");
 
     //m_led = new AddressableLED(Constants.LED.PWMPORT);
     //m_ledBuffer = new AddressableLEDBuffer(Constants.LED.BUFFERSIZE);
@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
 
     
-    System.out.println("test");
+    //System.out.println("test");
 
     m_LEDSubsystem.setBallLEDs(m_robotContainer.m_operatorController);
 
