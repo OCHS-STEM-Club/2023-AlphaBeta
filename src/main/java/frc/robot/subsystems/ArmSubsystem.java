@@ -25,10 +25,10 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void armMotorUp(XboxController xboxController) {
-    armMotor.set(ControlMode.PercentOutput, xboxController.getPOV(0));
+    armMotor.set(ControlMode.PercentOutput, xboxController.getPOV(0) * Constants.DriveTrain.kspeedMultiplier );
   }
 
   public void armMotorDown(XboxController xboxController) {
-    armMotor.set(ControlMode.PercentOutput, xboxController.getPOV(180));
+    armMotor.set(ControlMode.PercentOutput, xboxController.getPOV(180) * Constants.DriveTrain.kspeedMultiplier );
   }
 }
