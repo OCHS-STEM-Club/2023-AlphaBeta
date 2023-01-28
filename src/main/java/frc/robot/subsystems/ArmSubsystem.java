@@ -27,4 +27,8 @@ public class ArmSubsystem extends SubsystemBase {
   public void armMotorUp(XboxController xboxController) {
     armMotor.set(ControlMode.PercentOutput, xboxController.getPOV(0));
   }
+
+  public void armMotorDown(XboxController xboxController) {
+    armMotor.set(ControlMode.PercentOutput, xboxController.getPOV(180));
+  }
 }
