@@ -4,13 +4,18 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmSystem extends SubsystemBase {
 
-  //private TalonFx armMotor;
+  private TalonFX armMotor;
   /** Creates a new ArmSystem. */
-  public ArmSystem() {}
+  public ArmSystem() {
+
+    
+  }
 
   @Override
   public void periodic() {
