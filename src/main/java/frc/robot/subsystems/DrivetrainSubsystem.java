@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class DrivetrainSubsystem extends SubsystemBase {
 
@@ -30,6 +31,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   private RelativeEncoder leftEncoder;
   private RelativeEncoder rightEncoder;
+
+  private double creepSpeed = 1;
+
+  private double leftEncoderPosition;
+  private double rightEncoderPosition;
 
  //private final Gyro navX = new AHRS();
 
@@ -63,34 +69,47 @@ public class DrivetrainSubsystem extends SubsystemBase {
     leftEncoder.setPositionConversionFactor(conversionFactor);
     rightEncoder.setPositionConversionFactor(conversionFactor);
 
-  }
+    leftEncoderPosition = leftEncoder.getPosition();
+    rightEncoderPosition = rightEncoder.getPosition();
+
+
+    }
+
+    
 
   @Override
   public void periodic() {
+  
+    
+
+    //double xStickValue = RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed;
+    //double yStickValue = -RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed;
     // This method will be called once per scheduler run
   }
   
-  public void driveWithXbox(XboxController xboxController) {
+  public void driveWithXbox() {
+    if(RobotContainer.m_driverController.getRawAxis(2) == 1){
+      creepSpeed = 0.5;
+  }else if(RobotContainer.m_driverController.getRawAxis(3) == 1){
+      creepSpeed = 1;
+  }else {
+      creepSpeed = 1;
+  }
     //System.out.printf("Controller: forward: %f, turn: %f\n", xboxController.getLeftY(), xboxController.getRightX());
     drive.arcadeDrive(
-      xboxController.getLeftY()*Constants.DriveTrain.kspeedMultiplier, 
-      xboxController.getRightX()*Constants.DriveTrain.kspeedMultiplier
+      RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed, 
+      RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed
     );
     
     // drive.arcadeDrive(1, 0);
   }
 
   public void printEncoders() {
-    System.out.println(leftEncoder);
+    System.out.println(leftEncoderPosition);
   }
 
   public void setMaxOutput(double maxOutput) {
     drive.setMaxOutput(maxOutput);
   }
 
-  // public void testMotors() {
-  //   // leftDriveGroup.setVoltage(7);
-  //   // rightDriveGroup.setVoltage(7);
-  //   leftDriveGroup.set(1);
-  // }
 }

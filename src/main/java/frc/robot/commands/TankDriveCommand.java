@@ -31,7 +31,7 @@ public class TankDriveCommand extends CommandBase {
   @Override
   public void execute() {
     //System.out.println("tankdrive command execute");
-    m_drivetrainSubsystem.driveWithXbox(RobotContainer.m_driverController);
+    m_drivetrainSubsystem.driveWithXbox();
     
     //m_drivetrainSubsystem.testMotors();
   }
