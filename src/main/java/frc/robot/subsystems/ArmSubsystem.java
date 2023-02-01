@@ -25,11 +25,11 @@ public class ArmSubsystem extends SubsystemBase {
   public void periodic() {
     double outputSpeed = 0;
     if (RobotContainer.m_operatorController.getLeftBumper()) {
-      outputSpeed += 0.25;
+      outputSpeed += 0.5;
     }
 
     if (RobotContainer.m_operatorController.getRightBumper()) {
-      outputSpeed -= 0.25;
+      outputSpeed -= 0.5;
     }
 
     armMotorSet(outputSpeed);

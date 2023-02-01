@@ -10,6 +10,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.HandSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -31,6 +32,8 @@ public class RobotContainer {
   private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
 
   private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
+
+  private final HandSubsystem m_handSubsystem = new HandSubsystem();
   //private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
