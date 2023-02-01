@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.Constants;
 import frc.robot.Constants.DriveTrain;
-import frc.robot.commands.ArmCommand;
 import frc.robot.commands.Autos;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.subsystems.ArmSubsystem;
@@ -32,7 +31,7 @@ public class RobotContainer {
   private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
 
   private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
-  private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
+  //private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static XboxController m_driverController;
@@ -48,8 +47,8 @@ public class RobotContainer {
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
 
-    m_armCommand.addRequirements(m_armSubsystem);
-    m_armSubsystem.setDefaultCommand(m_armCommand);
+    // m_armCommand.addRequirements(m_armSubsystem);
+    // m_armSubsystem.setDefaultCommand(m_armCommand);
 
     m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
     m_operatorController = new XboxController(Constants.Operator.koperatorControllerPort);
