@@ -35,9 +35,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
 
 
-
-
-
   /** Creates a new Drivetrain. */
   public DrivetrainSubsystem() {
     // Set up left drivetrain motors
@@ -85,6 +82,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public void printEncoders() {
     System.out.println(leftEncoder);
+  }
+
+  public void setMaxOutput(double maxOutput) {
+    drive.setMaxOutput(maxOutput);
   }
 
   // public void testMotors() {
