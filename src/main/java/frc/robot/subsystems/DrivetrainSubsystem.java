@@ -46,12 +46,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // Set up left drivetrain motors
     leftDrive1 = new CANSparkMax(Constants.DriveTrain.kleftDrive1Id, MotorType.kBrushless);
     leftDrive2 = new CANSparkMax(Constants.DriveTrain.kleftDrive2Id, MotorType.kBrushless);
-    leftDriveGroup = new MotorControllerGroup(leftDrive1, leftDrive2);
+    leftDrive1.setOpenLoopRampRate(.75);
+    leftDrive2.setOpenLoopRampRate(.75);
+    
+
+    leftDriveGroup = new MotorControllerGroup(leftDrive1,leftDrive2);
     leftDriveGroup.setInverted(false);
+
+    
 
     // Set up right drivetrain motors
     rightDrive1 = new CANSparkMax(Constants.DriveTrain.krightDrive1Id, MotorType.kBrushless);
     rightDrive2 = new CANSparkMax (Constants.DriveTrain.krightDrive2Id, MotorType.kBrushless);
+    rightDrive1.setOpenLoopRampRate(.75);
+    rightDrive2.setOpenLoopRampRate(.75);
     rightDriveGroup = new MotorControllerGroup(rightDrive1, rightDrive2);
     rightDriveGroup.setInverted(true);
     

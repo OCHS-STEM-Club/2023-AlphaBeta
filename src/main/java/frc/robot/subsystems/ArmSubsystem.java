@@ -13,6 +13,7 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -56,8 +57,16 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  public void getArmEncoderValues() {
-    System.out.print(armEncoderDistance);
+  //  public double getArmEncoderDistance(){
+  //    return armEncoderDistance;
+    
+  // }
+
+
+   public void getArmEncoderValues() {
+     System.out.print(armEncoderDistance);
+    }
+   
+
   }
 
-}

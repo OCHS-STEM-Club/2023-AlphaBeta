@@ -12,6 +12,8 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HandSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -30,7 +32,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
-
+  
   private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
 
   private final HandSubsystem m_handSubsystem = new HandSubsystem();
@@ -49,9 +51,9 @@ public class RobotContainer {
     configureBindings();
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
-
+    //SmartDashboard.putNumber("ArmEncoderValue", m_armSubsystem.getArmEncoderDistance());
     // m_armCommand.addRequirements(m_armSubsystem);
-    // m_armSubsystem.setDefaultCommand(m_armCommand);
+  // m_armSubsystem.setDefaultCommand(m_armCommand);
 
     m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
     m_operatorController = new XboxController(Constants.Operator.koperatorControllerPort);
@@ -105,7 +107,4 @@ public class RobotContainer {
     m_drivetrainSubsystem.printEncoders();
   }
 
-  public void getArmEncoderValues() {
-    m_armSubsystem.getArmEncoderValues();
-  }
 }
