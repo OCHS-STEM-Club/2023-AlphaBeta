@@ -11,6 +11,7 @@ import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +24,11 @@ public class ArmSubsystem extends SubsystemBase {
   private TalonSRX armMotor;
   private Encoder armEncoder;
   private double armEncoderDistance;
+  private DigitalInput topLimitSwitch;
+  private DigitalInput bottomLimitSwitch;
+
+  
+  
   /** Creates a new ArmSystem. */
   public ArmSubsystem() {
     armMotor = new TalonSRX(Constants.Arm.karmMotor);
@@ -57,16 +63,9 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  //  public double getArmEncoderDistance(){
-  //    return armEncoderDistance;
-    
-  // }
-
-
-   public void getArmEncoderValues() {
-     System.out.print(armEncoderDistance);
-    }
+  public void getArmEncoderValues() {
+    System.out.print(armEncoderDistance);
+  }
    
-
   }
 

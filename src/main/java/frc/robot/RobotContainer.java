@@ -59,7 +59,6 @@ public class RobotContainer {
     m_operatorController = new XboxController(Constants.Operator.koperatorControllerPort);
     //m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
 
-    
 
     // if (m_driverController.getRightTriggerAxis() > 0.5) {
     //   m_drivetrainSubsystem.setMaxOutput(1.5);
@@ -105,6 +104,10 @@ public class RobotContainer {
 
   public void getEncoderValues() {
     m_drivetrainSubsystem.printEncoders();
+  }
+
+  public void getArmEncoderValues() {
+    m_armSubsystem.getArmEncoderValues();
   }
 
 }

@@ -28,6 +28,8 @@ public final class Constants {
     // Never exceed 12 volts //
     public static final double kmaxDriveVoltage = 12;
 
+    public static final double ksetOpenLoopRampRate = 0.75;
+
     // Drive Encoder Values //
     public static final double kdriveEncoderNativeUnitsPerRev = 42;
     public static final double kdriveGearRatio = 8.16; 
@@ -45,4 +47,5 @@ public static class Arm {
   public static final int karmMotor = 4;
   public static final double kspeedMultiplier = 0.5;
 }
+
 }
