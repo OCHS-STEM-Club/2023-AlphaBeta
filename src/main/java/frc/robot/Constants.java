@@ -48,4 +48,8 @@ public static class Arm {
   public static final double kspeedMultiplier = 0.5;
 }
 
+public static class Hand {
+  public static final double kHandMMconversion = 10;
+}
+
 }

@@ -102,12 +102,18 @@ public class RobotContainer {
     // return Autos.exampleAuto(m_exampleSubsystem);
   // }
 
-  public void getEncoderValues() {
-    m_drivetrainSubsystem.printEncoders();
+  // public void getEncoderValues() {
+  //   m_drivetrainSubsystem.printEncoders();
+  // }
+
+  // public void getArmEncoderValues() {
+  //  m_armSubsystem.getArmEncoderValues();
+  //  }
+
+  public void getUltrasonicSensorDistance(){
+    m_handSubsystem.getUltrasonicSensorDistance();
   }
 
-  public void getArmEncoderValues() {
-    m_armSubsystem.getArmEncoderValues();
-  }
+  
 
 }

@@ -46,8 +46,9 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    m_robotContainer.getEncoderValues();
-    m_robotContainer.getArmEncoderValues();
+    //m_robotContainer.getEncoderValues();
+    m_robotContainer.getUltrasonicSensorDistance();
+    //m_robotContainer.getArmEncoderValues();
    
   }
 

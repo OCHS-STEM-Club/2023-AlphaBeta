@@ -58,18 +58,25 @@ public class ArmSubsystem extends SubsystemBase {
       armEncoder.reset();
     }
 
+      SmartDashboard.putNumber("ArmDistance",armEncoderDistance);
+
+    }
+
 
     
     // This method will be called once per scheduler run
-  }
+  
 
   public void armMotorSet(double speed) {
     armMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  public void getArmEncoderValues() {
-    System.out.print(armEncoderDistance);
+
+  // public void getArmEncoderValues() {
+  //    System.out.print(armEncoderDistance);
+
+  //  }
   }
    
-  }
+
 
