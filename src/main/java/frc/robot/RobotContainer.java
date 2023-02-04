@@ -41,7 +41,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
-  private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
+  //private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static final XboxController m_driverController = new XboxController(
@@ -70,8 +70,8 @@ public class RobotContainer {
       // .onFalse(new InstantCommand(() -> m_drivetrainSubsystem.setMaxOutput(0.5)));
       
 
-    m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
-    m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
+    // m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
+    // m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
   }
 
   /**

@@ -46,13 +46,13 @@ private final DifferentialDriveOdometry m_odometry;
     leftDrive1 = new CANSparkMax(Constants.DriveTrain.kleftDrive1Id, MotorType.kBrushless);
     leftDrive2 = new CANSparkMax(Constants.DriveTrain.kleftDrive2Id, MotorType.kBrushless);
     leftDriveGroup = new MotorControllerGroup(leftDrive1, leftDrive2);
-    leftDriveGroup.setInverted(true);
+    leftDriveGroup.setInverted(false);
 
     // Set up right drivetrain motors
     rightDrive1 = new CANSparkMax(Constants.DriveTrain.krightDrive1Id, MotorType.kBrushless);
     rightDrive2 = new CANSparkMax (Constants.DriveTrain.krightDrive2Id, MotorType.kBrushless);
     rightDriveGroup = new MotorControllerGroup(rightDrive1, rightDrive2);
-    rightDriveGroup.setInverted(false);
+    rightDriveGroup.setInverted(true);
     
     // Set up Differential Drive
     drive = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
