@@ -5,6 +5,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 //import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.AbsoluteEncoder;
@@ -36,6 +40,7 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor = new TalonSRX(Constants.Arm.karmMotor);
     armEncoder = new Encoder(2, 1, true, CounterBase.EncodingType.k4X);
     armPIDController = new PIDController(1.6878, 0, 0);
+    //armMotor.configReverseLimitSwitchSource(RemoteLimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyClosed, Constants.Arm.karmMotor);
 
   }
 
@@ -54,6 +59,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     armEncoderDistance = armEncoder.getDistance();
 
+
     if (RobotContainer.m_operatorController.getXButtonPressed()) {
       armEncoder.reset();
     }
@@ -70,6 +76,10 @@ public class ArmSubsystem extends SubsystemBase {
   public void armMotorSet(double speed) {
     armMotor.set(ControlMode.PercentOutput, speed);
   }
+
+  // public void setNormallyOpen() {
+  //   armMotor.configReverseLimitSwitchSource(RemoteLimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyClosed, Constants.Arm.karmMotor);
+  // }
 
 
   // public void getArmEncoderValues() {

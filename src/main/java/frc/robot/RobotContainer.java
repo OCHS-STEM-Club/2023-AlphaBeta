@@ -114,6 +114,10 @@ public class RobotContainer {
     m_handSubsystem.getUltrasonicSensorDistance();
   }
 
+  // public void setNormallyOpen() {
+  //   m_armSubsystem.setNormallyOpen();
+  // }
+
   
 
 }
