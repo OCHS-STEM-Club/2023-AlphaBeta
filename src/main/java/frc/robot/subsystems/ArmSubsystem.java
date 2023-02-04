@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -26,6 +27,7 @@ public class ArmSubsystem extends SubsystemBase {
   private double armEncoderDistance;
   private DigitalInput topLimitSwitch;
   private DigitalInput bottomLimitSwitch;
+  private PIDController armPIDController;
 
   
   
@@ -33,6 +35,7 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     armMotor = new TalonSRX(Constants.Arm.karmMotor);
     armEncoder = new Encoder(2, 1, true, CounterBase.EncodingType.k4X);
+    armPIDController = new PIDController(1.6878, 0, 0);
 
   }
 
@@ -54,6 +57,7 @@ public class ArmSubsystem extends SubsystemBase {
     if (RobotContainer.m_operatorController.getXButtonPressed()) {
       armEncoder.reset();
     }
+
 
     
     // This method will be called once per scheduler run
