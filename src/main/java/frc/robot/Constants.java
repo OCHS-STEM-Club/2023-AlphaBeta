@@ -39,21 +39,21 @@ public final class Constants {
   }
 
   public static class Trajectory {
-    public static final int ksVolts = 0; // TODO: SysID
-    public static final int kvVoltSecondsPerMeter = 0;
-    public static final int kaVoltSecondsSquaredPerMeter = 0;
+    public static final double ksVolts = 0.34866; 
+    public static final double kvVoltSecondsPerMeter = 1.0356;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.20747;
 
-    public static final double kTrackwidthMeters = 0; // TODO: Track width
+    public static final double kTrackwidthMeters = 0.64; 
     public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
-    public static final double kRamseteB = 0; //TODO: Ramsete
-    public static final double kRamseteZeta = 0;
-    public static final double kPDriveVel = 0;
+    public static final double kRamseteB = 2; 
+    public static final double kRamseteZeta = 0.7;
+    public static final double kPDriveVel = 0.047617;
 
 
-    public static final double kMaxSpeedMetersPerSecond = 0; //TODO: Acceleration & Speed
-    public static final double kMaxAccelerationMetersPerSecondSquared = 0;
+    public static final double kMaxSpeedMetersPerSecond = 3; 
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1;
   }
 
   public static class Operator {
