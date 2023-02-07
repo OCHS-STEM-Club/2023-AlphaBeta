@@ -21,13 +21,15 @@ public class HandSubsystem extends SubsystemBase {
   private TalonSRX handMotorRight;
   private MotorControllerGroup handMotor;
   private Ultrasonic ultrasonicSensor;
-  private double ultrasonicSensorDistance;
+  private double ultrasonicSensorDistanceMM; 
+  private double ultrasonicSensorDistanceIn;
   
   /** Creates a new HandSubsystem. */
   public HandSubsystem() {
     handMotorLeft = new TalonSRX(9); //TODO: Change ID//
     handMotorRight = new TalonSRX(10); //TODO: Change ID//\
     ultrasonicSensor = new Ultrasonic(4, 5);
+  
   }
 
   @Override
@@ -37,13 +39,13 @@ public class HandSubsystem extends SubsystemBase {
     if (RobotContainer.m_driverController.getRightBumper()) outputSpeed += 0.5;
     
     if (RobotContainer.m_driverController.getLeftBumper()) outputSpeed -= 0.5;
-   
 
     spinHandMotors(outputSpeed);
-
     
+   
+    ultrasonicSensorDistanceMM = ultrasonicSensor.getRangeMM();
+    ultrasonicSensorDistanceIn = ultrasonicSensor.getRangeInches();
 
-    ultrasonicSensorDistance = ultrasonicSensor.getRangeMM();
   
     //SmartDashboard.putNumber("ultrasonicSensorDistance",ultrasonicSensorDistance);
 
@@ -53,16 +55,18 @@ public class HandSubsystem extends SubsystemBase {
     handMotorLeft.set(ControlMode.PercentOutput, -speed);
     handMotorRight.set(ControlMode.PercentOutput, speed);
     //System.out.println(speed);
-
   }
 
 //    public void getUltrasonicSensorDistance() {
 //      SmartDashboard.putNumber("ultrasonicSensorDistance",ultrasonicSensorDistance);
 //  }
 
- public void getUltrasonicSensorDistance() {
-  System.out.println(ultrasonicSensorDistance);
-}
+  public void getUltrasonicSensorDistance() {
+   System.out.println(ultrasonicSensorDistanceMM);
+   System.out.println(ultrasonicSensorDistanceIn);
+  }
 
-
+  public void setAutomaticMode() {
+  Ultrasonic.setAutomaticMode(true);
+  }
 }

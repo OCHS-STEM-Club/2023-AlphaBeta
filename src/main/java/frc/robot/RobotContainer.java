@@ -118,6 +118,10 @@ public class RobotContainer {
   //   m_armSubsystem.setNormallyOpen();
   // }
 
+  public void setAutomaticMode(){
+    m_handSubsystem.setAutomaticMode();
+  }
+
   
 
 }
