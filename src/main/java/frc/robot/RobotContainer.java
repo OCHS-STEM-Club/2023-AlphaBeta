@@ -110,4 +110,8 @@ public class RobotContainer {
     m_armSubsystem.getArmEncoderValues();
   }
 
+  public void getUltrasonicSensorDistanceIn() {
+    m_handSubsystem.getUltrasonicSensorDistanceIn();
+  }
+
 }
