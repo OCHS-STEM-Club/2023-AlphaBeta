@@ -33,7 +33,7 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     armMotor = new TalonSRX(Constants.Arm.karmMotor);
     armEncoder = new Encoder(2, 1, true, CounterBase.EncodingType.k4X);
-    //armPIDController = new PIDController(1.6878, 0, 0);
+    armPIDController = new PIDController(1.6878, 0, 0);
 
   }
 

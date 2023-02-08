@@ -17,12 +17,12 @@ public class HandSubsystem extends SubsystemBase {
 
   private TalonSRX handMotorLeft;
   private TalonSRX handMotorRight;
-  private MotorControllerGroup handMotor;
   
   /** Creates a new HandSubsystem. */
   public HandSubsystem() {
     handMotorLeft = new TalonSRX(9); //TODO: Change ID//
     handMotorRight = new TalonSRX(10); //TODO: Change ID//
+    
 
   }
 
@@ -31,10 +31,7 @@ public class HandSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     double outputSpeed = 0;
     if (RobotContainer.m_driverController.getRightBumper()) outputSpeed += 0.5;
-    
     if (RobotContainer.m_driverController.getLeftBumper()) outputSpeed -= 0.5;
-   
-
     spinHandMotors(outputSpeed);
     
   }
