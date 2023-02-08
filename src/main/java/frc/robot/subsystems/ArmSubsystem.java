@@ -5,6 +5,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource;
 //import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.AbsoluteEncoder;
@@ -26,6 +29,7 @@ public class ArmSubsystem extends SubsystemBase {
   private Encoder armEncoder;
   private double armEncoderDistance;
   private PIDController armPIDController;
+  private double m_setpoint;
 
   
   
@@ -34,7 +38,7 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor = new TalonSRX(Constants.Arm.karmMotor);
     armEncoder = new Encoder(2, 1, true, CounterBase.EncodingType.k4X);
     armPIDController = new PIDController(1.6878, 0, 0);
-
+    armMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed);
   }
 
   @Override
@@ -56,6 +60,9 @@ public class ArmSubsystem extends SubsystemBase {
       armEncoder.reset();
     }
 
+    armPIDController.setSetpoint(5);
+
+    //armMotor.set(armPIDController.calculate(armEncoder.getDistance(), m_setpoint));
 
     
     // This method will be called once per scheduler run
@@ -66,7 +73,11 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void getArmEncoderValues() {
-    System.out.print(armEncoderDistance);
+    System.out.println(armEncoderDistance);
+  }
+
+  public void setSetpoint(double setpoint){
+    m_setpoint = setpoint;
   }
    
   }

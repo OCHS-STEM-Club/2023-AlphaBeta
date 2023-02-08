@@ -29,6 +29,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    m_robotContainer.setAutomaticModeUltrasonicSenor();
   }
 
   /**
@@ -47,8 +49,8 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
 
     //m_robotContainer.getEncoderValues();
-    //m_robotContainer.getArmEncoderValues();
-    m_robotContainer.getUltrasonicSensorDistanceIn();
+    m_robotContainer.getArmEncoderValues();
+    //m_robotContainer.getUltrasonicSensorDistanceIn();
    
   }
 

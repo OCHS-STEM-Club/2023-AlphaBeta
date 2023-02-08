@@ -66,6 +66,9 @@ public class RobotContainer {
     //   m_drivetrainSubsystem.setMaxOutput(1);
     // }
 
+    if (m_operatorController.getYButtonPressed()) {
+      m_armSubsystem.setSetpoint(-911); 
+    }
 
 
   }
@@ -112,6 +115,10 @@ public class RobotContainer {
 
   public void getUltrasonicSensorDistanceIn() {
     m_handSubsystem.getUltrasonicSensorDistanceIn();
+  }
+
+  public void setAutomaticModeUltrasonicSenor(){
+    m_handSubsystem.setAutomaticModeUltrasonicSenor();
   }
 
 }
