@@ -31,6 +31,8 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     m_robotContainer.setAutomaticModeUltrasonicSenor();
+
+    
   }
 
   /**
@@ -48,8 +50,9 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
+    m_robotContainer.encoderValue();
     //m_robotContainer.getEncoderValues();
-    m_robotContainer.getArmEncoderValues();
+    //m_robotContainer.getArmEncoderValues();
     //m_robotContainer.getUltrasonicSensorDistanceIn();
    
   }

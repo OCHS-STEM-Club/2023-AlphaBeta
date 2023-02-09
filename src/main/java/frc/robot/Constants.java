@@ -36,6 +36,11 @@ public final class Constants {
     public static final double kwheelDiameterInches = 5; // TODO: Temporary wheel diameter
 
     public static final double kinchesToMeters = 0.0254;
+
+    public static final boolean kGyroReversed = false;
+
+    public static final double kTurnToleranceDeg = 5;
+    public static final double kTurnRateToleranceDegPerS = 10;
   }
 
   public static class Operator {

@@ -39,16 +39,18 @@ public class ArmSubsystem extends SubsystemBase {
     armEncoder = new Encoder(2, 1, true, CounterBase.EncodingType.k4X);
     armPIDController = new PIDController(1.6878, 0, 0);
     armMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed);
+
+    
   }
 
   @Override
   public void periodic() {
     double outputSpeed = 0;
-    if (RobotContainer.m_operatorController.getLeftBumper()) {
+    if (RobotContainer.m_operatorController.leftBumper().getAsBoolean() == true) {
       outputSpeed += 0.5;
     }
 
-    if (RobotContainer.m_operatorController.getRightBumper()) {
+    if (RobotContainer.m_operatorController.rightBumper().getAsBoolean() == true) {
       outputSpeed -= 0.5;
     }
 
@@ -56,9 +58,11 @@ public class ArmSubsystem extends SubsystemBase {
 
     armEncoderDistance = armEncoder.getDistance();
 
-    if (RobotContainer.m_operatorController.getXButtonPressed()) {
+    if (RobotContainer.m_operatorController.x().getAsBoolean() == true) {
       armEncoder.reset();
     }
+
+    //double pidOut = m_pidController.calculate(position);
 
     armPIDController.setSetpoint(5);
 

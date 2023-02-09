@@ -34,8 +34,8 @@ public class HandSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     double outputSpeed = 0;
-    if (RobotContainer.m_driverController.getRightBumper()) outputSpeed += 0.5;
-    if (RobotContainer.m_driverController.getLeftBumper()) outputSpeed -= 0.5;
+    if (RobotContainer.m_driverController.rightBumper().getAsBoolean() == true) outputSpeed += 0.5;
+    if (RobotContainer.m_driverController.rightBumper().getAsBoolean() == true) outputSpeed -= 0.5;
     spinHandMotors(outputSpeed);
 
     //ultrasonicSensorDistanceMM = ultrasonicSensor.getRangeMM();
