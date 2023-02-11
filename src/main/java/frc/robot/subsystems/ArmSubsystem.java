@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 //import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.AbsoluteEncoder;
@@ -25,7 +26,7 @@ import frc.robot.RobotContainer;
 
 public class ArmSubsystem extends SubsystemBase {
 
-  private TalonSRX armMotor;
+  private TalonFX armMotor;
   private Encoder armEncoder;
   private double armEncoderDistance;
   private PIDController armPIDController;
@@ -35,7 +36,7 @@ public class ArmSubsystem extends SubsystemBase {
   
   /** Creates a new ArmSystem. */
   public ArmSubsystem() {
-    armMotor = new TalonSRX(Constants.Arm.karmMotor);
+    armMotor = new TalonFX(Constants.Arm.karmMotor);
     armEncoder = new Encoder(2, 1, true, CounterBase.EncodingType.k4X);
     armPIDController = new PIDController(1.6878, 0, 0);
     armMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed);
