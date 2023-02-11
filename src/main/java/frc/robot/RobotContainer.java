@@ -115,7 +115,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     System.out.println("Auto is Running");
     //An example command will be run in autonomous
-    return m_auto1;
+    return Autos.exampleAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem);
   }
 
   public void getEncoderValues() {

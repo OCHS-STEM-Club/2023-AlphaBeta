@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 //import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -39,7 +40,7 @@ public class ArmSubsystem extends SubsystemBase {
     armMotor = new TalonFX(Constants.Arm.karmMotor);
     armEncoder = new Encoder(2, 1, true, CounterBase.EncodingType.k4X);
     armPIDController = new PIDController(1.6878, 0, 0);
-    //armMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed);
+    armMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed);
   }
 
   @Override
@@ -62,6 +63,8 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     armPIDController.setSetpoint(5);
+
+    armMotor.setNeutralMode(NeutralMode.Brake);
 
     //armMotor.set(armPIDController.calculate(armEncoder.getDistance(), m_setpoint));
 

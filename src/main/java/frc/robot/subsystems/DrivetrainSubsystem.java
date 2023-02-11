@@ -74,8 +74,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     (Math.PI * Constants.DriveTrain.kwheelDiameterInches) * Constants.DriveTrain.kinchesToMeters;
 
     // Set conversion factor for both encoders
-   // leftEncoder.setPositionConversionFactor(conversionFactor);
-   // rightEncoder.setPositionConversionFactor(conversionFactor);
+    leftEncoder.setPositionConversionFactor(conversionFactor);
+    rightEncoder.setPositionConversionFactor(conversionFactor);
 
     leftEncoderPosition = leftEncoder.getPosition();
     rightEncoderPosition = rightEncoder.getPosition();
