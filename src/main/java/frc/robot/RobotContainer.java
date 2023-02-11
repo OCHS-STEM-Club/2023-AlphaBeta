@@ -143,9 +143,9 @@ public class RobotContainer {
   //     )
 
 
-  // public void getEncoderValues() {
-  //   m_drivetrainSubsystem.printEncoders();
-  // }
+  public void getEncoderValues() {
+    m_drivetrainSubsystem.printEncoders();
+  }
 
   // public void getArmEncoderValues() {
   //   m_armSubsystem.getArmEncoderValues();
@@ -172,7 +172,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
    // An example command will be run in autonomous
-    return m_armTest;
+    return m_autoArmtoMid;
   }
 
 }

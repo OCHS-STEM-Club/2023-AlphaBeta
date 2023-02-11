@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    m_robotContainer.encoderValue();
+    //m_robotContainer.encoderValue();
     //m_robotContainer.getEncoderValues();
     //m_robotContainer.getArmEncoderValues();
     //m_robotContainer.getUltrasonicSensorDistanceIn();
@@ -69,10 +69,10 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-    // schedule the autonomous command (example)
-    // if (m_autonomousCommand != null) {
-      // m_autonomousCommand.schedule();
-    // }
+    //schedule the autonomous command (example)
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
   }
 
   /** This function is called periodically during autonomous. */
