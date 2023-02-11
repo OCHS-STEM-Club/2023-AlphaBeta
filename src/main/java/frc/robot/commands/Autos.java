@@ -6,14 +6,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
 public final class Autos {
   /** Example static factory for an autonomous command. */
-  // public static CommandBase exampleAuto(ExampleSubsystem subsystem) {
-  //   return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem));
-  // }
+  public static CommandBase exampleAuto(ArmSubsystem armSubsystem) {
+    return Commands.sequence(new ArmToMidAuto(armSubsystem));
+  }
 
-  // private Autos() {
-  //   throw new UnsupportedOperationException("This is a utility class!");
-  // }
+  private Autos() {
+    throw new UnsupportedOperationException("This is a utility class!");
+  }
 }

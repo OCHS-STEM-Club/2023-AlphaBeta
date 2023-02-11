@@ -6,6 +6,8 @@ package frc.robot;
 
 import frc.robot.Constants;
 import frc.robot.Constants.DriveTrain;
+import frc.robot.commands.ArmToMidAuto;
+import frc.robot.commands.AutoDriveStraight;
 import frc.robot.commands.Autos;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.subsystems.ArmSubsystem;
@@ -38,6 +40,9 @@ public class RobotContainer {
   private final HandSubsystem m_handSubsystem = new HandSubsystem();
   //private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
 
+  private final AutoDriveStraight m_autoDriveStraight = new AutoDriveStraight(m_drivetrainSubsystem);
+  private final ArmToMidAuto m_armToMidAuto = new ArmToMidAuto(m_armSubsystem);
+
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static XboxController m_driverController;
   public static XboxController m_operatorController;
@@ -51,6 +56,8 @@ public class RobotContainer {
     configureBindings();
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
+
+    m_autoDriveStraight.addRequirements(m_drivetrainSubsystem);
     //SmartDashboard.putNumber("ArmEncoderValue", m_armSubsystem.getArmEncoderDistance());
     // m_armCommand.addRequirements(m_armSubsystem);
   // m_armSubsystem.setDefaultCommand(m_armCommand);
@@ -100,10 +107,11 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    // return Autos.exampleAuto(m_exampleSubsystem);
-  // }
+  public Command getAutonomousCommand() {
+    System.out.println("Auto is Running");
+    //An example command will be run in autonomous
+    return Autos.exampleAuto(m_armSubsystem);
+  }
 
   public void getEncoderValues() {
     m_drivetrainSubsystem.printEncoders();
@@ -119,6 +127,10 @@ public class RobotContainer {
 
   public void setAutomaticModeUltrasonicSenor(){
     m_handSubsystem.setAutomaticModeUltrasonicSenor();
+  }
+
+  public void resetEncoders() {
+    m_drivetrainSubsystem.resetEncoders();
   }
 
 }

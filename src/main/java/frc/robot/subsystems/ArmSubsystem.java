@@ -76,9 +76,20 @@ public class ArmSubsystem extends SubsystemBase {
     System.out.println(armEncoderDistance);
   }
 
+  public void resetArmEncoders() {
+    armEncoder.reset();
+  }
+
   public void setSetpoint(double setpoint){
     m_setpoint = setpoint;
   }
-   
+
+  public void armToMidAuto() {
+      if(armEncoder.getDistance() > -400) {
+        armMotorSet(0.25);
+      } else if (armEncoder.getDistance() <= -400) {
+        armMotorSet(0);
   }
+}
+}
 

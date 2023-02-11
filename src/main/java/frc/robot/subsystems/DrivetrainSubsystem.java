@@ -70,12 +70,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
     rightEncoder = rightDrive1.getEncoder();
     
     // compute conversion from encoder units to meters
-    double conversionFactor = (((1 / Constants.DriveTrain.kdriveEncoderNativeUnitsPerRev) / Constants.DriveTrain.kdriveGearRatio) * 
-    Math.PI * Constants.DriveTrain.kwheelDiameterInches) * Constants.DriveTrain.kinchesToMeters;
+    double conversionFactor = ((1 / Constants.DriveTrain.kdriveEncoderNativeUnitsPerRev) / Constants.DriveTrain.kdriveGearRatio) * 
+    (Math.PI * Constants.DriveTrain.kwheelDiameterInches) * Constants.DriveTrain.kinchesToMeters;
 
     // Set conversion factor for both encoders
-    leftEncoder.setPositionConversionFactor(conversionFactor);
-    rightEncoder.setPositionConversionFactor(conversionFactor);
+   // leftEncoder.setPositionConversionFactor(conversionFactor);
+   // rightEncoder.setPositionConversionFactor(conversionFactor);
 
     leftEncoderPosition = leftEncoder.getPosition();
     rightEncoderPosition = rightEncoder.getPosition();
@@ -113,11 +113,37 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void printEncoders() {
-    System.out.println(leftEncoderPosition);
+    System.out.println(leftEncoder.getPosition());
+  }
+
+  public void printConversionFactor() {
+      System.out.println();
+  }
+
+  public void resetEncoders() {
+    if (RobotContainer.m_driverController.getXButton()) {
+      leftEncoder.setPosition(0);
+      rightEncoder.setPosition(0);
+    }
   }
 
   public void setMaxOutput(double maxOutput) {
     drive.setMaxOutput(maxOutput);
+  }
+
+  public void auto(){
+		if(rightEncoder.getPosition() < 0.1){
+			drive.arcadeDrive(0.5, 0.0);
+		} else if (rightEncoder.getPosition() > 0.1) {
+      drive.arcadeDrive(0.0, 0.0);
+      System.out.println("Value is < 0.001");
+    } 
+
+	}
+
+  public void setEncodersToZero() {
+    rightEncoder.setPosition(0);
+    leftEncoder.setPosition(0);
   }
 
 }
