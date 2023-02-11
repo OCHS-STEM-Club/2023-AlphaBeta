@@ -62,7 +62,7 @@ private final DifferentialDriveOdometry m_odometry;
     
     // compute conversion from encoder units to meters
     double conversionFactor = (((1 / Constants.DriveTrain.kdriveEncoderNativeUnitsPerRev) / Constants.DriveTrain.kdriveGearRatio) * 
-    Math.PI * Constants.DriveTrain.kwheelDiameterInches) * Constants.DriveTrain.kinchesToMeters;
+    (Math.PI * Constants.DriveTrain.kwheelDiameterInches) * Constants.DriveTrain.kinchesToMeters);
 
     // Set conversion factor for both encoders
     leftEncoder.setPositionConversionFactor(conversionFactor);
