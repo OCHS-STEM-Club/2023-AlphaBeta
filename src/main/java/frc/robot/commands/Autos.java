@@ -8,11 +8,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.HandSubsystem;
 
 public final class Autos {
   /** Example static factory for an autonomous command. */
-  public static CommandBase exampleAuto(ArmSubsystem armSubsystem) {
-    return Commands.sequence(new ArmToMidAuto(armSubsystem));
+  public static CommandBase exampleAuto(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem ) {
+    //return Commands.sequence(new ArmToMidAuto(armSubsystem));
+    return Commands.parallel(new AutoDriveStraight(drivetrainSubsystem),
+                             new ArmToMidAuto(armSubsystem), 
+                             new GrabberOn(handSubsystem));
   }
 
   private Autos() {

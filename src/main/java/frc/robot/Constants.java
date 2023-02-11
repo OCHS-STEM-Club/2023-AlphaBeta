@@ -28,7 +28,7 @@ public final class Constants {
     // Never exceed 12 volts //
     public static final double kmaxDriveVoltage = 12;
 
-    public static final double ksetOpenLoopRampRate = 0.75;
+    public static final double ksetOpenLoopRampRate = 0.85;
 
     // Drive Encoder Values //
     public static final double kdriveEncoderNativeUnitsPerRev = 42;

@@ -5,11 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.HandSubsystem;
 
 public class GrabberOn extends CommandBase {
+
+  private final HandSubsystem m_handSubsystem;
   /** Creates a new FeederOn. */
-  public GrabberOn() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public GrabberOn(HandSubsystem hand) {
+    m_handSubsystem = hand;
+    addRequirements(hand);
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +22,9 @@ public class GrabberOn extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_handSubsystem.autoHandOn();
+  }
 
   // Called once the command ends or is interrupted.
   @Override

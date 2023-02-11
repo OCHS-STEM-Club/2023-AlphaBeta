@@ -9,6 +9,7 @@ import frc.robot.Constants.DriveTrain;
 import frc.robot.commands.ArmToMidAuto;
 import frc.robot.commands.AutoDriveStraight;
 import frc.robot.commands.Autos;
+import frc.robot.commands.GrabberOn;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -42,6 +43,7 @@ public class RobotContainer {
 
   private final AutoDriveStraight m_autoDriveStraight = new AutoDriveStraight(m_drivetrainSubsystem);
   private final ArmToMidAuto m_armToMidAuto = new ArmToMidAuto(m_armSubsystem);
+  private final GrabberOn m_grabberOn = new GrabberOn(m_handSubsystem);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static XboxController m_driverController;
@@ -110,7 +112,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     System.out.println("Auto is Running");
     //An example command will be run in autonomous
-    return Autos.exampleAuto(m_armSubsystem);
+    return Autos.exampleAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem);
   }
 
   public void getEncoderValues() {

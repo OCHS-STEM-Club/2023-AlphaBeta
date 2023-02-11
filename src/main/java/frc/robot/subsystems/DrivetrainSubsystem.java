@@ -132,9 +132,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void auto(){
-		if(rightEncoder.getPosition() < 0.1){
+		if(leftEncoder.getPosition() < 40){
 			drive.arcadeDrive(0.5, 0.0);
-		} else if (rightEncoder.getPosition() > 0.1) {
+		} else if (leftEncoder.getPosition() >= 40) {
       drive.arcadeDrive(0.0, 0.0);
       System.out.println("Value is < 0.001");
     } 

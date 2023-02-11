@@ -85,9 +85,9 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void armToMidAuto() {
-      if(armEncoder.getDistance() > -400) {
-        armMotorSet(0.25);
-      } else if (armEncoder.getDistance() <= -400) {
+      if(armEncoder.getDistance() > -900) {
+        armMotorSet(0.5);
+      } else if (armEncoder.getDistance() <= -900) {
         armMotorSet(0);
   }
 }
