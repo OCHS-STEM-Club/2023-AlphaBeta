@@ -14,9 +14,9 @@ public final class Autos {
   /** Example static factory for an autonomous command. */
   public static CommandBase exampleAuto(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem ) {
     //return Commands.sequence(new ArmToMidAuto(armSubsystem));
-    return Commands.parallel(new AutoDriveStraight(drivetrainSubsystem),
-                             new ArmToMidAuto(armSubsystem), 
-                             new GrabberOn(handSubsystem));
+    return Commands.parallel(new AutoDriveStraight(drivetrainSubsystem, 2, 0.5),
+                             new AutoArmMove(armSubsystem, -900, 0.5), 
+                             new GrabberOn(handSubsystem, 0.5));
   }
 
   private Autos() {

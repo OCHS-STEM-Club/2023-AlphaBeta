@@ -85,10 +85,10 @@ public class ArmSubsystem extends SubsystemBase {
     m_setpoint = setpoint;
   }
 
-  public void armToMidAuto() {
-      if(armEncoder.getDistance() > -900) {
-        armMotorSet(0.5);
-      } else if (armEncoder.getDistance() <= -900) {
+  public void armToMidAuto(double speed, double distance) {
+      if(armEncoder.getDistance() > distance) {
+        armMotorSet(speed);
+      } else if (armEncoder.getDistance() <= distance) {
         armMotorSet(0);
   }
 }

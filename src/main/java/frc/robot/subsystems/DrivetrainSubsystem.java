@@ -131,10 +131,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     drive.setMaxOutput(maxOutput);
   }
 
-  public void auto(){
-		if(leftEncoder.getPosition() < 40){
-			drive.arcadeDrive(0.5, 0.0);
-		} else if (leftEncoder.getPosition() >= 40) {
+  public void auto(double distance, double speed){
+		if(leftEncoder.getPosition() < distance){
+			drive.arcadeDrive(speed, 0.0);
+		} else if (leftEncoder.getPosition() >= distance) {
       drive.arcadeDrive(0.0, 0.0);
       System.out.println("Value is < 0.001");
     } 

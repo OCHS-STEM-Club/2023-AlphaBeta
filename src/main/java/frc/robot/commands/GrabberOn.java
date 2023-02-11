@@ -10,9 +10,12 @@ import frc.robot.subsystems.HandSubsystem;
 public class GrabberOn extends CommandBase {
 
   private final HandSubsystem m_handSubsystem;
+  private final double m_speed;
+
   /** Creates a new FeederOn. */
-  public GrabberOn(HandSubsystem hand) {
+  public GrabberOn(HandSubsystem hand, double speed) {
     m_handSubsystem = hand;
+    m_speed = speed;
     addRequirements(hand);
   }
 
@@ -23,7 +26,7 @@ public class GrabberOn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_handSubsystem.autoHandOn();
+    m_handSubsystem.spinHandMotors(m_speed);
   }
 
   // Called once the command ends or is interrupted.

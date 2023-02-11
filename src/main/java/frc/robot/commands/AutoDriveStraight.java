@@ -9,10 +9,15 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class AutoDriveStraight extends CommandBase {
 
+  private final double m_distance;
+  private final double m_speed;
+
   private final DrivetrainSubsystem m_drivetrainSubsystem;
   /** Creates a new AutoDriveStraight. */
-  public AutoDriveStraight(DrivetrainSubsystem drivetrain) {
+  public AutoDriveStraight(DrivetrainSubsystem drivetrain, double distance, double speed) {
     m_drivetrainSubsystem = drivetrain;
+    m_distance = distance;
+    m_speed = speed;  
     addRequirements(drivetrain);
   }
 
@@ -25,7 +30,7 @@ public class AutoDriveStraight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrainSubsystem.auto();
+    m_drivetrainSubsystem.auto(m_distance, m_speed);
   }
 
   // Called once the command ends or is interrupted.

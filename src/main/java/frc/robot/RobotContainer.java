@@ -6,11 +6,12 @@ package frc.robot;
 
 import frc.robot.Constants;
 import frc.robot.Constants.DriveTrain;
-import frc.robot.commands.ArmToMidAuto;
+import frc.robot.commands.AutoArmMove;
 import frc.robot.commands.AutoDriveStraight;
 import frc.robot.commands.Autos;
 import frc.robot.commands.GrabberOn;
 import frc.robot.commands.TankDriveCommand;
+import frc.robot.commands.CommandGroups.Auto1;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HandSubsystem;
@@ -41,9 +42,11 @@ public class RobotContainer {
   private final HandSubsystem m_handSubsystem = new HandSubsystem();
   //private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
 
-  private final AutoDriveStraight m_autoDriveStraight = new AutoDriveStraight(m_drivetrainSubsystem);
-  private final ArmToMidAuto m_armToMidAuto = new ArmToMidAuto(m_armSubsystem);
-  private final GrabberOn m_grabberOn = new GrabberOn(m_handSubsystem);
+  private final Auto1 m_auto1 = new Auto1(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem);
+  // private final AutoDriveStraight m_autoDriveStraight = new AutoDriveStraight(m_drivetrainSubsystem, m_distance, m_speed);
+  // private final AutoArmMove m_armToMidAuto = new AutoArmMove(m_armSubsystem, m_distance, m_speed);
+  // private final GrabberOn m_grabberOn = new GrabberOn(m_handSubsystem, m_speed);
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static XboxController m_driverController;
@@ -59,7 +62,7 @@ public class RobotContainer {
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
 
-    m_autoDriveStraight.addRequirements(m_drivetrainSubsystem);
+    //m_autoDriveStraight.addRequirements(m_drivetrainSubsystem);
     //SmartDashboard.putNumber("ArmEncoderValue", m_armSubsystem.getArmEncoderDistance());
     // m_armCommand.addRequirements(m_armSubsystem);
   // m_armSubsystem.setDefaultCommand(m_armCommand);
@@ -112,7 +115,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     System.out.println("Auto is Running");
     //An example command will be run in autonomous
-    return Autos.exampleAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem);
+    return m_auto1;
   }
 
   public void getEncoderValues() {

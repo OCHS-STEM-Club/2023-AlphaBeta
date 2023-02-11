@@ -57,7 +57,7 @@ public class HandSubsystem extends SubsystemBase {
     System.out.println(ultrasonicSensorDistanceIn);
   }
 
-  public void autoHandOn() {
-    spinHandMotors(-0.5);
+  public void autoHandOn(double speed) {
+    spinHandMotors(speed);
   }
 }
