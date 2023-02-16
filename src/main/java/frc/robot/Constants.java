@@ -41,6 +41,7 @@ public final class Constants {
   public static class Operator {
     public static final int kdriverControllerPort = 0;
     public static final int koperatorControllerPort = 1;
+    public static final int kButtonBoxPort = 3;
   }
 
 public static class Arm {
@@ -48,4 +49,10 @@ public static class Arm {
   public static final double kspeedMultiplier = 0.5;
 }
 
+public static class Setpoints{
+  public static final int kcarrySetpoint = -150;
+  public static final int kmidSetpoint = -820;
+  public static final int khighSetpoint = -1200;
+  public static final int kresetSetpoint = 0;
+}
 }

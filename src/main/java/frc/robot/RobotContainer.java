@@ -51,6 +51,7 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static XboxController m_driverController;
   public static XboxController m_operatorController;
+  public static XboxController m_buttonBox;
  // public static XboxController m_driverController;
 
   /**
@@ -69,6 +70,7 @@ public class RobotContainer {
 
     m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
     m_operatorController = new XboxController(Constants.Operator.koperatorControllerPort);
+    m_buttonBox = new XboxController(Constants.Operator.kButtonBoxPort);
     //m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
 
 
@@ -78,9 +80,18 @@ public class RobotContainer {
     //   m_drivetrainSubsystem.setMaxOutput(1);
     // }
 
-    if (m_operatorController.getYButtonPressed()) {
-      m_armSubsystem.setSetpoint(-911); 
+    if (m_driverController.getRawButton(7)) {
+      m_drivetrainSubsystem.resetEncoders();
     }
+
+    if (m_driverController.getRawButton(8)) {
+      m_armSubsystem.resetArmEncoders();
+    }
+
+
+
+    
+    
 
 
   }
@@ -101,6 +112,8 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
+    
+
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
     // cancelling on release.
@@ -118,13 +131,6 @@ public class RobotContainer {
     return Autos.exampleAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem);
   }
 
-  public void getEncoderValues() {
-    m_drivetrainSubsystem.printEncoders();
-  }
-
-  public void getArmEncoderValues() {
-    m_armSubsystem.getArmEncoderValues();
-  }
 
   public void getUltrasonicSensorDistanceIn() {
     m_handSubsystem.getUltrasonicSensorDistanceIn();

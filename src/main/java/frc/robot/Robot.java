@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     m_robotContainer.setAutomaticModeUltrasonicSenor();
+    m_robotContainer.resetEncoders();
   }
 
   /**
@@ -48,12 +49,6 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    //m_robotContainer.getEncoderValues();
-    //m_robotContainer.getArmEncoderValues();
-    m_robotContainer.getUltrasonicSensorDistanceIn();
-
-    m_robotContainer.resetEncoders();
-   
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

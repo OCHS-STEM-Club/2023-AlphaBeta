@@ -31,7 +31,7 @@ public class AutoArmMove extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armSubsystem.armToMidAuto(m_speed, m_distance);
+    m_armSubsystem.armUpAuto(m_speed, m_distance);
   }
 
   // Called once the command ends or is interrupted.

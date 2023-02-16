@@ -108,23 +108,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
       RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed, 
       RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed
     );
+
+    //System.out.println("Left Encoder Distance " + leftEncoder.getPosition());
     
     // drive.arcadeDrive(1, 0);
   }
 
-  public void printEncoders() {
-    System.out.println(leftEncoder.getPosition());
-  }
-
-  public void printConversionFactor() {
-      System.out.println();
-  }
+  
 
   public void resetEncoders() {
-    if (RobotContainer.m_driverController.getXButton()) {
       leftEncoder.setPosition(0);
       rightEncoder.setPosition(0);
-    }
+
   }
 
   public void setMaxOutput(double maxOutput) {

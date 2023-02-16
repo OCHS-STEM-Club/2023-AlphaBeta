@@ -7,6 +7,7 @@ package frc.robot.commands.CommandGroups;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AutoArmMove;
 import frc.robot.commands.GrabberOn;
 import frc.robot.subsystems.ArmSubsystem;
@@ -26,9 +27,12 @@ public class Auto1 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new GrabberOn(m_handSubsystem, 0.5), 
-
-      new AutoArmMove(m_armSubsystem, -900, 0.5)
-    );
+      new InstantCommand(() -> m_handSubsystem.autoHandOn(0.5))
+        .alongWith(
+          new WaitCommand(3)
+            .andThen(new InstantCommand(() -> m_armSubsystem.armUpAuto(0.5, -900)))));
+          new WaitCommand(3)
+            .andThen(new InstantCommand(() -> m_armSubsystem.armMotorSet(0)));
+        
   }
 }
