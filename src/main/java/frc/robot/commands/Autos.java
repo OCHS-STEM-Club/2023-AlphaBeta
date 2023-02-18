@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -19,9 +20,11 @@ public final class Autos {
       // new GrabberOn(handSubsystem, -0.5)
       //   .alongWith(new AutoArmMove(armSubsystem, -900, 0.5))
 
-        new AutoArmMove(armSubsystem, -900, 0.5)
-          .alongWith( new GrabberOn(handSubsystem, -0.5))
-        //new AutoDriveStraight(drivetrainSubsystem, 1, 0.5)
+        new AutoDriveStraight(drivetrainSubsystem, -0.03, 0.25)
+          .alongWith(new AutoArmMove(armSubsystem, -900, 0.5))
+          .alongWith(new GrabberOn(handSubsystem, -0.5)),
+        new GrabberOn(handSubsystem, 0.5)
+       
       
     
       //new WaitCommand(5),

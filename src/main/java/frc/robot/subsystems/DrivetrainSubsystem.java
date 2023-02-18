@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -18,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.AutoDriveStraight;
 
 public class DrivetrainSubsystem extends SubsystemBase {
 
@@ -36,6 +38,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   private double leftEncoderPosition;
   private double rightEncoderPosition;
+
+  private SparkMaxPIDController drivetrainPIDControllerLeft;
+  private SparkMaxPIDController drivetrainPIDControllerRight;
+
+  private AutoDriveStraight m_AutoDriveStraight;
 
  //private final Gyro navX = new AHRS();
 
@@ -80,6 +87,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     leftEncoderPosition = leftEncoder.getPosition();
     rightEncoderPosition = rightEncoder.getPosition();
 
+    drivetrainPIDControllerLeft = leftDrive1.getPIDController();
+    drivetrainPIDControllerRight = rightDrive1.getPIDController();
+
+    drivetrainPIDControllerLeft.setP(0.047617);
+    drivetrainPIDControllerRight.setP(0.047617);
 
     }
 
@@ -109,7 +121,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed
     );
 
-    //System.out.println("Left Encoder Distance " + leftEncoder.getPosition());
+    System.out.println("Left Encoder Distance " + leftEncoder.getPosition());
     
     // drive.arcadeDrive(1, 0);
   }
@@ -127,12 +139,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void auto(double distance, double speed){
-		if(leftEncoder.getPosition() < distance){
-			drive.arcadeDrive(speed, 0.0);
-		} else if (leftEncoder.getPosition() >= distance) {
+		if(leftEncoder.getPosition() > distance){
+			drive.arcadeDrive(-speed, 0.0);
+		} else if (leftEncoder.getPosition() <= distance) {
       drive.arcadeDrive(0.0, 0.0);
-      System.out.println("Value is < 0.001");
+      m_AutoDriveStraight.end(true);
     } 
+     
 
 	}
 

@@ -10,16 +10,21 @@ import frc.robot.commands.AutoArmMove;
 import frc.robot.commands.AutoDriveStraight;
 import frc.robot.commands.Autos;
 import frc.robot.commands.GrabberOn;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.commands.CommandGroups.Auto1;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HandSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 
@@ -43,6 +48,8 @@ public class RobotContainer {
   //private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
 
   private final Auto1 m_auto1 = new Auto1(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem);
+
+  //private final IntakeCommand
   // private final AutoDriveStraight m_autoDriveStraight = new AutoDriveStraight(m_drivetrainSubsystem, m_distance, m_speed);
   // private final AutoArmMove m_armToMidAuto = new AutoArmMove(m_armSubsystem, m_distance, m_speed);
   // private final GrabberOn m_grabberOn = new GrabberOn(m_handSubsystem, m_speed);
@@ -112,12 +119,22 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
+    new JoystickButton(m_driverController, Button.kRightBumper.value)
+      .whileTrue(new IntakeCommand(m_armSubsystem, m_handSubsystem));
+
+    new JoystickButton(m_driverController, Button.kLeftBumper.value)
+      .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem));
+      
+
     
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
     // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+
+
   }
 
   /**

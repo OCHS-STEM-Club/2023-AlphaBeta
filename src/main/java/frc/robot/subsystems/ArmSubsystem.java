@@ -17,6 +17,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxLimitSwitch.Type;
@@ -44,6 +45,7 @@ public class ArmSubsystem extends SubsystemBase {
   private SparkMaxLimitSwitch forwardLimitSwitch;
   private SparkMaxLimitSwitch backwardLimitSwitch;
   
+  private boolean isManualEnabled = false;
 
   
   
@@ -57,16 +59,16 @@ public class ArmSubsystem extends SubsystemBase {
 
     armPIDController = armMotor.getPIDController();
 
-    armPIDController.setP(10);
+    armPIDController.setP(40);
     // armPIDController.setI(kI);
-    // armPIDController.setD(kD);
+    armPIDController.setD(10);
     // armPIDController.setIZone(kIz);
     // armPIDController.setFF(kFF);
-    armPIDController.setOutputRange(-0.5, 0.5);
+    armPIDController.setOutputRange(-1, 1);
 
     armMotor.setIdleMode(IdleMode.kBrake);
 
-    SmartDashboard.putNumber("PID Set Reference", pidReference);
+    //SmartDashboard.putNumber("PID Set Reference", pidReference);
 
 
 
@@ -86,64 +88,66 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     if (RobotContainer.m_buttonBox.getPOV() == 0) {
-      outputSpeed += 0.5;
+      isManualEnabled = true;
+      armMotor.set(0.6);
+    } else if (RobotContainer.m_buttonBox.getPOV() == 180) {
+      isManualEnabled = true;
+      armMotor.set(-0.4);
+    } else if (isManualEnabled) {
+      isManualEnabled = false;
+      armMotor.set(0);
     }
 
-    if (RobotContainer.m_buttonBox.getPOV() == 180) {
-      outputSpeed -= 0.5;
-    }
-
-    // armMotorSet(outputSpeed);
+    //armMotorSet(outputSpeed);
 
 
 
     
 
     armEncoderDistance = armEncoder.getDistance();
+   
 
     if (backwardLimitSwitch.isPressed()) {
       armEncoder.reset();
+      armMotor.getEncoder().setPosition(0);
     }
 
 
     
     if (RobotContainer.m_buttonBox.getYButton()) {
       m_setpoint = Constants.Setpoints.kcarrySetpoint;
+      armPIDController.setReference(0.02, ControlType.kPosition);
     }
 
     if (RobotContainer.m_buttonBox.getRightBumper()) {
       m_setpoint = Constants.Setpoints.kmidSetpoint;
+      armPIDController.setReference(0.115, ControlType.kPosition);
     }
 
     if (RobotContainer.m_buttonBox.getLeftBumper()) {
       m_setpoint = Constants.Setpoints.khighSetpoint;
+      armPIDController.setReference(0.14, ControlType.kPosition);
     }
 
     if (RobotContainer.m_buttonBox.getXButton()) {
       m_setpoint = Constants.Setpoints.kresetSetpoint;
+      armPIDController.setReference(-0.02, ControlType.kPosition);
     } 
 
-    // armUpAuto(0.5, m_setpoint);
+    //armUpAuto(0.5, m_setpoint);
 
     // forwardLimitSwitch.enableLimitSwitch(true);
 
     //System.out.println("limit switch: " + forwardLimitSwitch.isPressed());
-    System.out.println("Arm Encoder Value " + armEncoderDistance);
+    //System.out.println("Arm Encoder Value " + armEncoderDistance);
 
-    // armPIDController.g
+    if (RobotContainer.m_buttonBox.getAButton()) {
+      pidReference = SmartDashboard.getNumber("PID Set Reference", 0);
+      armPIDController.setReference(pidReference, CANSparkMax.ControlType.kPosition);
+    }
 
-    pidReference = SmartDashboard.getNumber("PID Set Reference", 0);
-
-    armPIDController.setReference(pidReference, CANSparkMax.ControlType.kPosition);
-  
-
-    //armMotor.setNeutralMode(NeutralMode.Brake);
-
-    //armMotor.set(armPIDController.calculate(armEncoder.getDistance(), setpoint));
-
-    //armMotor.set(armPIDController.calculate(armEncoder.getDistance(), m_setpoint));
-
-    
+    // pidReference = SmartDashboard.getNumber("PID Set Reference", 0);
+    // armPIDController.setReference(pidReference, CANSparkMax.ControlType.kPosition);
     // This method will be called once per scheduler run
 
     
@@ -163,13 +167,21 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void armUpAuto(double speed, double setpoint) {
-      if(armEncoder.getDistance() > setpoint + 25) { // go up
+      if(armEncoder.getDistance() > setpoint + 30) { // go up
         armMotorSet(speed);
-      } else if (armEncoder.getDistance() < setpoint - 25) { // go down
+      } else if (armEncoder.getDistance() < setpoint - 30) { // go down
         armMotorSet(-speed);
       } else {
         armMotorSet(0);
       }
+  }
+
+  public void goToHomePosition() {
+    armPIDController.setReference(-0.02, ControlType.kPosition);
+  }
+
+  public void goToCarryPosition() {
+    armPIDController.setReference(0.02, ControlType.kPosition);
   }
 
  
