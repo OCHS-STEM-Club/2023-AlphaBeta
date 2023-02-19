@@ -31,62 +31,65 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.RobotContainer.GamePieceMode;
 
 public class ArmSubsystem extends SubsystemBase {
 
   private CANSparkMax armMotor;
-  private Encoder armEncoder;
-  private double armEncoderDistance;
+  private Encoder armAbsoluteEncoder;
+  // private double armEncoderDistance;
   private SparkMaxPIDController armPIDController;
-  private double m_setpoint = 0;
-  private double pidReference = 0;
-
+  // private double m_setpoint = 0;
+  // private double pidReference = 0;
 
   private SparkMaxLimitSwitch forwardLimitSwitch;
   private SparkMaxLimitSwitch backwardLimitSwitch;
-  
+
   private boolean isManualEnabled = false;
 
-  
-  
   /** Creates a new ArmSystem. */
   public ArmSubsystem() {
     armMotor = new CANSparkMax(Constants.Arm.karmMotor, MotorType.kBrushless);
-    armEncoder = new Encoder(2, 1, true, CounterBase.EncodingType.k4X);
+    armAbsoluteEncoder = new Encoder(2, 1, true, CounterBase.EncodingType.k4X);
     forwardLimitSwitch = armMotor.getForwardLimitSwitch(Type.kNormallyOpen);
     backwardLimitSwitch = armMotor.getReverseLimitSwitch(Type.kNormallyOpen);
 
-
     armPIDController = armMotor.getPIDController();
 
-    armPIDController.setP(40);
+    armPIDController.setP(0.1);
     // armPIDController.setI(kI);
-    armPIDController.setD(10);
+    armPIDController.setD(0.01);
     // armPIDController.setIZone(kIz);
     // armPIDController.setFF(kFF);
-    armPIDController.setOutputRange(-1, 1);
+    armPIDController.setOutputRange(-0.75, 0.75);
 
     armMotor.setIdleMode(IdleMode.kBrake);
 
-    //SmartDashboard.putNumber("PID Set Reference", pidReference);
+    armMotor.setOpenLoopRampRate(0.5);
+    armMotor.setClosedLoopRampRate(0.5);
 
+    armMotor.setSmartCurrentLimit(40);
 
+    armMotor.getEncoder().setPositionConversionFactor(1);
+
+    // SmartDashboard.putNumber("PID Set Reference", pidReference);
 
   }
 
-  
-
   @Override
   public void periodic() {
-    double outputSpeed = 0;
-    if (RobotContainer.m_operatorController.getLeftBumper()) {
-      outputSpeed += 0.5;
+
+    // always display current position of arm
+    SmartDashboard.putNumber("Arm Height", armMotor.getEncoder().getPosition());
+
+    // reset all encoders and PID position when lower limit switch is pressed
+    if (backwardLimitSwitch.isPressed()) {
+      armAbsoluteEncoder.reset();
+      armMotor.getEncoder().setPosition(0);
+      armPIDController.setReference(0, ControlType.kPosition);
     }
 
-    if (RobotContainer.m_operatorController.getRightBumper()) {
-      outputSpeed -= 0.5;
-    }
-
+    // manual movement of arm using arrow keys on button box
     if (RobotContainer.m_buttonBox.getPOV() == 0) {
       isManualEnabled = true;
       armMotor.set(0.6);
@@ -98,94 +101,78 @@ public class ArmSubsystem extends SubsystemBase {
       armMotor.set(0);
     }
 
-    //armMotorSet(outputSpeed);
-
-
-
-    
-
-    armEncoderDistance = armEncoder.getDistance();
-   
-
-    if (backwardLimitSwitch.isPressed()) {
-      armEncoder.reset();
-      armMotor.getEncoder().setPosition(0);
-    }
-
-
-    
-    if (RobotContainer.m_buttonBox.getYButton()) {
-      m_setpoint = Constants.Setpoints.kcarrySetpoint;
-      armPIDController.setReference(0.02, ControlType.kPosition);
-    }
-
-    if (RobotContainer.m_buttonBox.getRightBumper()) {
-      m_setpoint = Constants.Setpoints.kmidSetpoint;
-      armPIDController.setReference(0.115, ControlType.kPosition);
-    }
-
-    if (RobotContainer.m_buttonBox.getLeftBumper()) {
-      m_setpoint = Constants.Setpoints.khighSetpoint;
-      armPIDController.setReference(0.14, ControlType.kPosition);
-    }
-
+    // reset height
     if (RobotContainer.m_buttonBox.getXButton()) {
-      m_setpoint = Constants.Setpoints.kresetSetpoint;
-      armPIDController.setReference(-0.02, ControlType.kPosition);
-    } 
-
-    //armUpAuto(0.5, m_setpoint);
-
-    // forwardLimitSwitch.enableLimitSwitch(true);
-
-    //System.out.println("limit switch: " + forwardLimitSwitch.isPressed());
-    //System.out.println("Arm Encoder Value " + armEncoderDistance);
-
-    if (RobotContainer.m_buttonBox.getAButton()) {
-      pidReference = SmartDashboard.getNumber("PID Set Reference", 0);
-      armPIDController.setReference(pidReference, CANSparkMax.ControlType.kPosition);
+      goToHomePosition();
     }
 
+    // carry height
+    if (RobotContainer.m_buttonBox.getYButton()) {
+      goToCarryPosition();
+    }
+
+    // mid height for cone or cube based on mode
+    if (RobotContainer.m_buttonBox.getRightBumper()) {
+      goToMidPosition();
+    }
+
+    // high height for cone or cube based on mode
+    if (RobotContainer.m_buttonBox.getLeftBumper()) {
+      goToHighPosition();
+    }
+
+    // if (RobotContainer.m_buttonBox.getAButton()) {
     // pidReference = SmartDashboard.getNumber("PID Set Reference", 0);
-    // armPIDController.setReference(pidReference, CANSparkMax.ControlType.kPosition);
+    // armPIDController.setReference(pidReference,
+    // CANSparkMax.ControlType.kPosition);
+    // }
+
     // This method will be called once per scheduler run
 
-    
   }
 
   public void armMotorSet(double speed) {
     armMotor.set(speed);
   }
 
-
   public void resetArmEncoders() {
-    armEncoder.reset();
+    armAbsoluteEncoder.reset();
   }
 
-  public void setSetpoint(double setpoint){
-    m_setpoint = setpoint;
-  }
-
-  public void armUpAuto(double speed, double setpoint) {
-      if(armEncoder.getDistance() > setpoint + 30) { // go up
-        armMotorSet(speed);
-      } else if (armEncoder.getDistance() < setpoint - 30) { // go down
-        armMotorSet(-speed);
-      } else {
-        armMotorSet(0);
-      }
-  }
+  // public void armUpAuto(double speed, double setpoint) {
+  // if (armAbsoluteEncoder.getDistance() > setpoint + 30) { // go up
+  // armMotorSet(speed);
+  // } else if (armAbsoluteEncoder.getDistance() < setpoint - 30) { // go down
+  // armMotorSet(-speed);
+  // } else {
+  // armMotorSet(0);
+  // }
+  // }
 
   public void goToHomePosition() {
-    armPIDController.setReference(-0.02, ControlType.kPosition);
+    armPIDController.setReference(Constants.Setpoints.kresetSetpoint, ControlType.kPosition);
   }
 
   public void goToCarryPosition() {
-    armPIDController.setReference(0.02, ControlType.kPosition);
+    armPIDController.setReference(Constants.Setpoints.kcarrySetpoint, ControlType.kPosition);
   }
 
- 
+  public void goToMidPosition() {
+    armPIDController.setReference(
+        RobotContainer.gamePieceMode == GamePieceMode.CONE ? Constants.Setpoints.kconeMidSetpoint
+            : Constants.Setpoints.kcubeMidSetpoint,
+        ControlType.kPosition);
+  }
+
+  public void goToHighPosition() {
+    armPIDController.setReference(
+        RobotContainer.gamePieceMode == GamePieceMode.CONE ? Constants.Setpoints.kconeHighSetpoint
+            : Constants.Setpoints.kcubeHighSetpoint,
+        ControlType.kPosition);
+  }
+
+  public void goToPosition(double position) {
+    armPIDController.setReference(position, ControlType.kPosition);
+  }
 
 }
-
-

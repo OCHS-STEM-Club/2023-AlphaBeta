@@ -24,7 +24,7 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void initialize() {
     m_handSubsystem.spinHandMotors(-0.5);
-    m_armSubsystem.goToHomePosition();
+    //m_armSubsystem.goToHomePosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

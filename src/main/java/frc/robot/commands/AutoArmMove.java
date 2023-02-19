@@ -9,29 +9,26 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class AutoArmMove extends CommandBase {
-  private final double m_distance;
-  private final double m_speed;
+  private final double m_setpoint;
 
   private final ArmSubsystem m_armSubsystem;
   /** Creates a new ArmToMidAuto. */
-  public AutoArmMove(ArmSubsystem arm, double distance, double speed) {
+  public AutoArmMove(ArmSubsystem arm, double setpoint) {
     m_armSubsystem = arm;
-    m_distance = distance;
-    m_speed = speed;
+    m_setpoint = setpoint;
     addRequirements(arm);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armSubsystem.resetArmEncoders();
-
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armSubsystem.armUpAuto(m_speed, m_distance);
+    m_armSubsystem.goToPosition(m_setpoint);
   }
 
   // Called once the command ends or is interrupted.

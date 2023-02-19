@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -21,12 +22,14 @@ public class HandSubsystem extends SubsystemBase {
   private Ultrasonic ultrasonicSensor;
   private double ultrasonicSensorDistanceMM;
   private double ultrasonicSensorDistanceIn;
+  private double time;
   
   /** Creates a new HandSubsystem. */
   public HandSubsystem() {
     handMotorLeft = new TalonSRX(9); //TODO: Change ID//
     handMotorRight = new TalonSRX(10); //TODO: Change ID//
     ultrasonicSensor = new Ultrasonic(4, 5);
+    
 
   }
 
@@ -61,5 +64,6 @@ public class HandSubsystem extends SubsystemBase {
 
   public void autoHandOn(double speed) {
     spinHandMotors(speed);
-  }
+  } 
 }
+

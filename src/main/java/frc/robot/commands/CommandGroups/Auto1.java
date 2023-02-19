@@ -29,10 +29,10 @@ public class Auto1 extends SequentialCommandGroup {
     addCommands(
       new InstantCommand(() -> m_handSubsystem.autoHandOn(0.5))
         .alongWith(
-          new WaitCommand(3)
-            .andThen(new InstantCommand(() -> m_armSubsystem.armUpAuto(0.5, -900)))));
-          new WaitCommand(3)
-            .andThen(new InstantCommand(() -> m_armSubsystem.armMotorSet(0)));
+          new WaitCommand(3)),
+            //.andThen(new InstantCommand(() -> m_armSubsystem.armUpAuto(0.5, -900)))));
+          new WaitCommand(3));
+           // .andThen(new InstantCommand(() -> m_armSubsystem.armMotorSet(0)));
         
   }
 }

@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -38,6 +39,11 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+
+  public enum GamePieceMode {
+    CUBE, CONE
+  }
+
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
@@ -59,6 +65,8 @@ public class RobotContainer {
   public static XboxController m_driverController;
   public static XboxController m_operatorController;
   public static XboxController m_buttonBox;
+
+  public static GamePieceMode gamePieceMode = GamePieceMode.CUBE; // Start with cube //
  // public static XboxController m_driverController;
 
   /**
@@ -66,7 +74,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Configure the trigger bindings
-    configureBindings();
+ 
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
 
@@ -78,6 +86,8 @@ public class RobotContainer {
     m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
     m_operatorController = new XboxController(Constants.Operator.koperatorControllerPort);
     m_buttonBox = new XboxController(Constants.Operator.kButtonBoxPort);
+
+    SmartDashboard.putBoolean("GamePiece Mode", gamePieceMode == GamePieceMode.CONE); // Sets default mode to CUBE on SD//
     //m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
 
 
@@ -99,7 +109,7 @@ public class RobotContainer {
 
     
     
-
+    configureBindings();
 
   }
 
@@ -119,11 +129,25 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
-    new JoystickButton(m_driverController, Button.kRightBumper.value)
+     new JoystickButton(m_driverController, Button.kLeftBumper.value)
       .whileTrue(new IntakeCommand(m_armSubsystem, m_handSubsystem));
 
-    new JoystickButton(m_driverController, Button.kLeftBumper.value)
+    new JoystickButton(m_driverController, Button.kRightBumper.value)
       .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem));
+
+    new JoystickButton(m_buttonBox, Button.kA.value) 
+      .onTrue(new InstantCommand(()->{
+        if (gamePieceMode == GamePieceMode.CONE) {
+          gamePieceMode = GamePieceMode.CUBE;
+          SmartDashboard.putBoolean("GamePiece Mode", false);
+        } else if (gamePieceMode == GamePieceMode.CUBE) {
+        gamePieceMode = GamePieceMode.CONE;
+        SmartDashboard.putBoolean("GamePiece Mode", true);
+      }
+    }));
+    
+   // System.out.println("GamePieceMode Running");
+    
       
 
     
@@ -145,7 +169,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     System.out.println("Auto is Running");
     //An example command will be run in autonomous
-    return Autos.exampleAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem);
+    return Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem);
   }
 
 
@@ -159,6 +183,10 @@ public class RobotContainer {
 
   public void resetEncoders() {
     m_drivetrainSubsystem.resetEncoders();
+  }
+
+  public void stopHand() {
+    m_handSubsystem.autoHandOn(0);
   }
 
 }

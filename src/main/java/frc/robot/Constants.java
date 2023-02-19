@@ -45,14 +45,16 @@ public final class Constants {
   }
 
 public static class Arm {
-  public static final int karmMotor = 12;
+  public static final int karmMotor = 14;
   public static final double kspeedMultiplier = 0.5;
 }
 
-public static class Setpoints{
-  public static final int kcarrySetpoint = -150;
-  public static final int kmidSetpoint = -820;
-  public static final int khighSetpoint = -1200;
-  public static final int kresetSetpoint = 0;
+public static class Setpoints {
+  public static final double kresetSetpoint = -2;
+  public static final double kcarrySetpoint = 15;
+  public static final double kconeMidSetpoint = 93;
+  public static final double kcubeMidSetpoint = 80;
+  public static final double kconeHighSetpoint = 125;
+  public static final double kcubeHighSetpoint = 108;
 }
 }

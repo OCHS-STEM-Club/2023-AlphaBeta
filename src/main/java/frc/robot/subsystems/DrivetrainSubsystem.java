@@ -36,17 +36,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   private double creepSpeed = 1;
 
-  private double leftEncoderPosition;
-  private double rightEncoderPosition;
-
-  private SparkMaxPIDController drivetrainPIDControllerLeft;
-  private SparkMaxPIDController drivetrainPIDControllerRight;
-
-  private AutoDriveStraight m_AutoDriveStraight;
-
- //private final Gyro navX = new AHRS();
-
-
+  // private final Gyro navX = new AHRS();
 
   /** Creates a new Drivetrain. */
   public DrivetrainSubsystem() {
@@ -55,103 +45,98 @@ public class DrivetrainSubsystem extends SubsystemBase {
     leftDrive2 = new CANSparkMax(Constants.DriveTrain.kleftDrive2Id, MotorType.kBrushless);
     leftDrive1.setOpenLoopRampRate(.75);
     leftDrive2.setOpenLoopRampRate(.75);
-    
 
-    leftDriveGroup = new MotorControllerGroup(leftDrive1,leftDrive2);
+    leftDriveGroup = new MotorControllerGroup(leftDrive1, leftDrive2);
     leftDriveGroup.setInverted(false);
-
-    
 
     // Set up right drivetrain motors
     rightDrive1 = new CANSparkMax(Constants.DriveTrain.krightDrive1Id, MotorType.kBrushless);
-    rightDrive2 = new CANSparkMax (Constants.DriveTrain.krightDrive2Id, MotorType.kBrushless);
+    rightDrive2 = new CANSparkMax(Constants.DriveTrain.krightDrive2Id, MotorType.kBrushless);
     rightDrive1.setOpenLoopRampRate(Constants.DriveTrain.ksetOpenLoopRampRate);
     rightDrive2.setOpenLoopRampRate(Constants.DriveTrain.ksetOpenLoopRampRate);
     rightDriveGroup = new MotorControllerGroup(rightDrive1, rightDrive2);
     rightDriveGroup.setInverted(true);
-    
+
     // Set up Differential Drive
     drive = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
 
     leftEncoder = leftDrive1.getEncoder();
     rightEncoder = rightDrive1.getEncoder();
-    
+
     // compute conversion from encoder units to meters
-    double conversionFactor = ((1 / Constants.DriveTrain.kdriveEncoderNativeUnitsPerRev) / Constants.DriveTrain.kdriveGearRatio) * 
-    (Math.PI * Constants.DriveTrain.kwheelDiameterInches) * Constants.DriveTrain.kinchesToMeters;
+    double conversionFactor = ((1 / Constants.DriveTrain.kdriveEncoderNativeUnitsPerRev)
+        / Constants.DriveTrain.kdriveGearRatio) *
+        (Math.PI * Constants.DriveTrain.kwheelDiameterInches) * Constants.DriveTrain.kinchesToMeters;
 
     // Set conversion factor for both encoders
     leftEncoder.setPositionConversionFactor(conversionFactor);
     rightEncoder.setPositionConversionFactor(conversionFactor);
 
-    leftEncoderPosition = leftEncoder.getPosition();
-    rightEncoderPosition = rightEncoder.getPosition();
-
-    drivetrainPIDControllerLeft = leftDrive1.getPIDController();
-    drivetrainPIDControllerRight = rightDrive1.getPIDController();
-
-    drivetrainPIDControllerLeft.setP(0.047617);
-    drivetrainPIDControllerRight.setP(0.047617);
-
-    }
-
-    
+  }
 
   @Override
   public void periodic() {
-  
-    
 
-    //double xStickValue = RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed;
-    //double yStickValue = -RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed;
+    SmartDashboard.putNumber("Left Encoder Distance", getLeftEncoderDistance());
+    SmartDashboard.putNumber("Right Encoder Distance", getRightEncoderDistance());
+
+    // double xStickValue = RobotContainer.m_driverController.getRawAxis(4) *
+    // Constants.DriveTrain.kspeedMultiplier * creepSpeed;
+    // double yStickValue = -RobotContainer.m_driverController.getRawAxis(1) *
+    // Constants.DriveTrain.kspeedMultiplier * creepSpeed;
     // This method will be called once per scheduler run
   }
-  
-  public void driveWithXbox() {
-    if(RobotContainer.m_driverController.getRawAxis(2) == 1){
-      creepSpeed = 0.5;
-  }else if(RobotContainer.m_driverController.getRawAxis(3) == 1){
-      creepSpeed = 1;
-  }else {
-      creepSpeed = 1;
-  }
-    //System.out.printf("Controller: forward: %f, turn: %f\n", xboxController.getLeftY(), xboxController.getRightX());
-    drive.arcadeDrive(
-      RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed, 
-      RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed
-    );
 
-    System.out.println("Left Encoder Distance " + leftEncoder.getPosition());
-    
+  public void driveWithXbox() {
+    if (RobotContainer.m_driverController.getRawAxis(2) == 1) {
+      creepSpeed = 0.5;
+    } else if (RobotContainer.m_driverController.getRawAxis(3) == 1) {
+      creepSpeed = 1;
+    } else {
+      creepSpeed = 1;
+    }
+    // System.out.printf("Controller: forward: %f, turn: %f\n",
+    // xboxController.getLeftY(), xboxController.getRightX());
+    drive.arcadeDrive(
+        RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
+        RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
+
+
     // drive.arcadeDrive(1, 0);
   }
 
-  
-
   public void resetEncoders() {
-      leftEncoder.setPosition(0);
-      rightEncoder.setPosition(0);
-
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
   }
 
   public void setMaxOutput(double maxOutput) {
     drive.setMaxOutput(maxOutput);
   }
 
-  public void auto(double distance, double speed){
-		if(leftEncoder.getPosition() > distance){
-			drive.arcadeDrive(-speed, 0.0);
-		} else if (leftEncoder.getPosition() <= distance) {
+  public void auto(double distance, double speed) {
+    if (leftEncoder.getPosition() > distance) {
+      drive.arcadeDrive(-speed, 0.0);
+    } else if (leftEncoder.getPosition() <= distance) {
       drive.arcadeDrive(0.0, 0.0);
-      m_AutoDriveStraight.end(true);
-    } 
-     
-
-	}
+    }
+  }
 
   public void setEncodersToZero() {
     rightEncoder.setPosition(0);
     leftEncoder.setPosition(0);
+  }
+
+  public double getLeftEncoderDistance() {
+    return leftEncoder.getPosition();
+  }
+
+  public double getRightEncoderDistance() {
+    return rightEncoder.getPosition();
+  }
+
+  public void setDrivetrainSpeed(double speed, double rotation) {
+    drive.arcadeDrive(speed, rotation);
   }
 
 }

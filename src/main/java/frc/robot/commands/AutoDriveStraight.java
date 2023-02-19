@@ -25,21 +25,33 @@ public class AutoDriveStraight extends CommandBase {
   @Override
   public void initialize() {
     m_drivetrainSubsystem.setEncodersToZero();
+
+    
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrainSubsystem.auto(m_distance, m_speed);
+    m_drivetrainSubsystem.setDrivetrainSpeed(Math.abs(m_speed) * Math.signum(m_distance), 0);
+    // m_drivetrainSubsystem.auto(m_distance, m_speed);
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    // m_drivetrainSubsystem.auto(m_distance, m_speed);
+    m_drivetrainSubsystem.setDrivetrainSpeed(0, 0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (m_distance >= 0){
+      return m_drivetrainSubsystem.getLeftEncoderDistance() >= m_distance;
+    } else {
+      return m_drivetrainSubsystem.getLeftEncoderDistance() <= m_distance;
+    }
   }
 }
