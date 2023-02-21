@@ -15,30 +15,30 @@ public class TankDriveCommand extends CommandBase {
 
   /** Creates a new TankDrive. */
   public TankDriveCommand(DrivetrainSubsystem drivetrain) {
-      m_drivetrainSubsystem = drivetrain;
-      addRequirements(drivetrain);
-    }
-    // Use addRequirements() here to declare subsystem dependencies.
-  
+    m_drivetrainSubsystem = drivetrain;
+    addRequirements(drivetrain);
+  }
+  // Use addRequirements() here to declare subsystem dependencies.
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //System.out.println("tankdrive command initialize");
+    // System.out.println("tankdrive command initialize");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println("tankdrive command execute");
+    // System.out.println("tankdrive command execute");
     m_drivetrainSubsystem.driveWithXbox();
-    
-    //m_drivetrainSubsystem.testMotors();
+
+    // m_drivetrainSubsystem.testMotors();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

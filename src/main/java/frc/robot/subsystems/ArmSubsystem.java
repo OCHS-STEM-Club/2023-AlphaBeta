@@ -175,4 +175,8 @@ public class ArmSubsystem extends SubsystemBase {
     armPIDController.setReference(position, ControlType.kPosition);
   }
 
+  public double getArmEncoderDistance() {
+    return armMotor.getEncoder().getPosition();
+  }
+
 }

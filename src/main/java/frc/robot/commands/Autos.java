@@ -15,34 +15,40 @@ import frc.robot.subsystems.HandSubsystem;
 
 public final class Autos {
 
-  public static CommandBase mobilityAuto(DrivetrainSubsystem drivetrainSubsystem,  HandSubsystem handSubsystem ){
+  public static CommandBase mobilityAuto(DrivetrainSubsystem drivetrainSubsystem, HandSubsystem handSubsystem) {
     return Commands.sequence(
-      new AutoDriveStraight(drivetrainSubsystem, 0.08, -0.5)
-      .alongWith(new GrabberOn(handSubsystem, 0.5))
-    );
+        new AutoDriveStraight(drivetrainSubsystem, 0.07, -0.5)
+            .alongWith(new GrabberOn(handSubsystem, 0.5)));
   }
+
   /** Example static factory for an autonomous command. */
-  public static CommandBase exampleAuto(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem ) {
-   // return Commands.sequence(new AutoArmMove(armSubsystem));
+  public static CommandBase exampleAuto(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem,
+      HandSubsystem handSubsystem) {
+    // return Commands.sequence(new AutoArmMove(armSubsystem));
     return Commands.sequence(
         // drive forward and move the arm to high, with the intake on
         new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
-        .raceWith(new GrabberOn(handSubsystem, -0.5))
-        .raceWith(new AutoDriveStraight(drivetrainSubsystem, -0.03, 0.35))
-        .andThen(new GrabberOn(handSubsystem, 0)),
-        new AutoDriveStraight(drivetrainSubsystem, 0.08, -0.5) 
-        
-        
-        // outtake the cube
-        //new GrabberOn(handSubsystem, 0.5),
-        //new WaitCommand(.5),
-        //new GrabberOn(handSubsystem, 0)
-      );
+            .raceWith(new GrabberOn(handSubsystem, -0.5)),
+        new AutoDriveStraight(drivetrainSubsystem, -0.01, 0.35),
+        new WaitCommand(2)
+            .raceWith(new GrabberOn(handSubsystem, 0.5)),
+        new AutoDriveStraight(drivetrainSubsystem, 0.08, -0.5),
+        new AutoArmMove(armSubsystem, Constants.Setpoints.kresetSetpoint),
+        new GrabberOn(handSubsystem, 0)
+    );
   }
+  
+  public static CommandBase midConeMobilityAuto(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
+
+    return Commands.sequence(
+      new AutoArmMove(armSubsystem, Constants.Setpoints.kconeMidSetpoint)
+    );
+  }
+    
 
   // new AutoDriveStraight(drivetrainSubsystem, 2, 0.5),
-  //                            new AutoArmMove(armSubsystem, -900, 0.5), 
-  //                            new GrabberOn(handSubsystem, 0.5)
+  // new AutoArmMove(armSubsystem, -900, 0.5),
+  // new GrabberOn(handSubsystem, 0.5)
 
   private Autos() {
     throw new UnsupportedOperationException("This is a utility class!");

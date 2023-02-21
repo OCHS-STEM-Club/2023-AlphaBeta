@@ -12,6 +12,7 @@ public class AutoArmMove extends CommandBase {
   private final double m_setpoint;
 
   private final ArmSubsystem m_armSubsystem;
+
   /** Creates a new ArmToMidAuto. */
   public AutoArmMove(ArmSubsystem arm, double setpoint) {
     m_armSubsystem = arm;
@@ -22,7 +23,7 @@ public class AutoArmMove extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -33,11 +34,16 @@ public class AutoArmMove extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (m_setpoint >= 0) {
+      return m_armSubsystem.getArmEncoderDistance() >= m_setpoint;
+    } else {
+      return m_armSubsystem.getArmEncoderDistance() <= m_setpoint;
+    }
   }
 }

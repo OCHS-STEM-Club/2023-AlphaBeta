@@ -12,6 +12,7 @@ public class IntakeCommand extends CommandBase {
 
   private final ArmSubsystem m_armSubsystem;
   private final HandSubsystem m_handSubsystem;
+
   /** Creates a new IntakeCommand. */
   public IntakeCommand(ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
     m_armSubsystem = armSubsystem;
@@ -24,12 +25,13 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void initialize() {
     m_handSubsystem.spinHandMotors(-0.5);
-    //m_armSubsystem.goToHomePosition();
+    // m_armSubsystem.goToHomePosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+  }
 
   // Called once the command ends or is interrupted.
   @Override

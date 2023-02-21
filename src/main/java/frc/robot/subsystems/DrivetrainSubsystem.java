@@ -101,7 +101,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
         RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
         RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
 
-
     // drive.arcadeDrive(1, 0);
   }
 

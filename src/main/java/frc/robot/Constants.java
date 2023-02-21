@@ -32,7 +32,7 @@ public final class Constants {
 
     // Drive Encoder Values //
     public static final double kdriveEncoderNativeUnitsPerRev = 42;
-    public static final double kdriveGearRatio = 8.16; 
+    public static final double kdriveGearRatio = 8.16;
     public static final double kwheelDiameterInches = 5; // TODO: Temporary wheel diameter
 
     public static final double kinchesToMeters = 0.0254;
@@ -44,17 +44,17 @@ public final class Constants {
     public static final int kButtonBoxPort = 3;
   }
 
-public static class Arm {
-  public static final int karmMotor = 14;
-  public static final double kspeedMultiplier = 0.5;
-}
+  public static class Arm {
+    public static final int karmMotor = 14;
+    public static final double kspeedMultiplier = 0.5;
+  }
 
-public static class Setpoints {
-  public static final double kresetSetpoint = -2;
-  public static final double kcarrySetpoint = 15;
-  public static final double kconeMidSetpoint = 93;
-  public static final double kcubeMidSetpoint = 80;
-  public static final double kconeHighSetpoint = 125;
-  public static final double kcubeHighSetpoint = 108;
-}
+  public static class Setpoints {
+    public static final double kresetSetpoint = -2;
+    public static final double kcarrySetpoint = 15;
+    public static final double kconeMidSetpoint = 93;
+    public static final double kcubeMidSetpoint = 80;
+    public static final double kconeHighSetpoint = 125;
+    public static final double kcubeHighSetpoint = 108;
+  }
 }

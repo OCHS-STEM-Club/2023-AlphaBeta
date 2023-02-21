@@ -13,11 +13,12 @@ public class AutoDriveStraight extends CommandBase {
   private final double m_speed;
 
   private final DrivetrainSubsystem m_drivetrainSubsystem;
+
   /** Creates a new AutoDriveStraight. */
   public AutoDriveStraight(DrivetrainSubsystem drivetrain, double distance, double speed) {
     m_drivetrainSubsystem = drivetrain;
     m_distance = distance;
-    m_speed = speed;  
+    m_speed = speed;
     addRequirements(drivetrain);
   }
 
@@ -26,8 +27,6 @@ public class AutoDriveStraight extends CommandBase {
   public void initialize() {
     m_drivetrainSubsystem.setEncodersToZero();
 
-    
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,7 +34,7 @@ public class AutoDriveStraight extends CommandBase {
   public void execute() {
     m_drivetrainSubsystem.setDrivetrainSpeed(Math.abs(m_speed) * Math.signum(m_distance), 0);
     // m_drivetrainSubsystem.auto(m_distance, m_speed);
-    
+
   }
 
   // Called once the command ends or is interrupted.
@@ -48,7 +47,7 @@ public class AutoDriveStraight extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_distance >= 0){
+    if (m_distance >= 0) {
       return m_drivetrainSubsystem.getLeftEncoderDistance() >= m_distance;
     } else {
       return m_drivetrainSubsystem.getLeftEncoderDistance() <= m_distance;

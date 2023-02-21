@@ -23,13 +23,12 @@ public class HandSubsystem extends SubsystemBase {
   private double ultrasonicSensorDistanceMM;
   private double ultrasonicSensorDistanceIn;
   private double time;
-  
+
   /** Creates a new HandSubsystem. */
   public HandSubsystem() {
-    handMotorLeft = new TalonSRX(9); //TODO: Change ID//
-    handMotorRight = new TalonSRX(10); //TODO: Change ID//
+    handMotorLeft = new TalonSRX(9); // TODO: Change ID//
+    handMotorRight = new TalonSRX(10); // TODO: Change ID//
     ultrasonicSensor = new Ultrasonic(4, 5);
-    
 
   }
 
@@ -37,21 +36,22 @@ public class HandSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     double outputSpeed = 0;
-    if (RobotContainer.m_driverController.getRightBumper()) outputSpeed += 0.5; // Outake //
-    //if (RobotContainer.m_driverController.getLeftBumper())     outputSpeed -= 0.5;// Intake //
-   
-    
-    //spinHandMotors(outputSpeed);
+    if (RobotContainer.m_driverController.getRightBumper())
+      outputSpeed += 0.5; // Outake //
+    // if (RobotContainer.m_driverController.getLeftBumper()) outputSpeed -= 0.5;//
+    // Intake //
 
-    //ultrasonicSensorDistanceMM = ultrasonicSensor.getRangeMM();
+    // spinHandMotors(outputSpeed);
+
+    // ultrasonicSensorDistanceMM = ultrasonicSensor.getRangeMM();
     ultrasonicSensorDistanceIn = ultrasonicSensor.getRangeInches();
-    
+
   }
 
   public void spinHandMotors(double speed) {
     handMotorLeft.set(ControlMode.PercentOutput, -speed);
     handMotorRight.set(ControlMode.PercentOutput, speed);
-    //System.out.println(speed);
+    // System.out.println(speed);
   }
 
   public void setAutomaticModeUltrasonicSenor() {
@@ -64,6 +64,5 @@ public class HandSubsystem extends SubsystemBase {
 
   public void autoHandOn(double speed) {
     spinHandMotors(speed);
-  } 
+  }
 }
-

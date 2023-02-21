@@ -21,13 +21,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -47,19 +47,22 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
-  
+
   private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
 
   private final HandSubsystem m_handSubsystem = new HandSubsystem();
-  //private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
+  // private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
 
   private final Auto1 m_auto1 = new Auto1(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem);
 
-  //private final IntakeCommand
-  // private final AutoDriveStraight m_autoDriveStraight = new AutoDriveStraight(m_drivetrainSubsystem, m_distance, m_speed);
-  // private final AutoArmMove m_armToMidAuto = new AutoArmMove(m_armSubsystem, m_distance, m_speed);
-  // private final GrabberOn m_grabberOn = new GrabberOn(m_handSubsystem, m_speed);
 
+  // private final IntakeCommand
+  // private final AutoDriveStraight m_autoDriveStraight = new
+  // AutoDriveStraight(m_drivetrainSubsystem, m_distance, m_speed);
+  // private final AutoArmMove m_armToMidAuto = new AutoArmMove(m_armSubsystem,
+  // m_distance, m_speed);
+  // private final GrabberOn m_grabberOn = new GrabberOn(m_handSubsystem,
+  // m_speed);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   public static XboxController m_driverController;
@@ -67,34 +70,38 @@ public class RobotContainer {
   public static XboxController m_buttonBox;
 
   public static GamePieceMode gamePieceMode = GamePieceMode.CUBE; // Start with cube //
- // public static XboxController m_driverController;
+  // public static XboxController m_driverController;
+
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the trigger bindings
- 
+
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
 
-    //m_autoDriveStraight.addRequirements(m_drivetrainSubsystem);
-    //SmartDashboard.putNumber("ArmEncoderValue", m_armSubsystem.getArmEncoderDistance());
+    // m_autoDriveStraight.addRequirements(m_drivetrainSubsystem);
+    // SmartDashboard.putNumber("ArmEncoderValue",
+    // m_armSubsystem.getArmEncoderDistance());
     // m_armCommand.addRequirements(m_armSubsystem);
-  // m_armSubsystem.setDefaultCommand(m_armCommand);
+    // m_armSubsystem.setDefaultCommand(m_armCommand);
 
     m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
     m_operatorController = new XboxController(Constants.Operator.koperatorControllerPort);
     m_buttonBox = new XboxController(Constants.Operator.kButtonBoxPort);
 
-    SmartDashboard.putBoolean("GamePiece Mode", gamePieceMode == GamePieceMode.CONE); // Sets default mode to CUBE on SD//
-    //m_driverController = new XboxController(Constants.Operator.kdriverControllerPort);
-
+    SmartDashboard.putBoolean("GamePiece Mode", gamePieceMode == GamePieceMode.CONE); // Sets default mode to CUBE on
+                                                                                      // SD//
+    // m_driverController = new
+    // XboxController(Constants.Operator.kdriverControllerPort);
 
     // if (m_driverController.getRightTriggerAxis() > 0.5) {
-    //   m_drivetrainSubsystem.setMaxOutput(1.5);
+    // m_drivetrainSubsystem.setMaxOutput(1.5);
     // } else {
-    //   m_drivetrainSubsystem.setMaxOutput(1);
+    // m_drivetrainSubsystem.setMaxOutput(1);
     // }
 
     if (m_driverController.getRawButton(7)) {
@@ -105,12 +112,17 @@ public class RobotContainer {
       m_armSubsystem.resetArmEncoders();
     }
 
-
-
-    
-    
     configureBindings();
 
+    Shuffleboard.getTab("Autonomous").add(m_chooser);
+
+    m_chooser.setDefaultOption("Simple Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
+    m_chooser.addOption("Complex Auto", Autos.exampleAuto(m_drivetrainSubsystem, m_armSubsystem,
+     m_handSubsystem));
+    m_chooser.addOption("Mid Cone Auto", Autos.midConeMobilityAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+
+    // Put the chooser on the dashboard
+    
   }
 
   /**
@@ -129,35 +141,29 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
-     new JoystickButton(m_driverController, Button.kLeftBumper.value)
-      .whileTrue(new IntakeCommand(m_armSubsystem, m_handSubsystem));
+    new JoystickButton(m_driverController, Button.kLeftBumper.value)
+        .whileTrue(new IntakeCommand(m_armSubsystem, m_handSubsystem));
 
     new JoystickButton(m_driverController, Button.kRightBumper.value)
-      .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem));
+        .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem));
 
-    new JoystickButton(m_buttonBox, Button.kA.value) 
-      .onTrue(new InstantCommand(()->{
-        if (gamePieceMode == GamePieceMode.CONE) {
-          gamePieceMode = GamePieceMode.CUBE;
-          SmartDashboard.putBoolean("GamePiece Mode", false);
-        } else if (gamePieceMode == GamePieceMode.CUBE) {
-        gamePieceMode = GamePieceMode.CONE;
-        SmartDashboard.putBoolean("GamePiece Mode", true);
-      }
-    }));
-    
-   // System.out.println("GamePieceMode Running");
-    
-      
+    new JoystickButton(m_buttonBox, Button.kA.value)
+        .onTrue(new InstantCommand(() -> {
+          if (gamePieceMode == GamePieceMode.CONE) {
+            gamePieceMode = GamePieceMode.CUBE;
+            SmartDashboard.putBoolean("GamePiece Mode", false);
+          } else if (gamePieceMode == GamePieceMode.CUBE) {
+            gamePieceMode = GamePieceMode.CONE;
+            SmartDashboard.putBoolean("GamePiece Mode", true);
+          }
+        }));
 
-    
+    // System.out.println("GamePieceMode Running");
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
     // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
-
 
   }
 
@@ -168,16 +174,15 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     System.out.println("Auto is Running");
-    //An example command will be run in autonomous
-    return Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem);
+    // An example command will be run in autonomous
+    return m_chooser.getSelected();
   }
-
 
   public void getUltrasonicSensorDistanceIn() {
     m_handSubsystem.getUltrasonicSensorDistanceIn();
   }
 
-  public void setAutomaticModeUltrasonicSenor(){
+  public void setAutomaticModeUltrasonicSenor() {
     m_handSubsystem.setAutomaticModeUltrasonicSenor();
   }
 
