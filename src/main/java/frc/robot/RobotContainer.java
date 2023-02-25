@@ -13,10 +13,10 @@ import frc.robot.commands.GrabberOn;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.TankDriveCommand;
-import frc.robot.commands.CommandGroups.Auto1;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HandSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.event.EventLoop;
@@ -52,9 +52,7 @@ public class RobotContainer {
 
   private final HandSubsystem m_handSubsystem = new HandSubsystem();
   // private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
-
-  private final Auto1 m_auto1 = new Auto1(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem);
-
+  public final LEDSubsystem m_ledSubsystem = new LEDSubsystem();
 
   // private final IntakeCommand
   // private final AutoDriveStraight m_autoDriveStraight = new
@@ -114,12 +112,14 @@ public class RobotContainer {
 
     configureBindings();
 
-    Shuffleboard.getTab("Autonomous").add(m_chooser);
+    // Shuffleboard.getTab("SmartDashboard").add(m_chooser);
+    SmartDashboard.putData(m_chooser);
 
     m_chooser.setDefaultOption("Simple Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
     m_chooser.addOption("Complex Auto", Autos.exampleAuto(m_drivetrainSubsystem, m_armSubsystem,
      m_handSubsystem));
     m_chooser.addOption("Mid Cone Auto", Autos.midConeMobilityAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Drive Straight", Autos.driveStraight(m_drivetrainSubsystem));
 
     // Put the chooser on the dashboard
     
@@ -145,7 +145,10 @@ public class RobotContainer {
         .whileTrue(new IntakeCommand(m_armSubsystem, m_handSubsystem));
 
     new JoystickButton(m_driverController, Button.kRightBumper.value)
-        .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem));
+        .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem, 0.5));
+
+    new JoystickButton(m_driverController, Button.kA.value)
+      .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem, 1));
 
     new JoystickButton(m_buttonBox, Button.kA.value)
         .onTrue(new InstantCommand(() -> {
@@ -157,6 +160,8 @@ public class RobotContainer {
             SmartDashboard.putBoolean("GamePiece Mode", true);
           }
         }));
+
+    
 
     // System.out.println("GamePieceMode Running");
 
@@ -193,5 +198,6 @@ public class RobotContainer {
   public void stopHand() {
     m_handSubsystem.autoHandOn(0);
   }
+
 
 }

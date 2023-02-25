@@ -65,4 +65,5 @@ public class HandSubsystem extends SubsystemBase {
   public void autoHandOn(double speed) {
     spinHandMotors(speed);
   }
+
 }

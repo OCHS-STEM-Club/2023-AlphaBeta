@@ -28,7 +28,7 @@ public final class Constants {
     // Never exceed 12 volts //
     public static final double kmaxDriveVoltage = 12;
 
-    public static final double ksetOpenLoopRampRate = 0.85;
+    public static final double ksetOpenLoopRampRate = 1;
 
     // Drive Encoder Values //
     public static final double kdriveEncoderNativeUnitsPerRev = 42;
@@ -56,5 +56,11 @@ public final class Constants {
     public static final double kcubeMidSetpoint = 80;
     public static final double kconeHighSetpoint = 125;
     public static final double kcubeHighSetpoint = 108;
+    public static final double kautoConeDropSetpoint = 70;
+  }
+  
+  public static class LED {
+    public static final int PWPORT = 0;
+    public static final int BUFFERSIZE = 20;
   }
 }

@@ -12,11 +12,13 @@ public class OuttakeCommand extends CommandBase {
 
   private final ArmSubsystem m_armSubsystem;
   private final HandSubsystem m_handSubsystem;
+  private final double m_speed;
 
   /** Creates a new OuttakeCommand. */
-  public OuttakeCommand(ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
+  public OuttakeCommand(ArmSubsystem armSubsystem, HandSubsystem handSubsystem, double speed) {
     m_armSubsystem = armSubsystem;
     m_handSubsystem = handSubsystem;
+    m_speed = speed;
     addRequirements(armSubsystem, handSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -24,7 +26,7 @@ public class OuttakeCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_handSubsystem.spinHandMotors(0.5);
+    m_handSubsystem.spinHandMotors(m_speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

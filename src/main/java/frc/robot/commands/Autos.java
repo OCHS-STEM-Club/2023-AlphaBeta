@@ -15,6 +15,11 @@ import frc.robot.subsystems.HandSubsystem;
 
 public final class Autos {
 
+  public static CommandBase driveStraight(DrivetrainSubsystem drivetrainSubsystem) {
+    return Commands.sequence(
+        new AutoDriveStraight(drivetrainSubsystem, -0.07, 0.5));
+  }
+
   public static CommandBase mobilityAuto(DrivetrainSubsystem drivetrainSubsystem, HandSubsystem handSubsystem) {
     return Commands.sequence(
         new AutoDriveStraight(drivetrainSubsystem, 0.07, -0.5)
@@ -42,7 +47,16 @@ public final class Autos {
 
     return Commands.sequence(
       new AutoArmMove(armSubsystem, Constants.Setpoints.kconeMidSetpoint)
+        .raceWith(new GrabberOn(handSubsystem, -0.5)),
+      new AutoDriveStraight(drivetrainSubsystem, -0.01, 0.35),
+      new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeMidSetpoint),
+      new WaitCommand(2)
+        .raceWith(new GrabberOn(handSubsystem, 0)),
+      new AutoArmMove(armSubsystem, Constants.Setpoints.kautoConeDropSetpoint),
+      new AutoDriveStraight(drivetrainSubsystem, 0.08, -0.5),
+      new GrabberOn(handSubsystem, 0)
     );
+
   }
     
 

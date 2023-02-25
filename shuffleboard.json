@@ -130,6 +130,19 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
+              "_title": "SendableChooser[0]",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }

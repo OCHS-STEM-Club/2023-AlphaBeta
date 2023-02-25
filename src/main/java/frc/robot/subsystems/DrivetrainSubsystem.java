@@ -36,6 +36,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   private double creepSpeed = 1;
 
+  private SparkMaxPIDController drivetrainPIDLeft;
+  private SparkMaxPIDController drivetrainPIDRight;
+
+  private double pidReference = 0;
+
   // private final Gyro navX = new AHRS();
 
   /** Creates a new Drivetrain. */
@@ -43,8 +48,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // Set up left drivetrain motors
     leftDrive1 = new CANSparkMax(Constants.DriveTrain.kleftDrive1Id, MotorType.kBrushless);
     leftDrive2 = new CANSparkMax(Constants.DriveTrain.kleftDrive2Id, MotorType.kBrushless);
-    leftDrive1.setOpenLoopRampRate(.75);
-    leftDrive2.setOpenLoopRampRate(.75);
+    leftDrive1.setOpenLoopRampRate(Constants.DriveTrain.ksetOpenLoopRampRate);
+    leftDrive2.setOpenLoopRampRate(Constants.DriveTrain.ksetOpenLoopRampRate);
 
     leftDriveGroup = new MotorControllerGroup(leftDrive1, leftDrive2);
     leftDriveGroup.setInverted(false);
@@ -72,13 +77,25 @@ public class DrivetrainSubsystem extends SubsystemBase {
     leftEncoder.setPositionConversionFactor(conversionFactor);
     rightEncoder.setPositionConversionFactor(conversionFactor);
 
+    drivetrainPIDLeft = leftDrive1.getPIDController();
+    drivetrainPIDRight = rightDrive1.getPIDController();
+
+    drivetrainPIDLeft.setP(2500);
+    drivetrainPIDRight.setP(2500);
+
+    //pidReference = SmartDashboard.getNumber("PID Set Reference", 0);
+    //drivetrainPIDLeft.setReference(pidReference, CANSparkMax.ControlType.kPosition);
+
+
+
+
   }
 
   @Override
   public void periodic() {
 
-    SmartDashboard.putNumber("Left Encoder Distance", getLeftEncoderDistance());
-    SmartDashboard.putNumber("Right Encoder Distance", getRightEncoderDistance());
+    SmartDashboard.putNumber("Left Encoder", getLeftEncoderDistance());
+    SmartDashboard.putNumber("Right Encoder", getRightEncoderDistance());
 
     // double xStickValue = RobotContainer.m_driverController.getRawAxis(4) *
     // Constants.DriveTrain.kspeedMultiplier * creepSpeed;
