@@ -115,12 +115,11 @@ public class RobotContainer {
     // Shuffleboard.getTab("SmartDashboard").add(m_chooser);
     SmartDashboard.putData(m_chooser);
 
-    m_chooser.setDefaultOption("Simple Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
-    m_chooser.addOption("Complex Auto", Autos.exampleAuto(m_drivetrainSubsystem, m_armSubsystem,
-     m_handSubsystem));
+    m_chooser.setDefaultOption("Cube High Auto", Autos.exampleAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Simple Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
     m_chooser.addOption("Mid Cone Auto", Autos.midConeMobilityAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("Drive Straight", Autos.driveStraight(m_drivetrainSubsystem));
-
+    m_chooser.addOption("Cube High Station", Autos.highCubeCStation(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     // Put the chooser on the dashboard
     
   }

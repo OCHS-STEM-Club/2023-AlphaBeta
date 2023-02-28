@@ -42,6 +42,19 @@ public final class Autos {
         new GrabberOn(handSubsystem, 0)
     );
   }
+
+  public static CommandBase highCubeCStation(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
+    return Commands.sequence(
+      new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
+      .raceWith(new GrabberOn(handSubsystem, -0.5)),
+      new AutoDriveStraight(drivetrainSubsystem, -0.01, 0.35),
+      new WaitCommand(2)
+        .raceWith (new GrabberOn(handSubsystem, 0.35)),
+      new AutoDriveStraight(drivetrainSubsystem, 0.04, -0.05),
+      new AutoArmMove(armSubsystem, Constants.Setpoints.kcarrySetpoint),
+      new GrabberOn(handSubsystem, 0)
+    );
+  }
   
   public static CommandBase midConeMobilityAuto(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
 
