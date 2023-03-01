@@ -23,12 +23,12 @@ public final class Constants {
     public static final int krightDrive1Id = 7;
     public static final int krightDrive2Id = 8;
 
-    public static final double kspeedMultiplier = 0.75;
+    public static final double kspeedMultiplier = 0.8;
 
     // Never exceed 12 volts //
     public static final double kmaxDriveVoltage = 12;
 
-    public static final double ksetOpenLoopRampRate = 0.89;
+    public static final double ksetOpenLoopRampRate = 0.85;
 
     // Drive Encoder Values //
     public static final double kdriveEncoderNativeUnitsPerRev = 42;
