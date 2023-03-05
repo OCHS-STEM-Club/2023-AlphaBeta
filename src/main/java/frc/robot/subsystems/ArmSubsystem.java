@@ -41,6 +41,8 @@ public class ArmSubsystem extends SubsystemBase {
   private SparkMaxPIDController armPIDController;
   // private double m_setpoint = 0;
   // private double pidReference = 0;
+  private double armPValue = 0;
+  private double armDValue = 0;
 
   private SparkMaxLimitSwitch forwardLimitSwitch;
   private SparkMaxLimitSwitch backwardLimitSwitch;
@@ -58,19 +60,22 @@ public class ArmSubsystem extends SubsystemBase {
 
     armPIDController.setP(0.1);
     // armPIDController.setI(kI);
-    armPIDController.setD(0.01);
+    armPIDController.setD(10);
     // armPIDController.setIZone(kIz);
     // armPIDController.setFF(kFF);
-    armPIDController.setOutputRange(-0.75, 0.75);
+    armPIDController.setOutputRange(-1, 1);
 
     armMotor.setIdleMode(IdleMode.kBrake);
 
-    armMotor.setOpenLoopRampRate(0.5);
-    armMotor.setClosedLoopRampRate(0.5);
+    armMotor.setOpenLoopRampRate(0.35);
+    armMotor.setClosedLoopRampRate(0.35);
 
     armMotor.setSmartCurrentLimit(40);
 
     armMotor.getEncoder().setPositionConversionFactor(1);
+
+    // SmartDashboard.putNumber("Arm P Value", 0.1);
+    // SmartDashboard.putNumber("Arm D Value", 0.01);
 
     // SmartDashboard.putNumber("PID Set Reference", pidReference);
 
@@ -81,6 +86,13 @@ public class ArmSubsystem extends SubsystemBase {
 
     // always display current position of arm
     SmartDashboard.putNumber("Arm Height", armMotor.getEncoder().getPosition());
+    
+
+    // armPValue = SmartDashboard.getNumber("Arm P Value", 0);
+    // armDValue = SmartDashboard.getNumber("Arm D Value", 0);
+
+    // armPIDController.setP(armPValue);
+    // armPIDController.setD(armDValue);
 
     // reset all encoders and PID position when lower limit switch is pressed
     if (backwardLimitSwitch.isPressed()) {

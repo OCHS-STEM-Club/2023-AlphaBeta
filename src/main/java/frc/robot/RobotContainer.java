@@ -103,7 +103,7 @@ public class RobotContainer {
     // }
 
     if (m_driverController.getRawButton(7)) {
-      m_drivetrainSubsystem.resetEncoders();
+      m_drivetrainSubsystem.setEncodersToZero();
     }
 
     if (m_driverController.getRawButton(8)) {
@@ -115,8 +115,8 @@ public class RobotContainer {
     // Shuffleboard.getTab("SmartDashboard").add(m_chooser);
     SmartDashboard.putData(m_chooser);
 
-    m_chooser.setDefaultOption("Cube High Auto", Autos.exampleAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
-    m_chooser.addOption("Simple Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
+    m_chooser.setDefaultOption("Cube High Auto", Autos.highCubeAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Mobility Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
     m_chooser.addOption("Mid Cone Auto", Autos.midConeMobilityAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("Drive Straight", Autos.driveStraight(m_drivetrainSubsystem));
     m_chooser.addOption("Cube High Station", Autos.highCubeCStation(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
@@ -191,7 +191,7 @@ public class RobotContainer {
   }
 
   public void resetEncoders() {
-    m_drivetrainSubsystem.resetEncoders();
+    m_drivetrainSubsystem.setEncodersToZero();
   }
 
   public void stopHand() {

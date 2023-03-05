@@ -41,9 +41,9 @@ public class AutoArmMove extends CommandBase {
   @Override
   public boolean isFinished() {
     if (m_setpoint >= 0) {
-      return m_armSubsystem.getArmEncoderDistance() >= m_setpoint;
+      return m_armSubsystem.getArmEncoderDistance() >= m_setpoint - 5;
     } else {
-      return m_armSubsystem.getArmEncoderDistance() <= m_setpoint;
+      return m_armSubsystem.getArmEncoderDistance() <= m_setpoint - 5;
     }
   }
 }

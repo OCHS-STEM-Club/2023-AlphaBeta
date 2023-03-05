@@ -121,10 +121,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // drive.arcadeDrive(1, 0);
   }
 
-  public void resetEncoders() {
-    leftEncoder.setPosition(0);
-    rightEncoder.setPosition(0);
-  }
+  // public void resetEncoders() {
+  //   leftEncoder.setPosition(0);
+  //   rightEncoder.setPosition(0);
+  // }
 
   public void setMaxOutput(double maxOutput) {
     drive.setMaxOutput(maxOutput);

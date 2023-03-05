@@ -27,7 +27,7 @@ public final class Autos {
   }
 
   /** Example static factory for an autonomous command. */
-  public static CommandBase exampleAuto(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem,
+  public static CommandBase highCubeAuto(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem,
       HandSubsystem handSubsystem) {
     // return Commands.sequence(new AutoArmMove(armSubsystem));
     return Commands.sequence(
@@ -37,7 +37,7 @@ public final class Autos {
         new AutoDriveStraight(drivetrainSubsystem, -0.01, 0.35),
         new WaitCommand(2)
             .raceWith(new GrabberOn(handSubsystem, 0.35)),
-        new AutoDriveStraight(drivetrainSubsystem, 0.08, -0.5),
+        new AutoDriveStraight(drivetrainSubsystem, 0.09, -0.5),
         new AutoArmMove(armSubsystem, Constants.Setpoints.kresetSetpoint),
         new GrabberOn(handSubsystem, 0)
     );
@@ -67,7 +67,7 @@ public final class Autos {
       new WaitCommand(2)
         .raceWith(new GrabberOn(handSubsystem, 0)),
       new AutoArmMove(armSubsystem, Constants.Setpoints.kautoConeDropSetpoint),
-      new AutoDriveStraight(drivetrainSubsystem, 0.01, -0.35),
+      new AutoDriveStraight(drivetrainSubsystem, 0.09, -0.5),
       new GrabberOn(handSubsystem, 0)
     );
 

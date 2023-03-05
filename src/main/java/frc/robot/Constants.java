@@ -50,7 +50,7 @@ public final class Constants {
   }
 
   public static class Setpoints {
-    public static final double kresetSetpoint = -2;
+    public static final double kresetSetpoint = -10;
     public static final double kcarrySetpoint = 20;
     public static final double kconeMidSetpoint = 103;
     public static final double kcubeMidSetpoint = 80;

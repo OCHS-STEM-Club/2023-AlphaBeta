@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.RelativeEncoder;
 
@@ -46,6 +47,8 @@ public class HandSubsystem extends SubsystemBase {
     // ultrasonicSensorDistanceMM = ultrasonicSensor.getRangeMM();
     ultrasonicSensorDistanceIn = ultrasonicSensor.getRangeInches();
 
+    handMotorLeft.setNeutralMode(NeutralMode.Coast);
+    handMotorRight.setNeutralMode(NeutralMode.Coast);
   }
 
   public void spinHandMotors(double speed) {
