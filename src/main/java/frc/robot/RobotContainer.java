@@ -92,7 +92,8 @@ public class RobotContainer {
     m_buttonBox = new XboxController(Constants.Operator.kButtonBoxPort);
 
     SmartDashboard.putBoolean("GamePiece Mode", gamePieceMode == GamePieceMode.CONE); // Sets default mode to CUBE on
-                                                                                      // SD//
+    
+
     // m_driverController = new
     // XboxController(Constants.Operator.kdriverControllerPort);
 
@@ -182,17 +183,24 @@ public class RobotContainer {
     return m_chooser.getSelected();
   }
 
-  public void getUltrasonicSensorDistanceIn() {
-    m_handSubsystem.getUltrasonicSensorDistanceIn();
-  }
+  // public void getUltrasonicSensorDistanceIn() {
+    // m_handSubsystem.getUltrasonicSensorDistanceIn();
+  // }
 
   public void setAutomaticModeUltrasonicSenor() {
     m_handSubsystem.setAutomaticModeUltrasonicSenor();
+
   }
 
   public void resetEncoders() {
     m_drivetrainSubsystem.setEncodersToZero();
+
   }
+
+  public void ultrasonicDistance(){
+    m_handSubsystem.getUltrasonicSensorDistanceIn();
+  }
+
 
   public void stopHand() {
     m_handSubsystem.autoHandOn(0);

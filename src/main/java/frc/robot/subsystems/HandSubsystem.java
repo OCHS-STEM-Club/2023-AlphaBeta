@@ -9,10 +9,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
@@ -24,12 +26,16 @@ public class HandSubsystem extends SubsystemBase {
   private double ultrasonicSensorDistanceMM;
   private double ultrasonicSensorDistanceIn;
   private double time;
+  public double getUltrasonicSensorDistanceIn;
+
 
   /** Creates a new HandSubsystem. */
   public HandSubsystem() {
     handMotorLeft = new TalonSRX(9); // TODO: Change ID//
     handMotorRight = new TalonSRX(10); // TODO: Change ID//
     ultrasonicSensor = new Ultrasonic(4, 5);
+
+    ultrasonicSensor.getRangeInches();
 
   }
 
@@ -45,10 +51,12 @@ public class HandSubsystem extends SubsystemBase {
     // spinHandMotors(outputSpeed);
 
     // ultrasonicSensorDistanceMM = ultrasonicSensor.getRangeMM();
-    ultrasonicSensorDistanceIn = ultrasonicSensor.getRangeInches();
-
+   
     handMotorLeft.setNeutralMode(NeutralMode.Coast);
     handMotorRight.setNeutralMode(NeutralMode.Coast);
+
+    
+    SmartDashboard.putNumber("Ultrasonic distance", getUltrasonicSensorDistanceIn);
   }
 
   public void spinHandMotors(double speed) {
@@ -61,12 +69,12 @@ public class HandSubsystem extends SubsystemBase {
     Ultrasonic.setAutomaticMode(true);
   }
 
-  public void getUltrasonicSensorDistanceIn() {
-    System.out.println(ultrasonicSensorDistanceIn);
+  public double getUltrasonicSensorDistanceIn(){
+    System.out.println(ultrasonicSensor.getRangeInches());
+    return ultrasonicSensor.getRangeInches();
   }
 
   public void autoHandOn(double speed) {
     spinHandMotors(speed);
   }
-
 }
