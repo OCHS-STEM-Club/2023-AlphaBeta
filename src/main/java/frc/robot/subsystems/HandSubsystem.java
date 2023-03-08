@@ -74,6 +74,10 @@ public class HandSubsystem extends SubsystemBase {
     return ultrasonicSensor.getRangeInches();
   }
 
+  public void setAutomaticMode() {
+    Ultrasonic.setAutomaticMode(true);
+    }
+
   public void autoHandOn(double speed) {
     spinHandMotors(speed);
   }

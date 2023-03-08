@@ -201,6 +201,10 @@ public class RobotContainer {
     m_handSubsystem.getUltrasonicSensorDistanceIn();
   }
 
+  public void setAutomaticMode() {
+    m_handSubsystem.setAutomaticMode();
+  }
+
 
   public void stopHand() {
     m_handSubsystem.autoHandOn(0);
