@@ -44,6 +44,7 @@ public class RobotContainer {
     CUBE, CONE
   }
 
+
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final TankDriveCommand m_tankDriveCommand = new TankDriveCommand(m_drivetrainSubsystem);
@@ -68,6 +69,7 @@ public class RobotContainer {
   public static XboxController m_buttonBox;
 
   public static GamePieceMode gamePieceMode = GamePieceMode.CUBE; // Start with cube //
+
   // public static XboxController m_driverController;
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -121,6 +123,8 @@ public class RobotContainer {
     m_chooser.addOption("Mid Cone Auto", Autos.midConeMobilityAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("Drive Straight", Autos.driveStraight(m_drivetrainSubsystem));
     m_chooser.addOption("Cube High Station", Autos.highCubeCStation(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Auto Turn", Autos.autoTurn(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Auto Two Pieces", Autos.autoTwoPieces(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     // Put the chooser on the dashboard
     
   }
@@ -197,9 +201,9 @@ public class RobotContainer {
 
   }
 
-  public void ultrasonicDistance(){
-    m_handSubsystem.getUltrasonicSensorDistanceIn();
-  }
+  // public void ultrasonicDistance(){
+  //   m_handSubsystem.getUltrasonicSensorDistanceIn();
+  // }
 
   public void setAutomaticMode() {
     m_handSubsystem.setAutomaticMode();
@@ -210,5 +214,8 @@ public class RobotContainer {
     m_handSubsystem.autoHandOn(0);
   }
 
+  public void resetNavX() {
+    m_drivetrainSubsystem.resetNavX();
+  }
 
 }

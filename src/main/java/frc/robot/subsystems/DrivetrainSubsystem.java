@@ -10,6 +10,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -41,7 +42,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   private double pidReference = 0;
 
-  // private final Gyro navX = new AHRS();
+  private final AHRS navX = new AHRS();
+  private double navXGetHeading;
+
+  private PIDController turningPIDController = new PIDController(0, 0, 0);
+
+  private double turnSetpointDegree = 0;
+
+  private double turningPIDMax = 0.75;
+  private double turningPIDMin = -0.75;
+
+  private double turningPValue;
+  private double turningIValue;
+  private double turningDValue;
 
   /** Creates a new Drivetrain. */
   public DrivetrainSubsystem() {
@@ -83,10 +96,24 @@ public class DrivetrainSubsystem extends SubsystemBase {
     drivetrainPIDLeft.setP(2500);
     drivetrainPIDRight.setP(2500);
 
+    turningPIDController.enableContinuousInput(0, 360);
+
+    turningPIDController.setPID(0.04, 0.0025, 0.0175);
+
+    turningPIDController.setTolerance(4);
+
+    // SmartDashboard.putNumber("turning P", turningPValue);
+    // SmartDashboard.putNumber("turning I", turningIValue);
+    // SmartDashboard.putNumber("turning D", turningDValue);
+    // SmartDashboard.putNumber("turn setpoint", turnSetpointDegree);
+
     //pidReference = SmartDashboard.getNumber("PID Set Reference", 0);
     //drivetrainPIDLeft.setReference(pidReference, CANSparkMax.ControlType.kPosition);
 
 
+    navX.calibrate();
+    navX.reset();
+    navX.zeroYaw();
 
 
   }
@@ -96,6 +123,28 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("Left Encoder", getLeftEncoderDistance());
     SmartDashboard.putNumber("Right Encoder", getRightEncoderDistance());
+
+    //System.out.println("NavX Heading" + navXGetHeading);
+
+    SmartDashboard.putData(navX);
+
+    // turnSetpointDegree = SmartDashboard.getNumber("turn setpoint", 0);
+    // turningPValue = SmartDashboard.getNumber("turning P", 0);
+    // turningIValue = SmartDashboard.getNumber("turning I", 0);
+    // turningDValue = SmartDashboard.getNumber("turning D", 0);
+
+    // turningPIDController.setPID(turningPValue, turningIValue, turningDValue);
+
+    // turningPIDController.setSetpoint(turnSetpointDegree);
+    // double turningPIDOutput = turningPIDController.calculate(navX.getAngle());
+
+    // // Clamping turning PID value between min and max outputs //
+    // turningPIDOutput = Math.max(turningPIDOutput, turningPIDMin); 
+    // turningPIDOutput = Math.min(turningPIDOutput, turningPIDMax);
+
+    // drive.arcadeDrive(0, turningPIDOutput);
+
+
 
     // double xStickValue = RobotContainer.m_driverController.getRawAxis(4) *
     // Constants.DriveTrain.kspeedMultiplier * creepSpeed;
@@ -114,11 +163,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
     // System.out.printf("Controller: forward: %f, turn: %f\n",
     // xboxController.getLeftY(), xboxController.getRightX());
+
     drive.arcadeDrive(
         RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
         RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
 
-    // drive.arcadeDrive(1, 0);
+  
+
   }
 
   // public void resetEncoders() {
@@ -138,6 +189,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
   }
 
+
   public void setEncodersToZero() {
     rightEncoder.setPosition(0);
     leftEncoder.setPosition(0);
@@ -153,6 +205,27 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public void setDrivetrainSpeed(double speed, double rotation) {
     drive.arcadeDrive(speed, rotation);
+  }
+
+  public void resetNavX() {
+    navX.calibrate();
+    navX.reset();
+    navX.zeroYaw();
+  }
+
+  public void turnWithPID(double turnSetpointDegree) {
+    turningPIDController.setSetpoint(turnSetpointDegree);
+    double turningPIDOutput = turningPIDController.calculate(navX.getAngle());
+
+    // Clamping turning PID value between min and max outputs //
+    turningPIDOutput = Math.max(turningPIDOutput, turningPIDMin); 
+    turningPIDOutput = Math.min(turningPIDOutput, turningPIDMax);
+
+    drive.arcadeDrive(0, turningPIDOutput);
+  }
+
+  public boolean isAtSetpoint() {
+    return turningPIDController.atSetpoint();
   }
 
 }

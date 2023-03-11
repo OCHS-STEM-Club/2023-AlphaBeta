@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
+import frc.robot.commands.IntakeCommand;
 
 public class HandSubsystem extends SubsystemBase {
 
@@ -26,37 +27,52 @@ public class HandSubsystem extends SubsystemBase {
   private double ultrasonicSensorDistanceMM;
   private double ultrasonicSensorDistanceIn;
   private double time;
-  public double getUltrasonicSensorDistanceIn;
+  public boolean gamePieceInHand;
+ // public double getUltrasonicSensorDistanceIn;
 
 
   /** Creates a new HandSubsystem. */
   public HandSubsystem() {
     handMotorLeft = new TalonSRX(9); // TODO: Change ID//
     handMotorRight = new TalonSRX(10); // TODO: Change ID//
-    ultrasonicSensor = new Ultrasonic(4, 5);
+    ultrasonicSensor = new Ultrasonic(7, 8);
 
-    ultrasonicSensor.getRangeInches();
+    
 
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    double outputSpeed = 0;
-    if (RobotContainer.m_driverController.getRightBumper())
-      outputSpeed += 0.5; // Outake //
-    // if (RobotContainer.m_driverController.getLeftBumper()) outputSpeed -= 0.5;//
-    // Intake //
+    ultrasonicSensorDistanceIn = ultrasonicSensor.getRangeInches();
 
-    // spinHandMotors(outputSpeed);
+    if (ultrasonicSensorDistanceIn > 0.001 & ultrasonicSensorDistanceIn < 6) {
+      gamePieceInHand = true;
+   } else gamePieceInHand = false;
 
-    // ultrasonicSensorDistanceMM = ultrasonicSensor.getRangeMM();
+    // This method will be called once per scheduler run //
+    // double outputSpeed = 0;
+    // if (RobotContainer.m_driverController.getLeftBumper()) {
+    //   outputSpeed += -0.5; // Intake //
+    // } else if (ultrasonicSensorDistanceIn > 0.001 & ultrasonicSensorDistanceIn < 6) {
+    //   outputSpeed += -0.5;
+    //   if (RobotContainer.m_driverController.getRightBumper()) {
+    //     outputSpeed += 0.5; 
+    //   }
+    // } else if (RobotContainer.m_driverController.getRightBumper()) {
+    //   outputSpeed += 0.5; // Outake //
+    // }
+
+
+     //spinHandMotors(outputSpeed);
+
+   
+    //ultrasonicSensor.getRangeInches();
    
     handMotorLeft.setNeutralMode(NeutralMode.Coast);
     handMotorRight.setNeutralMode(NeutralMode.Coast);
 
     
-    SmartDashboard.putNumber("Ultrasonic distance", getUltrasonicSensorDistanceIn);
+    SmartDashboard.putNumber("Ultrasonic distance",  ultrasonicSensorDistanceIn);
   }
 
   public void spinHandMotors(double speed) {
@@ -69,16 +85,20 @@ public class HandSubsystem extends SubsystemBase {
     Ultrasonic.setAutomaticMode(true);
   }
 
-  public double getUltrasonicSensorDistanceIn(){
-    System.out.println(ultrasonicSensor.getRangeInches());
-    return ultrasonicSensor.getRangeInches();
-  }
+  // public double getUltrasonicSensorDistanceIn(){
+  //   System.out.println(ultrasonicSensor.getRangeInches());
+  //   return ultrasonicSensor.getRangeInches();
+  // }
 
   public void setAutomaticMode() {
     Ultrasonic.setAutomaticMode(true);
-    }
+  }
 
   public void autoHandOn(double speed) {
     spinHandMotors(speed);
+  }
+
+  public boolean gamePieceInHand() {
+   return gamePieceInHand;
   }
 }
