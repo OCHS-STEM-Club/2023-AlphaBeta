@@ -26,27 +26,6 @@
               "Colors/Color when false": "#FF00FFFF"
             }
           },
-          "0,0": {
-            "size": [
-              7,
-              4
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://limelight",
-              "_title": "limelight",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": 0,
-              "imageHeight": 0
-            }
-          },
           "9,0": {
             "size": [
               1,
@@ -66,33 +45,7 @@
               "Visuals/Orientation": "VERTICAL"
             }
           },
-          "7,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Left Encoder Distance",
-              "_title": "Left Encoder Distance",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "8,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Right Encoder Distance",
-              "_title": "Right Encoder Distance",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "9,3": {
+          "7,2": {
             "size": [
               1,
               1
@@ -105,9 +58,9 @@
               "_showGlyph": false
             }
           },
-          "7,2": {
+          "8,2": {
             "size": [
-              2,
+              1,
               1
             ],
             "content": {
@@ -118,7 +71,7 @@
               "_showGlyph": false
             }
           },
-          "9,2": {
+          "5,2": {
             "size": [
               1,
               1
@@ -127,6 +80,114 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Left Encoder",
               "_title": "Left Encoder",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right Encoder",
+              "_title": "Right Encoder",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_source0": "network_table:///SmartDashboard/navX-Sensor[4]",
+              "_title": "navX-Sensor[4]",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
+            }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_PipelineName",
+              "_title": "limelight_PipelineName",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_Stream",
+              "_title": "limelight_Stream",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_Interface",
+              "_title": "limelight_Interface",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/tv",
+              "_title": "tv",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight-kone_Interface",
+              "_title": "limelight-kone_Interface",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight-kone_PipelineName",
+              "_title": "limelight-kone_PipelineName",
               "_glyph": 148,
               "_showGlyph": false
             }

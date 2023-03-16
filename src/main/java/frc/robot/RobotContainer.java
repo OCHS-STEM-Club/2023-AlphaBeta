@@ -17,6 +17,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HandSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.AprilTagTracking;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.event.EventLoop;
@@ -55,6 +56,8 @@ public class RobotContainer {
   // private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
   public final LEDSubsystem m_ledSubsystem = new LEDSubsystem();
 
+  public final AprilTagTracking m_limelightTracking = new AprilTagTracking();
+
   // private final IntakeCommand
   // private final AutoDriveStraight m_autoDriveStraight = new
   // AutoDriveStraight(m_drivetrainSubsystem, m_distance, m_speed);
@@ -73,6 +76,9 @@ public class RobotContainer {
   // public static XboxController m_driverController;
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  double visionmove;
+  double visionturn;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -146,13 +152,14 @@ public class RobotContainer {
   private void configureBindings() {
 
     new JoystickButton(m_driverController, Button.kLeftBumper.value)
-        .whileTrue(new IntakeCommand(m_armSubsystem, m_handSubsystem));
+        .onFalse(new IntakeCommand(m_armSubsystem, m_handSubsystem));
 
     new JoystickButton(m_driverController, Button.kRightBumper.value)
+        .toggleOnTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem, 0))
         .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem, 0.5));
 
     new JoystickButton(m_driverController, Button.kA.value)
-      .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem, 1));
+      .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem, 0.4));
 
     new JoystickButton(m_buttonBox, Button.kA.value)
         .onTrue(new InstantCommand(() -> {
@@ -218,4 +225,18 @@ public class RobotContainer {
     m_drivetrainSubsystem.resetNavX();
   }
 
+  public void limelightTracking() {
+    if (RobotContainer.m_driverController.getXButton()) {
+      //System.out.println("Button X Pressed");
+      visionturn = m_limelightTracking.trackTurn();
+      System.out.println(visionturn);
+      m_drivetrainSubsystem.subclassTurn(RobotContainer.m_driverController.getRawAxis(1) * 0.5, visionturn);
+    } else if (RobotContainer.m_driverController.getYButton()) {
+      System.out.println("Button Y Pressed");
+      visionmove = m_limelightTracking.trackDrive();
+      m_drivetrainSubsystem.setDrivetrainSpeed(visionmove, RobotContainer.m_driverController.getRawAxis(4) * 0.5);
+    } else {
+      m_drivetrainSubsystem.driveManager();
+    }
+  }
 }

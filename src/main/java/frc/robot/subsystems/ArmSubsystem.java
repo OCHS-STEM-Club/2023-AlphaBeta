@@ -133,6 +133,10 @@ public class ArmSubsystem extends SubsystemBase {
       goToHighPosition();
     }
 
+    if (RobotContainer.m_buttonBox.getBButton()) {
+      goToHumanPlayerStation();
+    }
+
     // if (RobotContainer.m_buttonBox.getAButton()) {
     // pidReference = SmartDashboard.getNumber("PID Set Reference", 0);
     // armPIDController.setReference(pidReference,
@@ -181,6 +185,10 @@ public class ArmSubsystem extends SubsystemBase {
         RobotContainer.gamePieceMode == GamePieceMode.CONE ? Constants.Setpoints.kconeHighSetpoint
             : Constants.Setpoints.kcubeHighSetpoint,
         ControlType.kPosition);
+  }
+
+  public void goToHumanPlayerStation() {
+    armPIDController.setReference(Constants.Setpoints.khumanPlayerStation, ControlType.kPosition);
   }
 
   public void goToPosition(double position) {

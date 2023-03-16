@@ -164,9 +164,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // System.out.printf("Controller: forward: %f, turn: %f\n",
     // xboxController.getLeftY(), xboxController.getRightX());
 
-    drive.arcadeDrive(
-        RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
-        RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
+    // drive.arcadeDrive(
+    //     RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
+    //     RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
 
   
 
@@ -204,7 +204,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void setDrivetrainSpeed(double speed, double rotation) {
-    drive.arcadeDrive(speed, rotation);
+    drive.arcadeDrive(speed, rotation, false);
+  }
+
+  public void subclassTurn(double turnValue, double moveValue) {
+    drive.arcadeDrive(turnValue, moveValue, false);
   }
 
   public void resetNavX() {
@@ -226,6 +230,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public boolean isAtSetpoint() {
     return turningPIDController.atSetpoint();
+  }
+
+  public void driveManager() {
+    drive.arcadeDrive(
+        RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
+        RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
   }
 
 }

@@ -50,9 +50,8 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
   
-    
-
-  }
+  
+  } 
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
@@ -93,7 +92,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    m_robotContainer.limelightTracking();
+  }
 
   @Override
   public void testInit() {

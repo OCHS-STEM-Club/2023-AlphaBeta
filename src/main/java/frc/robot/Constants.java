@@ -57,6 +57,7 @@ public final class Constants {
     public static final double kconeHighSetpoint = 125;
     public static final double kcubeHighSetpoint = 108;
     public static final double kautoConeDropSetpoint = 70;
+    public static final double khumanPlayerStation = 95;
   }
   
   public static class LED {
