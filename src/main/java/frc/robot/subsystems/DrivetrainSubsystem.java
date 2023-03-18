@@ -124,6 +124,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Left Encoder", getLeftEncoderDistance());
     SmartDashboard.putNumber("Right Encoder", getRightEncoderDistance());
 
+    SmartDashboard.putData(drive);
+
     //System.out.println("NavX Heading" + navXGetHeading);
 
     SmartDashboard.putData(navX);
@@ -164,9 +166,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // System.out.printf("Controller: forward: %f, turn: %f\n",
     // xboxController.getLeftY(), xboxController.getRightX());
 
-    // drive.arcadeDrive(
-    //     RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
-    //     RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
+    drive.arcadeDrive(
+        RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
+        RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
 
   
 

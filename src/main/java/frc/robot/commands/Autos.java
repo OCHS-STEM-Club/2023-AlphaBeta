@@ -34,10 +34,10 @@ public final class Autos {
         // drive forward and move the arm to high, with the intake on
         new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
             .raceWith(new GrabberOn(handSubsystem, -0.5)),
-        new AutoDriveStraight(drivetrainSubsystem, -0.01, 0.35),
+        new AutoDriveStraight(drivetrainSubsystem, -0.01, 0.1),
         new WaitCommand(2)
             .raceWith(new GrabberOn(handSubsystem, 0.35)),
-        new AutoDriveStraight(drivetrainSubsystem, 0.09, -0.5),
+        new AutoDriveStraight(drivetrainSubsystem, 0.09, -0.35),
         new AutoArmMove(armSubsystem, Constants.Setpoints.kresetSetpoint),
         new GrabberOn(handSubsystem, 0)
     );
