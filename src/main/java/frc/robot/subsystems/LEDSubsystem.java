@@ -31,8 +31,9 @@ public class LEDSubsystem extends SubsystemBase {
 
   public void setFrontAll(Color color) {
     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-      m_ledBuffer.setLED(i, color);
-    
+      if (i % 2 == 0) {
+        m_ledBuffer.setLED(i, color);
+      } else m_ledBuffer.setLED(i, Color.kBlack);
     }
     m_led.setData(m_ledBuffer);
   }
