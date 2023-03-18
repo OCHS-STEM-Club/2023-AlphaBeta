@@ -13,6 +13,7 @@ import frc.robot.commands.GrabberOn;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.TankDriveCommand;
+import frc.robot.subsystems.AprilTagTracking;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HandSubsystem;
@@ -54,6 +55,8 @@ public class RobotContainer {
   // private final ArmCommand m_armCommand = new ArmCommand(m_armSubsystem);
   public final LEDSubsystem m_ledSubsystem = new LEDSubsystem();
 
+  public final AprilTagTracking m_aprilTagTracking = new AprilTagTracking();
+
   // private final IntakeCommand
   // private final AutoDriveStraight m_autoDriveStraight = new
   // AutoDriveStraight(m_drivetrainSubsystem, m_distance, m_speed);
@@ -72,6 +75,9 @@ public class RobotContainer {
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+  double visionmove;
+  double visionturn;
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -80,6 +86,8 @@ public class RobotContainer {
 
     m_tankDriveCommand.addRequirements(m_drivetrainSubsystem);
     m_drivetrainSubsystem.setDefaultCommand(m_tankDriveCommand);
+
+    
 
     // m_autoDriveStraight.addRequirements(m_drivetrainSubsystem);
     // SmartDashboard.putNumber("ArmEncoderValue",
@@ -120,6 +128,7 @@ public class RobotContainer {
     m_chooser.addOption("Mid Cone Auto", Autos.midConeMobilityAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("Drive Straight", Autos.driveStraight(m_drivetrainSubsystem));
     m_chooser.addOption("Cube High Station", Autos.highCubeCStation(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Auto Turn", Autos.autoTurn(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     // Put the chooser on the dashboard
     
   }
@@ -196,6 +205,21 @@ public class RobotContainer {
 
   public void stopHand() {
     m_handSubsystem.autoHandOn(0);
+  }
+
+  public void limelightTracking() {
+    if (RobotContainer.m_driverController.getXButton()) {
+      //System.out.println("Button X Pressed");
+      visionturn = m_aprilTagTracking.trackTurn();
+      System.out.println(visionturn);
+      m_drivetrainSubsystem.subclassTurn(RobotContainer.m_driverController.getRawAxis(1) * 0.5, visionturn);
+    } else if (RobotContainer.m_driverController.getYButton()) {
+      System.out.println("Button Y Pressed");
+      visionmove = m_aprilTagTracking.trackDrive();
+      m_drivetrainSubsystem.setDrivetrainSpeed(visionmove, RobotContainer.m_driverController.getRawAxis(4) * 0.5);
+    } else {
+      m_drivetrainSubsystem.driveManager();
+    }
   }
 
 

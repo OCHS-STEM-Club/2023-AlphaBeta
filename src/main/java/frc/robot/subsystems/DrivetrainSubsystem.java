@@ -10,6 +10,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -40,6 +41,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private SparkMaxPIDController drivetrainPIDRight;
 
   private double pidReference = 0;
+
+  private PIDController turningPIDController = new PIDController(0, 0, 0);
+
+  private final AHRS navX = new AHRS();
+  private double navXGetHeading;
+  
+  private double turnSetpointDegree = 0;
+
+  private double turningPIDMax = 0.75;
+  private double turningPIDMin = -0.75;
 
   // private final Gyro navX = new AHRS();
 
@@ -80,8 +91,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
     drivetrainPIDLeft = leftDrive1.getPIDController();
     drivetrainPIDRight = rightDrive1.getPIDController();
 
-    drivetrainPIDLeft.setP(2500);
-    drivetrainPIDRight.setP(2500);
+    //drivetrainPIDLeft.setP(2500);
+    //drivetrainPIDRight.setP(2500);
+
+    turningPIDController.enableContinuousInput(0, 360);
+
+    turningPIDController.setPID(0.04, 0.0025, 0.0175);
+
+    turningPIDController.setTolerance(4);
+
 
     //pidReference = SmartDashboard.getNumber("PID Set Reference", 0);
     //drivetrainPIDLeft.setReference(pidReference, CANSparkMax.ControlType.kPosition);
@@ -114,9 +132,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
     // System.out.printf("Controller: forward: %f, turn: %f\n",
     // xboxController.getLeftY(), xboxController.getRightX());
-    drive.arcadeDrive(
-        RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
-        RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
+    // drive.arcadeDrive(
+    //     RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
+    //     RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
 
     // drive.arcadeDrive(1, 0);
   }
@@ -154,5 +172,30 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void setDrivetrainSpeed(double speed, double rotation) {
     drive.arcadeDrive(speed, rotation);
   }
+
+  public void turnWithPID(double turnSetpointDegree) {
+    turningPIDController.setSetpoint(turnSetpointDegree);
+    double turningPIDOutput = turningPIDController.calculate(navX.getAngle());
+
+    // Clamping turning PID value between min and max outputs //
+    turningPIDOutput = Math.max(turningPIDOutput, turningPIDMin); 
+    turningPIDOutput = Math.min(turningPIDOutput, turningPIDMax);
+
+    drive.arcadeDrive(0, turningPIDOutput);
+  }
+
+  public boolean isAtSetpoint() {
+    return turningPIDController.atSetpoint();
+  }
+
+  public void subclassTurn(double turnValue, double moveValue) {
+    drive.arcadeDrive(turnValue, moveValue, false);
+}
+
+public void driveManager() {
+  drive.arcadeDrive(
+      RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
+      RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
+}
 
 }
