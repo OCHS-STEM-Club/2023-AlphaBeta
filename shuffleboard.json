@@ -47,7 +47,7 @@
           },
           "7,2": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -58,7 +58,7 @@
               "_showGlyph": false
             }
           },
-          "8,2": {
+          "8,3": {
             "size": [
               1,
               1
@@ -114,9 +114,9 @@
               "Visuals/Counter clockwise": false
             }
           },
-          "9,2": {
+          "9,3": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -166,7 +166,7 @@
               "_showGlyph": false
             }
           },
-          "8,3": {
+          "10,1": {
             "size": [
               1,
               1
@@ -179,9 +179,9 @@
               "_showGlyph": false
             }
           },
-          "9,3": {
+          "9,2": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -212,6 +212,19 @@
               "imageWidth": -1,
               "imageHeight": -1
             }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight-kone_Stream",
+              "_title": "limelight-kone_Stream",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
@@ -231,9 +244,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -7.199999809265137,
-    "y": -7.199999809265137,
-    "width": 1550.4000244140625,
-    "height": 830.4000244140625
+    "x": 1528.0,
+    "y": -8.0,
+    "width": 1936.0,
+    "height": 1048.0
   }
 }

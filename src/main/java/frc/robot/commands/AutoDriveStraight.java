@@ -26,6 +26,7 @@ public class AutoDriveStraight extends CommandBase {
   @Override
   public void initialize() {
     m_drivetrainSubsystem.setEncodersToZero();
+    System.out.println(m_drivetrainSubsystem.getSpeed());
 
   }
 

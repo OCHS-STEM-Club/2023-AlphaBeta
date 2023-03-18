@@ -62,6 +62,6 @@ public final class Constants {
   
   public static class LED {
     public static final int PWPORT = 0;
-    public static final int BUFFERSIZE = 1;
+    public static final int BUFFERSIZE = 60;
   }
 }
