@@ -69,12 +69,18 @@ public class LEDSubsystem extends SubsystemBase {
         setFrontAll(Color.kPurple);
       }
 
+      if(RobotContainer.m_buttonBox.getRawButton(9)) {
+        //color = Color.kDarkOrchid;
+        setFrontAll(Color.kBlack);
+      }
+
       if(RobotContainer.m_buttonBox.getRawButton(10)) {
         color = DriverStation.getAlliance();
         if (color == DriverStation.Alliance.Blue) {
           setFrontAll(Color.kBlue);
         } else setFrontAll(Color.kRed);
       }
+
       // else {
       //   setFrontAll(Color.kBlue);
       // }

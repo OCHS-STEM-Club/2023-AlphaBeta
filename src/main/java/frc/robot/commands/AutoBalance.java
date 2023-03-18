@@ -7,49 +7,41 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class AutoDriveStraight extends CommandBase {
+public class AutoBalance extends CommandBase {
 
-  private final double m_distance;
   private final double m_speed;
 
   private final DrivetrainSubsystem m_drivetrainSubsystem;
-
-  /** Creates a new AutoDriveStraight. */
-  public AutoDriveStraight(DrivetrainSubsystem drivetrain, double distance, double speed) {
+  /** Creates a new AutoBalance. */
+  public AutoBalance(DrivetrainSubsystem drivetrain, double speed) {
     m_drivetrainSubsystem = drivetrain;
-    m_distance = distance;
     m_speed = speed;
     addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_drivetrainSubsystem.setEncodersToZero();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrainSubsystem.setDrivetrainSpeed(Math.abs(m_speed) * Math.signum(m_distance), 0);
-    // m_drivetrainSubsystem.auto(m_distance, m_speed);
-
+    if (m_drivetrainSubsystem.getRollAngle() < -8.5) {
+      m_drivetrainSubsystem.setDrivetrainSpeed((-m_speed), 0);
+    } else if (m_drivetrainSubsystem.getRollAngle() >= -8.5 && m_drivetrainSubsystem.getRollAngle() <= 8.5) {
+      m_drivetrainSubsystem.setDrivetrainSpeed(0, 0);
+    } else if (m_drivetrainSubsystem.getRollAngle() > 8.5) {
+      m_drivetrainSubsystem.setDrivetrainSpeed((m_speed), 0);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    // m_drivetrainSubsystem.auto(m_distance, m_speed);
-    m_drivetrainSubsystem.setDrivetrainSpeed(0, 0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_distance >= 0) {
-      return m_drivetrainSubsystem.getLeftEncoderDistance() >= m_distance;
-    } else {
-      return m_drivetrainSubsystem.getLeftEncoderDistance() <= m_distance;
-    }
+    return false;
   }
 }

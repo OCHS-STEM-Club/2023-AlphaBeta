@@ -8,6 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -102,6 +103,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     turningPIDController.setTolerance(4);
 
+    
+
     // SmartDashboard.putNumber("turning P", turningPValue);
     // SmartDashboard.putNumber("turning I", turningIValue);
     // SmartDashboard.putNumber("turning D", turningDValue);
@@ -129,6 +132,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     //System.out.println("NavX Heading" + navXGetHeading);
 
     SmartDashboard.putData(navX);
+
+    System.out.println(navX.getRoll());
 
     // turnSetpointDegree = SmartDashboard.getNumber("turn setpoint", 0);
     // turningPValue = SmartDashboard.getNumber("turning P", 0);
@@ -166,9 +171,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     // System.out.printf("Controller: forward: %f, turn: %f\n",
     // xboxController.getLeftY(), xboxController.getRightX());
 
-    drive.arcadeDrive(
-        RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
-        RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
+    // drive.arcadeDrive(
+    //     RobotContainer.m_driverController.getRawAxis(1) * Constants.DriveTrain.kspeedMultiplier * creepSpeed,
+    //     RobotContainer.m_driverController.getRawAxis(4) * Constants.DriveTrain.kspeedMultiplier * creepSpeed);
 
   
 
@@ -244,4 +249,26 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return leftDrive1.get();
   }
 
-}
+  public void setBrakeMode() {
+    leftDrive1.setIdleMode(IdleMode.kBrake);
+    leftDrive2.setIdleMode(IdleMode.kBrake);
+    rightDrive1.setIdleMode(IdleMode.kBrake);
+    rightDrive2.setIdleMode(IdleMode.kBrake);
+  }
+
+  public void autoChargeBalance() {
+    turningPIDController.setSetpoint(turnSetpointDegree);
+    double turningPIDOutput = turningPIDController.calculate(navX.getAngle());
+
+    // Clamping turning PID value between min and max outputs //
+    turningPIDOutput = Math.max(turningPIDOutput, turningPIDMin); 
+    turningPIDOutput = Math.min(turningPIDOutput, turningPIDMax);
+
+    drive.arcadeDrive(0, turningPIDOutput);
+    }
+
+  public double getRollAngle() {
+    return navX.getRoll();
+  }
+  }
+
