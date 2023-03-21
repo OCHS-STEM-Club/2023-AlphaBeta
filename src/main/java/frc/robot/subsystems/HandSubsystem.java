@@ -99,6 +99,11 @@ public class HandSubsystem extends SubsystemBase {
   }
 
   public boolean gamePieceInHand() {
-   return gamePieceInHand;
-  }
+    if (ultrasonicSensorDistanceIn < 4) {
+      return true;
+    } else if (ultrasonicSensorDistanceIn >= 4) {
+   return false;
+  } else return false;
+
+}
 }

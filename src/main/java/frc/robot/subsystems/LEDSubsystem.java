@@ -29,7 +29,9 @@ public class LEDSubsystem extends SubsystemBase {
     color = DriverStation.getAlliance();
         if (color == DriverStation.Alliance.Blue) {
           setFrontAll(Color.kBlue);
-        } else setFrontAll(Color.kRed);
+        } else if (color == DriverStation.Alliance.Red) {
+          setFrontAll(Color.kRed);
+        } else setFrontAll(Color.kBlue);
     
   }
 
@@ -74,6 +76,7 @@ public class LEDSubsystem extends SubsystemBase {
         setFrontAll(Color.kBlack);
       }
 
+
       if(RobotContainer.m_buttonBox.getRawButton(10)) {
         color = DriverStation.getAlliance();
         if (color == DriverStation.Alliance.Blue) {
@@ -92,6 +95,10 @@ public class LEDSubsystem extends SubsystemBase {
       m_led.setLength(m_ledBuffer.getLength());
       m_led.setData(m_ledBuffer);
       m_led.start();
+    }
+
+    public void setColor(Color color) {
+      setFrontAll(color);
     }
   
 }

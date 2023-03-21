@@ -14,17 +14,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LimelightTracking extends SubsystemBase {
 
-  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-kone3");
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-kone");
 
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
   NetworkTableEntry tl = table.getEntry("tl");
+  NetworkTableEntry pl = table.getEntry("pipeline");
 
   double targetOffsetAngle_Vertical = ty.getDouble(0.0);
   double targetOffsetAngle_Horizontal = tx.getDouble(0.0);
   double targetArea = ta.getDouble(0.0);
   double targetSkew = tl.getDouble(0.0);
+  // double pipeline = pl.getDouble(1);
 
 
   private double targetValue;
@@ -43,6 +45,7 @@ public class LimelightTracking extends SubsystemBase {
     NetworkTableEntry ty = table.getEntry("ty");
     NetworkTableEntry ta = table.getEntry("ta");
     NetworkTableEntry tl = table.getEntry("tl");
+
   }
 
   private double clamp(double in, double minval, double maxval) {
@@ -58,7 +61,8 @@ public class LimelightTracking extends SubsystemBase {
   }
 
   public double trackTurn() {
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-kone3");
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-kone");
+    //NetworkTableInstance.getDefault().getTable("limelight-kone").getEntry("pipeline").setNumber(1);
     targetOffsetAngle_Horizontal = table.getEntry("tx").getDouble(0.0);
     targetValue = table.getEntry("tv").getDouble(0.0);
     SmartDashboard.putNumber("tv", targetValue);
@@ -72,7 +76,8 @@ public class LimelightTracking extends SubsystemBase {
 
 
   public double trackDrive() {
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-kone3");
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-kone");
+    //NetworkTableInstance.getDefault().getTable("limelight-kone").getEntry("pipeline").setNumber(1);
     targetOffsetAngle_Vertical = table.getEntry("ty").getDouble(0.0);
     targetValue = table.getEntry("tv").getDouble(0.0);
     SmartDashboard.putNumber("tv", targetValue);

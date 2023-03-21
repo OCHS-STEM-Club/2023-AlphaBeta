@@ -31,7 +31,7 @@ public final class Autos {
             .raceWith(new GrabberOn(handSubsystem, -0.25)),
         new AutoDriveStraight(drivetrainSubsystem, -0.01, 0.2),
         new WaitCommand(2)
-            .raceWith(new GrabberOn(handSubsystem, 0.35)),
+            .raceWith(new GrabberOn(handSubsystem, 0.3)),
         new AutoDriveStraight(drivetrainSubsystem, 0.09, -0.35)
             .alongWith(new AutoArmMove(armSubsystem, Constants.Setpoints.kresetSetpoint))
             .raceWith(new GrabberOn(handSubsystem, 0))
@@ -104,7 +104,7 @@ public final class Autos {
       );
   }
 
-  public static CommandBase autoBalance(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
+  public static CommandBase autoBalanceWithMobility(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
     return Commands.sequence(
       new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
             .raceWith(new GrabberOn(handSubsystem, -0.25)),

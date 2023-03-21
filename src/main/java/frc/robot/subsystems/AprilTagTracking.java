@@ -23,12 +23,15 @@ public class AprilTagTracking extends SubsystemBase {
 
   NetworkTableEntry tid = table.getEntry("tid");
 
+  NetworkTableEntry pl = table.getEntry("pipeline");
+
 
   double targetOffsetAngle_Vertical = ty.getDouble(0.0);
   double targetOffsetAngle_Horizontal = tx.getDouble(0.0);
   double targetArea = ta.getDouble(0.0);
   double targetSkew = tl.getDouble(0.0);
   double id = tid.getInteger(0);
+  double pipeline = pl.getDouble(0);
 
   private double targetValue;
   private double turnOutput;
@@ -50,7 +53,7 @@ public class AprilTagTracking extends SubsystemBase {
 
     NetworkTableEntry tid = table.getEntry("tid");
 
-    System.out.print(tid);
+  
 
     //System.out.println(trackTurn());
    
@@ -72,6 +75,7 @@ public class AprilTagTracking extends SubsystemBase {
 
   public double trackTurn() {
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-kone");
+    NetworkTableInstance.getDefault().getTable("limelight-kone").getEntry("pipeline").setNumber(0);
     targetOffsetAngle_Horizontal = table.getEntry("tx").getDouble(0.0);
     targetValue = table.getEntry("tv").getDouble(0.0);
     SmartDashboard.putNumber("tv", targetValue);
@@ -88,13 +92,14 @@ public class AprilTagTracking extends SubsystemBase {
 
   public double trackDrive() {
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-kone");
+    NetworkTableInstance.getDefault().getTable("limelight-kone").getEntry("pipeline").setNumber(0);
     targetOffsetAngle_Vertical = table.getEntry("ty").getDouble(0.0);
     targetValue = table.getEntry("tv").getDouble(0.0);
     SmartDashboard.putNumber("tv", targetValue);
 
     if (targetValue == 1) {
       driveOutput = targetOffsetAngle_Vertical * STEER_K;
-      driveOutput = clamp(driveOutput, -0.2, 0.2);
+      driveOutput = clamp(driveOutput, -0.25, 0.25);
       return driveOutput;
     } else return 0;
   }

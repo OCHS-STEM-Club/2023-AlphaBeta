@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -129,12 +130,13 @@ public class RobotContainer {
     SmartDashboard.putData(m_chooser);
 
     m_chooser.setDefaultOption("Cube High Auto", Autos.highCubeAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
-    m_chooser.addOption("Mobility Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
-    m_chooser.addOption("Mid Cone Auto", Autos.midConeMobilityAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
-    m_chooser.addOption("Auto Turn", Autos.autoTurn(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("Auto Two Pieces", Autos.autoTwoPieces(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Auto Balance w/ Mobility", Autos.autoBalanceWithMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("Auto Charge Station", Autos.autoChargeBalance(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
-    m_chooser.addOption("Auto Balance", Autos.autoBalance(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Mid Cone Auto", Autos.midConeMobilityAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem)); 
+    m_chooser.addOption("Auto Turn", Autos.autoTurn(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Mobility Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
+    
     // Put the chooser on the dashboard
     
   }
@@ -233,18 +235,57 @@ public class RobotContainer {
     m_drivetrainSubsystem.setBrakeMode();
   }
 
-  public void limelightTracking() {
+  public void aprilTagTracking() {
     if (RobotContainer.m_driverController.getXButton()) {
       //System.out.println("Button X Pressed");
       visionturn = m_aprilTagTracking.trackTurn();
       //System.out.println(visionturn);
       m_drivetrainSubsystem.subclassTurn(RobotContainer.m_driverController.getRawAxis(1) * 0.5, visionturn);
-    } else if (RobotContainer.m_driverController.getYButton()) {
+    } 
+    
+    
+    
+    
+    
+    else if (RobotContainer.m_driverController.getYButton()) {
       //System.out.println("Button Y Pressed");
       visionmove = m_aprilTagTracking.trackDrive();
       m_drivetrainSubsystem.setDrivetrainSpeed(visionmove, RobotContainer.m_driverController.getRawAxis(4) * 0.5);
-    } else {
+    } 
+
+    // else if (RobotContainer.m_driverController.getAButton()) {
+    //   //System.out.println("Button X Pressed");
+    //   visionturn = m_limelightTracking.trackTurn();
+    //   //System.out.println(visionturn);
+    //   m_drivetrainSubsystem.subclassTurn(RobotContainer.m_driverController.getRawAxis(1) * 0.5, visionturn);
+    // } else if (RobotContainer.m_driverController.getBButton()) {
+    //   //System.out.println("Button Y Pressed");
+    //   visionmove = m_limelightTracking.trackDrive();
+    //   m_drivetrainSubsystem.setDrivetrainSpeed(visionmove, RobotContainer.m_driverController.getRawAxis(4) * 0.5);
+    // } 
+    else {
       m_drivetrainSubsystem.driveManager();
     }
   }
+
+  // public void limelightTracking() {
+  //   if (RobotContainer.m_driverController.getAButton()) {
+  //     //System.out.println("Button X Pressed");
+  //     visionturn = m_limelightTracking.trackTurn();
+  //     //System.out.println(visionturn);
+  //     m_drivetrainSubsystem.subclassTurn(RobotContainer.m_driverController.getRawAxis(1) * 0.5, visionturn);
+  //   } else if (RobotContainer.m_driverController.getBButton()) {
+  //     //System.out.println("Button Y Pressed");
+  //     visionmove = m_limelightTracking.trackDrive();
+  //     m_drivetrainSubsystem.setDrivetrainSpeed(visionmove, RobotContainer.m_driverController.getRawAxis(4) * 0.5);
+  //   } else {
+  //     m_drivetrainSubsystem.driveManager();
+  //   }
+  // }
+
+    public void setGreen() {
+      if(m_handSubsystem.gamePieceInHand == true) {
+        m_ledSubsystem.setColor(Color.kGreen);
+      }
+    }
 }
