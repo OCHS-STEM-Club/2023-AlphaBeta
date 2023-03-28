@@ -189,6 +189,19 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight-kone_Interface",
+              "_title": "limelight-kone_Interface",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }

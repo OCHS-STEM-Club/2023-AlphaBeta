@@ -26,11 +26,11 @@ public class AutoBalance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_drivetrainSubsystem.getRollAngle() < -8.5) {
+    if (m_drivetrainSubsystem.getRollAngle() < -10) {
       m_drivetrainSubsystem.setDrivetrainSpeed((-m_speed), 0);
-    } else if (m_drivetrainSubsystem.getRollAngle() >= -8.5 && m_drivetrainSubsystem.getRollAngle() <= 8.5) {
+    } else if (m_drivetrainSubsystem.getRollAngle() >= -10 && m_drivetrainSubsystem.getRollAngle() <= 10) {
       m_drivetrainSubsystem.setDrivetrainSpeed(0, 0);
-    } else if (m_drivetrainSubsystem.getRollAngle() > 8.5) {
+    } else if (m_drivetrainSubsystem.getRollAngle() > 10) {
       m_drivetrainSubsystem.setDrivetrainSpeed((m_speed), 0);
     }
   }

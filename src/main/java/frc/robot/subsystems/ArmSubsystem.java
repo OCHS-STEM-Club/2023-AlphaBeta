@@ -74,6 +74,8 @@ public class ArmSubsystem extends SubsystemBase {
 
     armMotor.getEncoder().setPositionConversionFactor(1);
 
+    armMotor.setSmartCurrentLimit(20);
+
     // SmartDashboard.putNumber("Arm P Value", 0.1);
     // SmartDashboard.putNumber("Arm D Value", 0.01);
 

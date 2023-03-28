@@ -108,18 +108,52 @@ public final class Autos {
     return Commands.sequence(
       new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
             .raceWith(new GrabberOn(handSubsystem, -0.25)),
-        new AutoDriveStraight(drivetrainSubsystem, -0.005, 0.25),
-        new WaitCommand(1.5)
+        new AutoDriveStraight(drivetrainSubsystem, -0.005, 0.3),
+        new WaitCommand(1)
             .raceWith(new GrabberOn(handSubsystem, 0.3)),
       new AutoDriveStraight(drivetrainSubsystem, 0.02, -0.5)
         .raceWith(new GrabberOn(handSubsystem, 0))
         .raceWith(new AutoArmMove(armSubsystem, 55)),
       new AutoDriveStraight(drivetrainSubsystem, 0.05, -0.25),
-      new AutoDriveStraight(drivetrainSubsystem, 0.045, -0.15),
-      new AutoDriveStraight(drivetrainSubsystem, -0.04, 0.2),
+      new AutoDriveStraight(drivetrainSubsystem, 0.04, -0.15),
+      new AutoDriveStraight(drivetrainSubsystem, -0.045, 0.3),
+      new AutoBalance(drivetrainSubsystem, 0.1) //0.1
+    );
+  }
+
+  public static CommandBase autoBalanceWithoutMobility(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
+    return Commands.sequence(
+      new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
+            .raceWith(new GrabberOn(handSubsystem, -0.25)),
+        new AutoDriveStraight(drivetrainSubsystem, -0.005, 0.3),
+        new WaitCommand(1)
+            .raceWith(new GrabberOn(handSubsystem, 0.3)),
+      new AutoDriveStraight(drivetrainSubsystem, 0.01, -0.2)
+        .raceWith(new GrabberOn(handSubsystem, 0)),
+      new AutoArmMove(armSubsystem, 55),
+      new AutoDriveStraight(drivetrainSubsystem, 0.02, -0.2),
+      new WaitCommand(1),
+      new AutoDriveStraight(drivetrainSubsystem, 0.01, -0.2),
       new AutoBalance(drivetrainSubsystem, 0.1)
     );
   }
+
+  public static CommandBase tossCubeAutoBalanceWithMobility(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
+    return Commands.sequence(
+      new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
+        .raceWith(new GrabberOn(handSubsystem, -0.25)),
+      new AutoDriveStraight(drivetrainSubsystem, 0.03, -0.25)
+        .raceWith(new GrabberOn(handSubsystem, 1)),
+      new WaitCommand(1),
+      new AutoDriveStraight(drivetrainSubsystem, 0.05, -0.25)
+        .raceWith(new AutoArmMove(armSubsystem, 55))
+        .raceWith(new GrabberOn(handSubsystem, 0)),
+    new AutoDriveStraight(drivetrainSubsystem, 0.055, -0.15),
+    new AutoDriveStraight(drivetrainSubsystem, -0.05, -0.15),
+    new AutoBalance(drivetrainSubsystem, 0.09)
+    );
+  }
+
   // new AutoDriveStraight(drivetrainSubsystem, 2, 0.5),
   // new AutoArmMove(armSubsystem, -900, 0.5),
   // new GrabberOn(handSubsystem, 0.5)
