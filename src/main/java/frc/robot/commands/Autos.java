@@ -85,7 +85,15 @@ public final class Autos {
     new AutoDriveStraight(drivetrainSubsystem, 0.07, -0.5)
       .raceWith(new AutoArmMove(armSubsystem, -10)),
     new WaitCommand(2),
-    new AutoTurn(drivetrainSubsystem, -180)
+    new AutoTurn(drivetrainSubsystem, -180),
+    new GrabberOn(handSubsystem, -0.5),
+    new AutoDriveStraight(drivetrainSubsystem, -0.01, 0.35),
+    new AutoArmMove(armSubsystem, Constants.Setpoints.kcarrySetpoint),
+    new AutoTurn(drivetrainSubsystem, -180),
+    new AutoDriveStraight(drivetrainSubsystem, -0.07, 0.5),
+    new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeMidSetpoint),
+    new AutoDriveStraight(drivetrainSubsystem, -0.1, 0.35)
+      .raceWith(new GrabberOn(handSubsystem, 0.2))
     );
   }
 
