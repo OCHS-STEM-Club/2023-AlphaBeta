@@ -134,6 +134,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putData(navX);
 
     System.out.println(navX.getRoll());
+    // System.out.println(leftDrive1.getOutputCurrent());
 
     // turnSetpointDegree = SmartDashboard.getNumber("turn setpoint", 0);
     // turningPValue = SmartDashboard.getNumber("turning P", 0);
@@ -269,6 +270,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public double getRollAngle() {
     return navX.getRoll();
+  }
+
+  public double getVoltage() {
+    return leftDrive1.getBusVoltage();
   }
   }
 

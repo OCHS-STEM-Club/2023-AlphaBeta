@@ -23,17 +23,17 @@ public final class Constants {
     public static final int krightDrive1Id = 7;
     public static final int krightDrive2Id = 8;
 
-    public static final double kspeedMultiplier = 0.8;
+    public static final double kspeedMultiplier = 0.7;
 
     // Never exceed 12 volts //
     public static final double kmaxDriveVoltage = 12;
 
-    public static final double ksetOpenLoopRampRate = 0.85;
+    public static final double ksetOpenLoopRampRate = 0.95;
 
     // Drive Encoder Values //
     public static final double kdriveEncoderNativeUnitsPerRev = 42;
     public static final double kdriveGearRatio = 8.16;
-    public static final double kwheelDiameterInches = 5; // TODO: Temporary wheel diameter
+    public static final double kwheelDiameterInches = 6; // TODO: Temporary wheel diameter
 
     public static final double kinchesToMeters = 0.0254;
   }

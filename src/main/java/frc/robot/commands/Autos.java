@@ -17,7 +17,7 @@ public final class Autos {
 
   public static CommandBase mobilityAuto(DrivetrainSubsystem drivetrainSubsystem, HandSubsystem handSubsystem) {
     return Commands.sequence(
-        new AutoDriveStraight(drivetrainSubsystem, 0.07, -0.5)
+        new AutoDriveStraight(drivetrainSubsystem, 0.07, -0.25)
             .alongWith(new GrabberOn(handSubsystem, 0.5)));
   }
 
@@ -108,7 +108,7 @@ public final class Autos {
     return Commands.sequence(
       new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
             .raceWith(new GrabberOn(handSubsystem, -0.25)),
-        new AutoDriveStraight(drivetrainSubsystem, -0.005, 0.3),
+        new AutoDriveStraight(drivetrainSubsystem, -0.004, 0.3),
         new WaitCommand(1)
             .raceWith(new GrabberOn(handSubsystem, 0.3)),
       new AutoDriveStraight(drivetrainSubsystem, 0.02, -0.5)
@@ -116,7 +116,7 @@ public final class Autos {
         .raceWith(new AutoArmMove(armSubsystem, 55)),
       new AutoDriveStraight(drivetrainSubsystem, 0.05, -0.25),
       new AutoDriveStraight(drivetrainSubsystem, 0.04, -0.15),
-      new AutoDriveStraight(drivetrainSubsystem, -0.045, 0.3),
+      new AutoDriveStraight(drivetrainSubsystem, -0.04, 0.3),
       new AutoBalance(drivetrainSubsystem, 0.1) //0.1
     );
   }

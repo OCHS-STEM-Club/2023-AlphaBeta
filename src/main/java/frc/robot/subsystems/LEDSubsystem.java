@@ -61,18 +61,14 @@ public class LEDSubsystem extends SubsystemBase {
   }
 
     public void setBallLEDs() {
-      //Color color = Color.kBlue;
       if(RobotContainer.m_buttonBox.getRightTriggerAxis() > 0) {
-        //color = Color.kYellow;
         setFrontAllRGB(255, 180, 0);
       } 
       if(RobotContainer.m_buttonBox.getLeftTriggerAxis() > 0) {
-        //color = Color.kDarkOrchid;
         setFrontAll(Color.kPurple);
       }
 
       if(RobotContainer.m_buttonBox.getRawButton(9)) {
-        //color = Color.kDarkOrchid;
         setFrontAll(Color.kBlack);
       }
 
