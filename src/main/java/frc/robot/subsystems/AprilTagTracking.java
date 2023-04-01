@@ -84,7 +84,7 @@ public class AprilTagTracking extends SubsystemBase {
     if (targetValue == 1) {
       turnOutput = targetOffsetAngle_Horizontal* STEER_K; //* STEER_K
       //System.out.println(turnOutput);
-      turnOutput = clamp(turnOutput, -MAX_STEER, MAX_STEER);
+      turnOutput = clamp(turnOutput, -0.5, 0.5);
       //System.out.println(turnOutput);
       return turnOutput;
     } else return 0;
@@ -99,7 +99,7 @@ public class AprilTagTracking extends SubsystemBase {
 
     if (targetValue == 1) {
       driveOutput = targetOffsetAngle_Vertical * STEER_K;
-      driveOutput = clamp(driveOutput, -0.25, 0.25);
+      driveOutput = clamp(driveOutput, -0.5, 0.5);
       return driveOutput;
     } else return 0;
   }

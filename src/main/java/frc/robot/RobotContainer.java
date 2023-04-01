@@ -138,6 +138,7 @@ public class RobotContainer {
     m_chooser.addOption("Mobility Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
     m_chooser.addOption("Auto Balance w/o Mobility", Autos.autoBalanceWithoutMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("Toss Cube Auto Balance", Autos.tossCubeAutoBalanceWithMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("PID Drive", Autos.autoPIDStraight(m_drivetrainSubsystem));
     
     // Put the chooser on the dashboard
     
@@ -167,7 +168,7 @@ public class RobotContainer {
         .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem, 0.5));
 
     new JoystickButton(m_driverController, Button.kA.value)
-      .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem, 0.4));
+      .whileTrue(new OuttakeCommand(m_armSubsystem, m_handSubsystem, 1));
 
     new JoystickButton(m_buttonBox, Button.kA.value)
         .onTrue(new InstantCommand(() -> {
@@ -242,7 +243,7 @@ public class RobotContainer {
       //System.out.println("Button X Pressed");
       visionturn = m_aprilTagTracking.trackTurn();
       //System.out.println(visionturn);
-      m_drivetrainSubsystem.subclassTurn(RobotContainer.m_driverController.getRawAxis(1) * 0.5, visionturn);
+      m_drivetrainSubsystem.subclassTurn(visionturn, RobotContainer.m_driverController.getRawAxis(4) * 0.5);
     } 
     
     

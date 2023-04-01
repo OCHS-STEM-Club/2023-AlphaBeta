@@ -116,8 +116,8 @@ public final class Autos {
         .raceWith(new AutoArmMove(armSubsystem, 55)),
       new AutoDriveStraight(drivetrainSubsystem, 0.05, -0.25),
       new AutoDriveStraight(drivetrainSubsystem, 0.04, -0.15),
-      new AutoDriveStraight(drivetrainSubsystem, -0.04, 0.3),
-      new AutoBalance(drivetrainSubsystem, 0.1) //0.1
+      new AutoDriveStraight(drivetrainSubsystem, -0.04, 0.3)
+        .andThen(new AutoBalance(drivetrainSubsystem, 0.1))
     );
   }
 
@@ -151,6 +151,13 @@ public final class Autos {
     new AutoDriveStraight(drivetrainSubsystem, 0.055, -0.15),
     new AutoDriveStraight(drivetrainSubsystem, -0.05, -0.15),
     new AutoBalance(drivetrainSubsystem, 0.09)
+    );
+  }
+
+  public static CommandBase autoPIDStraight(DrivetrainSubsystem drivetrainSubsystem){
+    return Commands.sequence(
+      //new AutoTurn(drivetrainSubsystem, 90)
+      new AutoPIDDrive(drivetrainSubsystem, 90, 0, 0)
     );
   }
 

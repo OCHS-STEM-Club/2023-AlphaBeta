@@ -47,15 +47,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private double navXGetHeading;
 
   private PIDController turningPIDController = new PIDController(0, 0, 0);
+  private PIDController drivingPIDController = new PIDController(0, 0, 0);
 
   private double turnSetpointDegree = 0;
 
   private double turningPIDMax = 0.75;
   private double turningPIDMin = -0.75;
 
-  private double turningPValue;
-  private double turningIValue;
-  private double turningDValue;
+  private double drivingPValue;
+  private double drivingIValue;
+  private double drivingDValue;
+
+  private double driveSetpointLength;
 
   /** Creates a new Drivetrain. */
   public DrivetrainSubsystem() {
@@ -94,24 +97,25 @@ public class DrivetrainSubsystem extends SubsystemBase {
     drivetrainPIDLeft = leftDrive1.getPIDController();
     drivetrainPIDRight = rightDrive1.getPIDController();
 
-    drivetrainPIDLeft.setP(2500);
-    drivetrainPIDRight.setP(2500);
+    //drivetrainPIDLeft.setP(2500);
+    //drivetrainPIDRight.setP(2500);
 
     turningPIDController.enableContinuousInput(0, 360);
-
     turningPIDController.setPID(0.04, 0.0025, 0.0175);
-
     turningPIDController.setTolerance(4);
+
+    drivingPIDController.setPID(0.3, 0, 0);
+
 
     
 
-    // SmartDashboard.putNumber("turning P", turningPValue);
-    // SmartDashboard.putNumber("turning I", turningIValue);
-    // SmartDashboard.putNumber("turning D", turningDValue);
-    // SmartDashboard.putNumber("turn setpoint", turnSetpointDegree);
+    // SmartDashboard.putNumber("turning P", drivingPValue);
+    // SmartDashboard.putNumber("turning I", drivingIValue);
+    // SmartDashboard.putNumber("turning D", drivingDValue);
+    // SmartDashboard.putNumber("turn setpoint", driveSetpointLength);
 
-    //pidReference = SmartDashboard.getNumber("PID Set Reference", 0);
-    //drivetrainPIDLeft.setReference(pidReference, CANSparkMax.ControlType.kPosition);
+  //   pidReference = SmartDashboard.getNumber("PID Set Reference", 0);
+  //  drivetrainPIDLeft.setReference(pidReference, CANSparkMax.ControlType.kPosition);
 
 
     navX.calibrate();
@@ -131,26 +135,28 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     //System.out.println("NavX Heading" + navXGetHeading);
 
-    SmartDashboard.putData(navX);
+    SmartDashboard.putNumber("NavX" , navX.getRoll());
 
-    System.out.println(navX.getRoll());
+    //System.out.println(navX.getRoll());
+
+    System.out.println(navX.getYaw());
     // System.out.println(leftDrive1.getOutputCurrent());
 
-    // turnSetpointDegree = SmartDashboard.getNumber("turn setpoint", 0);
-    // turningPValue = SmartDashboard.getNumber("turning P", 0);
-    // turningIValue = SmartDashboard.getNumber("turning I", 0);
-    // turningDValue = SmartDashboard.getNumber("turning D", 0);
+    // driveSetpointLength = SmartDashboard.getNumber("turn setpoint", 0);
+    // drivingPValue = SmartDashboard.getNumber("turning P", 0);
+    // drivingIValue = SmartDashboard.getNumber("turning I", 0);
+    // drivingDValue = SmartDashboard.getNumber("turning D", 0);
 
-    // turningPIDController.setPID(turningPValue, turningIValue, turningDValue);
+    // drivingPIDController.setPID(drivingPValue, drivingIValue, drivingDValue);
 
-    // turningPIDController.setSetpoint(turnSetpointDegree);
-    // double turningPIDOutput = turningPIDController.calculate(navX.getAngle());
+    // drivingPIDController.setSetpoint(turnSetpointDegree);
+    // double drivingPIDOutput = turningPIDController.calculate(leftEncoder.getPosition());
 
-    // // Clamping turning PID value between min and max outputs //
-    // turningPIDOutput = Math.max(turningPIDOutput, turningPIDMin); 
-    // turningPIDOutput = Math.min(turningPIDOutput, turningPIDMax);
+    // Clamping turning PID value between min and max outputs //
+    // drivingPIDOutput = Math.max(drivingPIDOutput, turningPIDMin); 
+    // drivingPIDOutput = Math.min(drivingPIDOutput, turningPIDMax);
 
-    // drive.arcadeDrive(0, turningPIDOutput);
+    // drive.arcadeDrive(drivingPIDOutput, 0);
 
 
 
@@ -236,8 +242,22 @@ public class DrivetrainSubsystem extends SubsystemBase {
     drive.arcadeDrive(0, turningPIDOutput);
   }
 
+  public void driveWithPID(double driveSetpointLength) {
+    drivingPIDController.setSetpoint(driveSetpointLength);
+    double drivingPIDOutput = drivingPIDController.calculate(navX.getYaw());
+
+    drivingPIDOutput = Math.max(drivingPIDOutput, turningPIDMin); 
+    drivingPIDOutput = Math.min(drivingPIDOutput, turningPIDMax);
+
+    drive.arcadeDrive(0, drivingPIDOutput);
+  }
+
   public boolean isAtSetpoint() {
     return turningPIDController.atSetpoint();
+  }
+
+  public boolean isDriveAtSetpoint() {
+    return drivingPIDController.atSetpoint();
   }
 
   public void driveManager() {
