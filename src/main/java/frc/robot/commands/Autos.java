@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.subsystems.AprilTagTracking;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HandSubsystem;
@@ -79,10 +80,10 @@ public final class Autos {
     return Commands.sequence(
       new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
       .raceWith(new GrabberOn(handSubsystem, -0.5)),
-    new AutoDriveStraight(drivetrainSubsystem, -0.01, 0.35),
+    new AutoDriveStraight(drivetrainSubsystem, -0.01, 0.25),
     new WaitCommand(2)
       .raceWith(new GrabberOn(handSubsystem, 0.2)),
-    new AutoDriveStraight(drivetrainSubsystem, 0.07, -0.5)
+    new AutoDriveStraight(drivetrainSubsystem, 0.07, -0.25)
       .raceWith(new AutoArmMove(armSubsystem, -10)),
     new WaitCommand(2),
     new AutoTurn(drivetrainSubsystem, -180)
@@ -161,6 +162,26 @@ public final class Autos {
     );
   }
 
+  public static CommandBase autoCubeTrack(DrivetrainSubsystem drivetrainSubsystem, AprilTagTracking aprilTagTracking, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
+    return Commands.sequence(
+    //  new AutoDriveStraight(drivetrainSubsystem, 0.05, -0.25)
+    //   .raceWith(new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem))
+    new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
+            .raceWith(new GrabberOn(handSubsystem, -0.25)),
+        new AutoDriveStraight(drivetrainSubsystem, -0.008, 0.2),
+        new WaitCommand(2)
+            .raceWith(new GrabberOn(handSubsystem, 0.3)),
+        new AutoDriveStraight(drivetrainSubsystem, 0.025, -0.35)
+            .alongWith(new AutoArmMove(armSubsystem, 0))
+            .raceWith(new GrabberOn(handSubsystem, 0)),
+    new WaitCommand(1),
+    new AutoTurn(drivetrainSubsystem, 170),
+    new GrabberOn(handSubsystem, -0.4)
+      .alongWith(new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem))
+    // new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem)
+    // .alongWith(new GrabberOn(handSubsystem, -0.25))
+    );
+  }
   // new AutoDriveStraight(drivetrainSubsystem, 2, 0.5),
   // new AutoArmMove(armSubsystem, -900, 0.5),
   // new GrabberOn(handSubsystem, 0.5)

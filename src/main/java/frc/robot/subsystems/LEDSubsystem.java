@@ -26,19 +26,19 @@ public class LEDSubsystem extends SubsystemBase {
     System.out.println("LED Initalized");
     initializeLEDLength();
 
-    color = DriverStation.getAlliance();
-        if (color == DriverStation.Alliance.Blue) {
-          setFrontAll(Color.kBlue);
-        } else if (color == DriverStation.Alliance.Red) {
-          setFrontAll(Color.kRed);
-        } else setFrontAll(Color.kBlue);
+    // color = DriverStation.getAlliance();
+    //     if (color == DriverStation.Alliance.Blue) {
+    //       setFrontAll(Color.kBlue);
+    //     } else if (color == DriverStation.Alliance.Red) {
+    //       setFrontAll(Color.kRed);
+    //     } else setFrontAll(Color.kBlue);
     
   }
 
   @Override
   public void periodic() {
     //setFrontAll(Color.kWhite);
-    setBallLEDs();
+    //setBallLEDs();
     // This method will be called once per scheduler run
   }
 
@@ -60,32 +60,32 @@ public class LEDSubsystem extends SubsystemBase {
     m_led.setData(m_ledBuffer);
   }
 
-    public void setBallLEDs() {
-      if(RobotContainer.m_buttonBox.getRightTriggerAxis() > 0) {
-        setFrontAllRGB(255, 180, 0);
-      } 
-      if(RobotContainer.m_buttonBox.getLeftTriggerAxis() > 0) {
-        setFrontAll(Color.kPurple);
-      }
+    // public void setBallLEDs() {
+    //   if(RobotContainer.m_buttonBox.getRightTriggerAxis() > 0) {
+    //     setFrontAllRGB(255, 180, 0);
+    //   } 
+    //   if(RobotContainer.m_buttonBox.getLeftTriggerAxis() > 0) {
+    //     setFrontAll(Color.kPurple);
+    //   }
 
-      if(RobotContainer.m_buttonBox.getRawButton(9)) {
-        setFrontAll(Color.kBlack);
-      }
+    //   if(RobotContainer.m_buttonBox.getRawButton(9)) {
+    //     setFrontAll(Color.kBlack);
+    //   }
 
 
-      if(RobotContainer.m_buttonBox.getRawButton(10)) {
-        color = DriverStation.getAlliance();
-        if (color == DriverStation.Alliance.Blue) {
-          setFrontAll(Color.kBlue);
-        } else setFrontAll(Color.kRed);
-      }
+      // if(RobotContainer.m_buttonBox.getRawButton(10)) {
+      //   color = DriverStation.getAlliance();
+      //   if (color == DriverStation.Alliance.Blue) {
+      //     setFrontAll(Color.kBlue);
+      //   } else setFrontAll(Color.kRed);
+      // }
 
       // else {
       //   setFrontAll(Color.kBlue);
       // }
 
       //setFrontAll(color);
-    }
+    //}
 
     public void initializeLEDLength() {
       m_led.setLength(m_ledBuffer.getLength());

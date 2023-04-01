@@ -45,7 +45,7 @@
               "Visuals/Orientation": "VERTICAL"
             }
           },
-          "5,2": {
+          "5,1": {
             "size": [
               2,
               1
@@ -71,7 +71,7 @@
               "_showGlyph": false
             }
           },
-          "5,3": {
+          "10,2": {
             "size": [
               1,
               1
@@ -84,7 +84,7 @@
               "_showGlyph": false
             }
           },
-          "6,3": {
+          "10,3": {
             "size": [
               1,
               1
@@ -93,36 +93,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Right Encoder",
               "_title": "Right Encoder",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "5,0": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Gyro",
-              "_source0": "network_table:///SmartDashboard/navX-Sensor[4]",
-              "_title": "navX-Sensor[4]",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Visuals/Major tick spacing": 45.0,
-              "Visuals/Starting angle": 180.0,
-              "Visuals/Show tick mark ring": true,
-              "Visuals/Counter clockwise": false
-            }
-          },
-          "5,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/tv",
-              "_title": "tv",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -190,7 +160,7 @@
               "_showGlyph": false
             }
           },
-          "10,0": {
+          "5,0": {
             "size": [
               1,
               1
@@ -199,6 +169,97 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/limelight-kone_Interface",
               "_title": "limelight-kone_Interface",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/NavX",
+              "_title": "NavX",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/turning P",
+              "_title": "turning P",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/turning I",
+              "_title": "turning I",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "11,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/turning D",
+              "_title": "turning D",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/turn setpoint",
+              "_title": "turn setpoint",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/turning D",
+              "_title": "/SmartDashboard/turning D",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "10,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/tv",
+              "_title": "tv",
               "_glyph": 148,
               "_showGlyph": false
             }

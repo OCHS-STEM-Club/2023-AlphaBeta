@@ -51,6 +51,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+   
   
   
   } 
@@ -73,12 +75,15 @@ public class Robot extends TimedRobot {
     }
 
     m_robotContainer.resetNavX();
+    m_robotContainer.resetEncoders();
   }
   
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    m_robotContainer.autoLEDMode();
+  }
 
   @Override
   public void teleopInit() {
@@ -98,7 +103,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_robotContainer.aprilTagTracking();
-    m_robotContainer.setGreen();
+    m_robotContainer.LEDModes();
   }
 
   @Override

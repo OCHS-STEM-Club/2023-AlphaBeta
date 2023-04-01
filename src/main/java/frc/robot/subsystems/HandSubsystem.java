@@ -45,9 +45,7 @@ public class HandSubsystem extends SubsystemBase {
   public void periodic() {
     ultrasonicSensorDistanceIn = ultrasonicSensor.getRangeInches();
 
-    if (ultrasonicSensorDistanceIn > 0.001 & ultrasonicSensorDistanceIn < 6) {
-      gamePieceInHand = true;
-   } else gamePieceInHand = false;
+  //System.out.println(ultrasonicSensorDistanceIn);
 
     // This method will be called once per scheduler run //
     // double outputSpeed = 0;
@@ -98,12 +96,7 @@ public class HandSubsystem extends SubsystemBase {
     spinHandMotors(speed);
   }
 
-  public boolean gamePieceInHand() {
-    if (ultrasonicSensorDistanceIn < 4) {
-      return true;
-    } else if (ultrasonicSensorDistanceIn >= 4) {
-   return false;
-  } else return false;
-
-}
+  public double gamePieceInHand() {
+     return ultrasonicSensorDistanceIn;
+  }
 }

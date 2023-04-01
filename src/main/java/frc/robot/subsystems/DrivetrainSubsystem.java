@@ -14,6 +14,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -137,9 +138,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("NavX" , navX.getRoll());
 
+    System.out.println(leftEncoder.getPosition());
+
     //System.out.println(navX.getRoll());
 
-    System.out.println(navX.getYaw());
+    //System.out.println(navX.getYaw());
     // System.out.println(leftDrive1.getOutputCurrent());
 
     // driveSetpointLength = SmartDashboard.getNumber("turn setpoint", 0);
@@ -169,7 +172,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public void driveWithXbox() {
     if (RobotContainer.m_driverController.getRawAxis(2) == 1) {
-      creepSpeed = 0.5;
+      creepSpeed = 0.7;
     } else if (RobotContainer.m_driverController.getRawAxis(3) == 1) {
       creepSpeed = 1;
     } else {

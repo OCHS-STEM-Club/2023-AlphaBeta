@@ -19,9 +19,12 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HandSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.LimelightTracking;
+import edu.wpi.first.wpilibj.DriverStation;
 //import frc.robot.subsystems.LimelightTracking;
 //import frc.robot.subsystems.AprilTagTracking;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.XboxController.Axis;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -139,6 +142,7 @@ public class RobotContainer {
     m_chooser.addOption("Auto Balance w/o Mobility", Autos.autoBalanceWithoutMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("Toss Cube Auto Balance", Autos.tossCubeAutoBalanceWithMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("PID Drive", Autos.autoPIDStraight(m_drivetrainSubsystem));
+    m_chooser.addOption("Auto Cube Tracker", Autos.autoCubeTrack(m_drivetrainSubsystem,  m_aprilTagTracking, m_armSubsystem, m_handSubsystem));
     
     // Put the chooser on the dashboard
     
@@ -180,6 +184,7 @@ public class RobotContainer {
             SmartDashboard.putBoolean("GamePiece Mode", true);
           }
         }));
+
 
     
 
@@ -243,7 +248,7 @@ public class RobotContainer {
       //System.out.println("Button X Pressed");
       visionturn = m_aprilTagTracking.trackTurn();
       //System.out.println(visionturn);
-      m_drivetrainSubsystem.subclassTurn(visionturn, RobotContainer.m_driverController.getRawAxis(4) * 0.5);
+      m_drivetrainSubsystem.subclassTurn(RobotContainer.m_driverController.getRawAxis(4) * 0.5, visionturn);
     } 
     
     
@@ -253,7 +258,9 @@ public class RobotContainer {
     else if (RobotContainer.m_driverController.getYButton()) {
       //System.out.println("Button Y Pressed");
       visionmove = m_aprilTagTracking.trackDrive();
-      m_drivetrainSubsystem.setDrivetrainSpeed(visionmove, RobotContainer.m_driverController.getRawAxis(4) * 0.5);
+      visionturn = m_aprilTagTracking.trackTurn();
+      //m_drivetrainSubsystem.setDrivetrainSpeed(visionmove, RobotContainer.m_driverController.getRawAxis(4) * 0.5);
+      m_drivetrainSubsystem.setDrivetrainSpeed(visionmove, visionturn);
     } 
 
     // else if (RobotContainer.m_driverController.getAButton()) {
@@ -286,9 +293,26 @@ public class RobotContainer {
   //   }
   // }
 
-    public void setGreen() {
-      if(m_handSubsystem.gamePieceInHand == true) {
+    public void LEDModes() {
+      if (m_handSubsystem.gamePieceInHand() < 2) {
         m_ledSubsystem.setColor(Color.kGreen);
+      } 
+      else if (m_handSubsystem.gamePieceInHand() > 2) {
+        if (gamePieceMode == GamePieceMode.CONE) {
+          m_ledSubsystem.setFrontAllRGB(255, 180, 0);
+        } else if (gamePieceMode == GamePieceMode.CUBE) {
+          m_ledSubsystem.setFrontAll(Color.kPurple);
+         }
+       }
+    }
+
+    public void autoLEDMode() {
+      if (DriverStation.getAlliance() == Alliance.Blue){
+        m_ledSubsystem.setColor(Color.kBlue);
+      } else if (DriverStation.getAlliance() == Alliance.Red) {
+        m_ledSubsystem.setColor(Color.kRed);
       }
     }
+
+  
 }
