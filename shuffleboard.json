@@ -58,19 +58,6 @@
               "_showGlyph": false
             }
           },
-          "7,4": {
-            "size": [
-              3,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Ultrasonic distance",
-              "_title": "SmartDashboard/Ultrasonic distance",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
           "0,0": {
             "size": [
               5,

@@ -181,7 +181,8 @@ public final class Autos {
     new AutoTurn(drivetrainSubsystem, 175),
     new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem)
       .raceWith( new GrabberOn(handSubsystem, -0.4)),
-    new AutoTurn(drivetrainSubsystem, -10),
+    new AutoTurn(drivetrainSubsystem, -10)
+      .alongWith(new AutoArmMove(armSubsystem, 10)),
     new AutoDriveStraight(drivetrainSubsystem, -0.08, 0.4),
     new AutoAprilTagTracking(drivetrainSubsystem, limelightTracking, handSubsystem, -0.03)
       .alongWith(new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeMidSetpoint)),
