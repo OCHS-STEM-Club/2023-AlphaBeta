@@ -71,36 +71,10 @@
               "_showGlyph": false
             }
           },
-          "10,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Left Encoder",
-              "_title": "Left Encoder",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "10,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Right Encoder",
-              "_title": "Right Encoder",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
           "0,0": {
             "size": [
               5,
-              5
+              4
             ],
             "content": {
               "_type": "Camera Stream",
@@ -160,58 +134,6 @@
               "_showGlyph": false
             }
           },
-          "5,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/limelight-kone_Interface",
-              "_title": "limelight-kone_Interface",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "6,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/NavX",
-              "_title": "NavX",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "5,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/turning P",
-              "_title": "turning P",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "6,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/turning I",
-              "_title": "turning I",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
           "11,1": {
             "size": [
               1,
@@ -225,15 +147,41 @@
               "_showGlyph": false
             }
           },
-          "6,3": {
+          "5,0": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/turn setpoint",
-              "_title": "turn setpoint",
+              "_source0": "network_table:///SmartDashboard/NavX Roll",
+              "_title": "NavX Roll",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "11,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/NavX Heading",
+              "_title": "NavX Heading",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/NavX Heading",
+              "_title": "SmartDashboard/NavX Heading",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -245,8 +193,47 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/turning D",
-              "_title": "/SmartDashboard/turning D",
+              "_source0": "network_table:///SmartDashboard/Ultrasonic distance",
+              "_title": "SmartDashboard/Ultrasonic distance",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right Encoder",
+              "_title": "SmartDashboard/Right Encoder",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Left Encoder",
+              "_title": "SmartDashboard/Left Encoder",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight-kone_Interface",
+              "_title": "limelight-kone_Interface",
               "_glyph": 148,
               "_showGlyph": false
             }

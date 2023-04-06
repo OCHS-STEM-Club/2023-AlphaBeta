@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
@@ -13,6 +14,7 @@ import frc.robot.subsystems.AprilTagTracking;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HandSubsystem;
+import frc.robot.subsystems.LimelightTracking;
 
 public final class Autos {
 
@@ -162,29 +164,52 @@ public final class Autos {
     );
   }
 
-  public static CommandBase autoCubeTrack(DrivetrainSubsystem drivetrainSubsystem, AprilTagTracking aprilTagTracking, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
+  public static CommandBase autoCubeTrack(DrivetrainSubsystem drivetrainSubsystem, AprilTagTracking aprilTagTracking, ArmSubsystem armSubsystem, HandSubsystem handSubsystem, LimelightTracking limelightTracking) {
     return Commands.sequence(
     //  new AutoDriveStraight(drivetrainSubsystem, 0.05, -0.25)
     //   .raceWith(new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem))
     new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
-            .raceWith(new GrabberOn(handSubsystem, -0.25)),
-        new AutoDriveStraight(drivetrainSubsystem, -0.008, 0.2),
-        new WaitCommand(2)
-            .raceWith(new GrabberOn(handSubsystem, 0.3)),
-        new AutoDriveStraight(drivetrainSubsystem, 0.025, -0.35)
-            .alongWith(new AutoArmMove(armSubsystem, 0))
-            .raceWith(new GrabberOn(handSubsystem, 0)),
-    new WaitCommand(1),
-    new AutoTurn(drivetrainSubsystem, 170),
-    new GrabberOn(handSubsystem, -0.4)
-      .alongWith(new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem))
+      .raceWith(new GrabberOn(handSubsystem, -0.25)),
+    new AutoDriveStraight(drivetrainSubsystem, -0.008, 0.2),
+    new WaitCommand(0.5)
+      .raceWith(new GrabberOn(handSubsystem, 0.25))
+      .raceWith(new SetPipeline(aprilTagTracking)),
+    new AutoDriveStraight(drivetrainSubsystem, 0.065, -0.5)
+      .raceWith(new AutoArmMove(armSubsystem, -15))
+      .raceWith(new GrabberOn(handSubsystem, 0)),
+    new WaitCommand(0.5),
+    new AutoTurn(drivetrainSubsystem, 175),
+    new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem)
+      .raceWith( new GrabberOn(handSubsystem, -0.4)),
+    new AutoTurn(drivetrainSubsystem, -10),
+    new AutoDriveStraight(drivetrainSubsystem, -0.08, 0.4),
+    new AutoAprilTagTracking(drivetrainSubsystem, limelightTracking, handSubsystem, -0.03)
+      .alongWith(new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeMidSetpoint)),
+    new AutoDriveStraight(drivetrainSubsystem, 0.01, -0.2)
+      .raceWith(new GrabberOn(handSubsystem, 0.25)) 
+
     // new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem)
     // .alongWith(new GrabberOn(handSubsystem, -0.25))
     );
   }
+
+  public static CommandBase turn(DrivetrainSubsystem drivetrainSubsystem, AprilTagTracking aprilTagTracking, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
+    return Commands.sequence(
+      new AutoTurn(drivetrainSubsystem, -90),
+      new GrabberOn(handSubsystem, 0.5)
+    );
+  }
+
+
   // new AutoDriveStraight(drivetrainSubsystem, 2, 0.5),
   // new AutoArmMove(armSubsystem, -900, 0.5),
   // new GrabberOn(handSubsystem, 0.5)
+  public static CommandBase CubeTrack(DrivetrainSubsystem drivetrainSubsystem, AprilTagTracking aprilTagTracking, ArmSubsystem armSubsystem, HandSubsystem handSubsystem, LimelightTracking limelightTracking) {
+    return Commands.sequence(
+      new AutoAprilTagTracking(drivetrainSubsystem, limelightTracking, handSubsystem, 0.1)
+    );
+  }
+
 
   private Autos() {
     throw new UnsupportedOperationException("This is a utility class!");

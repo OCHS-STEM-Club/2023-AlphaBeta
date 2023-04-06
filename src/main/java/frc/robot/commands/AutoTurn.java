@@ -51,12 +51,12 @@ public class AutoTurn extends CommandBase {
       System.out.println("Robot is no longer at setpoint");
     }
 
-    if (time > 0 && System.currentTimeMillis() - time >= 500) {
+    if (time > 0 && System.currentTimeMillis() - time >= 500) { //500
       isFinished = true;
       System.out.println("Command exited");
     }
 
-    if (System.currentTimeMillis() - startTime > 3000) {
+    if (System.currentTimeMillis() - startTime > 2000) {
       isFinished = true;
       System.out.println("Command timed out");
     }

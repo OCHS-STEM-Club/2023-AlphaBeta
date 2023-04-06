@@ -45,7 +45,7 @@ public class HandSubsystem extends SubsystemBase {
   public void periodic() {
     ultrasonicSensorDistanceIn = ultrasonicSensor.getRangeInches();
 
-  //System.out.println(ultrasonicSensorDistanceIn);
+    //System.out.println(ultrasonicSensorDistanceIn);
 
     // This method will be called once per scheduler run //
     // double outputSpeed = 0;

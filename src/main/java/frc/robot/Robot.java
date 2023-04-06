@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.util.datalog.DataLogJNI;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -35,6 +38,11 @@ public class Robot extends TimedRobot {
     m_robotContainer.resetEncoders();
 
     m_robotContainer.setBrakeMode();
+
+    // Start recording data log //
+    DataLogManager.start();
+
+    DriverStation.startDataLog(DataLogManager.getLog());
   }
 
   /**

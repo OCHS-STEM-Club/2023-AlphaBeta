@@ -8,19 +8,23 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.AprilTagTracking;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HandSubsystem;
+import frc.robot.subsystems.LimelightTracking;
 
-public class CubeTracking extends CommandBase {
+public class AutoAprilTagTracking extends CommandBase {
+
+  private final HandSubsystem m_handSubsystem;
+  private final LimelightTracking m_limeLightTagTracking;
+  private final DrivetrainSubsystem m_drivetrainSubsystem;
+
   double visionmove;
   double visionturn;
-  
-  private final HandSubsystem m_handSubsystem;
-  private final AprilTagTracking m_aprilTagTracking;
-  private final DrivetrainSubsystem m_drivetrainSubsystem;
-  /** Creates a new CubeTracking. */
-  public CubeTracking(DrivetrainSubsystem drivetrain, AprilTagTracking tracking, HandSubsystem hand) {
+  double m_distance;
+  /** Creates a new AutoAprilTagTracking. */
+  public AutoAprilTagTracking(DrivetrainSubsystem drivetrain, LimelightTracking tracking, HandSubsystem hand, double distance) {
     m_drivetrainSubsystem = drivetrain;
-    m_aprilTagTracking = tracking;
+    m_limeLightTagTracking = tracking;
     m_handSubsystem = hand;
+    m_distance = distance;
     addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -28,31 +32,29 @@ public class CubeTracking extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_limeLightTagTracking.pipelineSet1();
     m_drivetrainSubsystem.setEncodersToZero();
-    m_aprilTagTracking.pipelineSet0();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    visionmove = m_aprilTagTracking.trackDrive();
-    visionturn = m_aprilTagTracking.trackTurn();
+    visionmove = m_limeLightTagTracking.trackDrive();
+    visionturn = m_limeLightTagTracking.trackTurn();
     m_drivetrainSubsystem.setDrivetrainSpeed(visionmove, visionturn);
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_aprilTagTracking.pipelineSet1();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-      if (m_drivetrainSubsystem.getLeftEncoderDistance() < -0.025) {
-        return m_drivetrainSubsystem.getLeftEncoderDistance() < -0.025;
-      } else {
-        return m_handSubsystem.gamePieceInHand() <= 3;
-      }
+    if (m_drivetrainSubsystem.getLeftEncoderDistance() < m_distance) {
+      return m_drivetrainSubsystem.getLeftEncoderDistance() < m_distance;
+    } else return false;
   }
 }

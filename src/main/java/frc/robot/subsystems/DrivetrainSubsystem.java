@@ -101,9 +101,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     //drivetrainPIDLeft.setP(2500);
     //drivetrainPIDRight.setP(2500);
 
-    turningPIDController.enableContinuousInput(0, 360);
-    turningPIDController.setPID(0.04, 0.0025, 0.0175);
-    turningPIDController.setTolerance(4);
+    //turningPIDController.enableContinuousInput(0, 360);
+    turningPIDController.disableContinuousInput();
+    turningPIDController.setPID(0.018, 0.001, 0.00772); //setPID(0.04, 0.0025, 0.0175);
+    turningPIDController.setTolerance(1);
 
     drivingPIDController.setPID(0.3, 0, 0);
 
@@ -136,9 +137,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     //System.out.println("NavX Heading" + navXGetHeading);
 
-    SmartDashboard.putNumber("NavX" , navX.getRoll());
+    SmartDashboard.putNumber("NavX Roll" , navX.getRoll());
 
-    System.out.println(leftEncoder.getPosition());
+    SmartDashboard.putNumber("NavX Heading", navX.getYaw());
+
+    System.out.println(getLeftEncoderDistance());
+
+    //System.out.println(leftEncoder.getPosition());
 
     //System.out.println(navX.getRoll());
 

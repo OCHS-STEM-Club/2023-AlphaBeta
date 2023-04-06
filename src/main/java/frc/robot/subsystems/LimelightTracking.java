@@ -62,14 +62,15 @@ public class LimelightTracking extends SubsystemBase {
 
   public double trackTurn() {
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-kone");
+    table.getEntry("pipeline").setNumber(1);
     //NetworkTableInstance.getDefault().getTable("limelight-kone").getEntry("pipeline").setNumber(1);
     targetOffsetAngle_Horizontal = table.getEntry("tx").getDouble(0.0);
     targetValue = table.getEntry("tv").getDouble(0.0);
     SmartDashboard.putNumber("tv", targetValue);
 
     if (targetValue == 1) {
-      turnOutput = targetOffsetAngle_Horizontal * STEER_K;
-      turnOutput = clamp(turnOutput, -MAX_STEER, MAX_STEER);
+      turnOutput = targetOffsetAngle_Horizontal * 0.018;
+      turnOutput = clamp(turnOutput, -0.2, 0.2);
       return turnOutput;
     } else return 0;
   }
@@ -77,6 +78,7 @@ public class LimelightTracking extends SubsystemBase {
 
   public double trackDrive() {
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-kone");
+    table.getEntry("pipeline").setNumber(1);
     //NetworkTableInstance.getDefault().getTable("limelight-kone").getEntry("pipeline").setNumber(1);
     targetOffsetAngle_Vertical = table.getEntry("ty").getDouble(0.0);
     targetValue = table.getEntry("tv").getDouble(0.0);
@@ -84,9 +86,17 @@ public class LimelightTracking extends SubsystemBase {
 
     if (targetValue == 1) {
       driveOutput = targetOffsetAngle_Vertical * STEER_K;
-      driveOutput = clamp(driveOutput, -0.2, 0.2);
+      driveOutput = clamp(driveOutput, -0.3, 0.3);
       return driveOutput;
     } else return 0;
+}
+
+public Number pipeline() {
+  return table.getEntry("pipeline").getNumber(null);
+}
+
+public void pipelineSet1() {
+    table.getEntry("pipeline").setNumber(1);
 }
 
 }

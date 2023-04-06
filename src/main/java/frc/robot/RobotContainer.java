@@ -142,8 +142,9 @@ public class RobotContainer {
     m_chooser.addOption("Auto Balance w/o Mobility", Autos.autoBalanceWithoutMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("Toss Cube Auto Balance", Autos.tossCubeAutoBalanceWithMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("PID Drive", Autos.autoPIDStraight(m_drivetrainSubsystem));
-    m_chooser.addOption("Auto Cube Tracker", Autos.autoCubeTrack(m_drivetrainSubsystem,  m_aprilTagTracking, m_armSubsystem, m_handSubsystem));
-    
+    m_chooser.addOption("Auto Cube Tracker", Autos.autoCubeTrack(m_drivetrainSubsystem,  m_aprilTagTracking, m_armSubsystem, m_handSubsystem, m_limelightTracking));
+    m_chooser.addOption("Cube Track", Autos.CubeTrack(m_drivetrainSubsystem, m_aprilTagTracking, m_armSubsystem, m_handSubsystem, m_limelightTracking));
+    m_chooser.addOption("Turn", Autos.turn(m_drivetrainSubsystem, m_aprilTagTracking, m_armSubsystem, m_handSubsystem));
     // Put the chooser on the dashboard
     
   }
