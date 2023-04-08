@@ -16,11 +16,13 @@ public class CubeTracking extends CommandBase {
   private final HandSubsystem m_handSubsystem;
   private final AprilTagTracking m_aprilTagTracking;
   private final DrivetrainSubsystem m_drivetrainSubsystem;
+  double m_distance;
   /** Creates a new CubeTracking. */
-  public CubeTracking(DrivetrainSubsystem drivetrain, AprilTagTracking tracking, HandSubsystem hand) {
+  public CubeTracking(DrivetrainSubsystem drivetrain, AprilTagTracking tracking, HandSubsystem hand, double distance) {
     m_drivetrainSubsystem = drivetrain;
     m_aprilTagTracking = tracking;
     m_handSubsystem = hand;
+    m_distance = distance;
     addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -49,8 +51,8 @@ public class CubeTracking extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-      if (m_drivetrainSubsystem.getLeftEncoderDistance() < -0.025) {
-        return m_drivetrainSubsystem.getLeftEncoderDistance() < -0.025;
+      if (m_drivetrainSubsystem.getLeftEncoderDistance() < m_distance) {
+        return m_drivetrainSubsystem.getLeftEncoderDistance() < m_distance;
       } else {
         return m_handSubsystem.gamePieceInHand() <= 3;
       }

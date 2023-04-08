@@ -58,21 +58,21 @@ public final class Autos {
     );
   }
 
-  public static CommandBase autoTurn(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
+  public static CommandBase autoTurnRight(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
 
     return Commands.sequence(
       new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
         .raceWith(new GrabberOn(handSubsystem, -0.5)),
-      new AutoDriveStraight(drivetrainSubsystem, -0.01, 0.15),
-      new WaitCommand(2)
+      new AutoDriveStraight(drivetrainSubsystem, -0.008, 0.2),
+      new WaitCommand(1)
         .raceWith(new GrabberOn(handSubsystem, 0.2)),
-      new AutoDriveStraight(drivetrainSubsystem, 0.0005, -0.35),
+      new AutoDriveStraight(drivetrainSubsystem, 0.002, -0.35),
       new WaitCommand(2),
-      new AutoTurn(drivetrainSubsystem, -85),
+      new AutoTurn(drivetrainSubsystem, -90),
       new AutoArmMove(armSubsystem, 0)
         .raceWith(new GrabberOn(handSubsystem, 0)),
-      new AutoDriveStraight(drivetrainSubsystem, -0.04, 0.45),
-      new AutoTurn(drivetrainSubsystem, -177),
+      new AutoDriveStraight(drivetrainSubsystem, -0.022, 0.35),
+      new AutoTurn(drivetrainSubsystem, -180),
       new AutoDriveStraight(drivetrainSubsystem, -0.07, 0.35)
 
     );
@@ -164,7 +164,7 @@ public final class Autos {
     );
   }
 
-  public static CommandBase autoCubeTrack(DrivetrainSubsystem drivetrainSubsystem, AprilTagTracking aprilTagTracking, ArmSubsystem armSubsystem, HandSubsystem handSubsystem, LimelightTracking limelightTracking) {
+  public static CommandBase twoPieceAutoTrack(DrivetrainSubsystem drivetrainSubsystem, AprilTagTracking aprilTagTracking, ArmSubsystem armSubsystem, HandSubsystem handSubsystem, LimelightTracking limelightTracking) {
     return Commands.sequence(
     //  new AutoDriveStraight(drivetrainSubsystem, 0.05, -0.25)
     //   .raceWith(new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem))
@@ -179,7 +179,7 @@ public final class Autos {
       .raceWith(new GrabberOn(handSubsystem, 0)),
     new WaitCommand(0.5),
     new AutoTurn(drivetrainSubsystem, 175),
-    new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem)
+    new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem, -0.025)
       .raceWith( new GrabberOn(handSubsystem, -0.4)),
     new AutoTurn(drivetrainSubsystem, -10)
       .alongWith(new AutoArmMove(armSubsystem, 10)),
@@ -207,8 +207,48 @@ public final class Autos {
   // new GrabberOn(handSubsystem, 0.5)
   public static CommandBase CubeTrack(DrivetrainSubsystem drivetrainSubsystem, AprilTagTracking aprilTagTracking, ArmSubsystem armSubsystem, HandSubsystem handSubsystem, LimelightTracking limelightTracking) {
     return Commands.sequence(
-      new AutoAprilTagTracking(drivetrainSubsystem, limelightTracking, handSubsystem, 0.1)
+      new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem, -0.1)
     );
+  }
+
+  public static CommandBase autoTurnLeft(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem) {
+
+    return Commands.sequence(
+      new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
+        .raceWith(new GrabberOn(handSubsystem, -0.5)),
+      new AutoDriveStraight(drivetrainSubsystem, -0.008, 0.2),
+      new WaitCommand(2)
+        .raceWith(new GrabberOn(handSubsystem, 0.2)),
+      new AutoDriveStraight(drivetrainSubsystem, 0.002, -0.3),
+      new WaitCommand(2),
+      new AutoTurn(drivetrainSubsystem, 90),
+      new AutoArmMove(armSubsystem, 0)
+        .raceWith(new GrabberOn(handSubsystem, 0)),
+      new AutoDriveStraight(drivetrainSubsystem, -0.02, 0.35),
+      new AutoTurn(drivetrainSubsystem, 180),
+      new AutoDriveStraight(drivetrainSubsystem, -0.07, 0.35)
+
+    );
+  }
+
+  public static CommandBase overChargeMobility(DrivetrainSubsystem drivetrainSubsystem, ArmSubsystem armSubsystem, HandSubsystem handSubsystem, AprilTagTracking tracking) {
+    return Commands.sequence(
+      new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
+        .raceWith(new GrabberOn(handSubsystem, -0.5)),
+      new AutoDriveStraight(drivetrainSubsystem, -0.008, 0.2),
+      new WaitCommand(1)
+        .raceWith(new GrabberOn(handSubsystem, 0.2)),
+      new AutoDriveStraight(drivetrainSubsystem, 0.02, -0.3)
+        .raceWith(new GrabberOn(handSubsystem, 0))
+        .raceWith(new AutoArmMove(armSubsystem, 55)),
+      new AutoDriveStraight(drivetrainSubsystem, 0.05, -0.25),
+      new AutoDriveStraight(drivetrainSubsystem, 0.04, -0.15),
+      new WaitCommand(1),
+      new AutoTurn(drivetrainSubsystem, 180)
+        .alongWith(new AutoArmMove(armSubsystem, 0)),
+      new CubeTracking(drivetrainSubsystem, tracking, handSubsystem, 0.04)
+    );
+      
   }
 
 

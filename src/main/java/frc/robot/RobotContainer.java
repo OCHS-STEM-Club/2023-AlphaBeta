@@ -133,18 +133,22 @@ public class RobotContainer {
     SmartDashboard.putData(m_chooser);
 
     m_chooser.setDefaultOption("Cube High Auto", Autos.highCubeAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
-    m_chooser.addOption("Auto Two Pieces", Autos.autoTwoPieces(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Two Piece Auto Track", Autos.twoPieceAutoTrack(m_drivetrainSubsystem,  m_aprilTagTracking, m_armSubsystem, m_handSubsystem, m_limelightTracking));
+    //m_chooser.addOption("Auto Two Pieces", Autos.autoTwoPieces(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("Auto Balance w/ Mobility", Autos.autoBalanceWithMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
-    m_chooser.addOption("Auto Charge Station", Autos.autoChargeBalance(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
-    m_chooser.addOption("Mid Cone Auto", Autos.midConeMobilityAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem)); 
-    m_chooser.addOption("Auto Turn", Autos.autoTurn(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
-    m_chooser.addOption("Mobility Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
     m_chooser.addOption("Auto Balance w/o Mobility", Autos.autoBalanceWithoutMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
-    m_chooser.addOption("Toss Cube Auto Balance", Autos.tossCubeAutoBalanceWithMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
-    m_chooser.addOption("PID Drive", Autos.autoPIDStraight(m_drivetrainSubsystem));
-    m_chooser.addOption("Auto Cube Tracker", Autos.autoCubeTrack(m_drivetrainSubsystem,  m_aprilTagTracking, m_armSubsystem, m_handSubsystem, m_limelightTracking));
-    m_chooser.addOption("Cube Track", Autos.CubeTrack(m_drivetrainSubsystem, m_aprilTagTracking, m_armSubsystem, m_handSubsystem, m_limelightTracking));
-    m_chooser.addOption("Turn", Autos.turn(m_drivetrainSubsystem, m_aprilTagTracking, m_armSubsystem, m_handSubsystem));
+    //m_chooser.addOption("Auto Charge Station", Autos.autoChargeBalance(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Mid Cone Auto", Autos.midConeMobilityAuto(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem)); 
+    m_chooser.addOption("Auto Turn Right", Autos.autoTurnRight(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Auto Turn Left", Autos.autoTurnLeft(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    m_chooser.addOption("Mobility Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
+    m_chooser.addOption("Over Charge Mobility", Autos.overChargeMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem, m_aprilTagTracking));
+    
+    //m_chooser.addOption("Toss Cube Auto Balance", Autos.tossCubeAutoBalanceWithMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
+    //m_chooser.addOption("PID Drive", Autos.autoPIDStraight(m_drivetrainSubsystem));
+  
+    //m_chooser.addOption("Cube Track", Autos.CubeTrack(m_drivetrainSubsystem, m_aprilTagTracking, m_armSubsystem, m_handSubsystem, m_limelightTracking));
+    //m_chooser.addOption("Turn", Autos.turn(m_drivetrainSubsystem, m_aprilTagTracking, m_armSubsystem, m_handSubsystem));
     // Put the chooser on the dashboard
     
   }
@@ -294,7 +298,24 @@ public class RobotContainer {
   //   }
   // }
 
-    public void LEDModes() {
+    // public void LEDModes() {
+    //   if (m_handSubsystem.gamePieceInHand() < 2) {
+    //     m_ledSubsystem.setColor(Color.kGreen);
+    //   } 
+    //   else if (m_handSubsystem.gamePieceInHand() > 2) {
+    //     if (gamePieceMode == GamePieceMode.CONE) {
+    //       m_ledSubsystem.setFrontAllRGB(255, 180, 0);
+    //     } else if (gamePieceMode == GamePieceMode.CUBE) {
+    //       m_ledSubsystem.setFrontAll(Color.kPurple);
+    //      }
+    //    }
+    // }
+
+     public void LEDModes() {
+      if (m_buttonBox.getRawButton(10)) {
+        m_ledSubsystem.setFrontAll(Color.kBlue);
+      } 
+
       if (m_handSubsystem.gamePieceInHand() < 2) {
         m_ledSubsystem.setColor(Color.kGreen);
       } 
@@ -304,8 +325,11 @@ public class RobotContainer {
         } else if (gamePieceMode == GamePieceMode.CUBE) {
           m_ledSubsystem.setFrontAll(Color.kPurple);
          }
-       }
+  
+      }
     }
+
+    
 
     public void autoLEDMode() {
       if (DriverStation.getAlliance() == Alliance.Blue){

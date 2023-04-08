@@ -104,7 +104,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     //turningPIDController.enableContinuousInput(0, 360);
     turningPIDController.disableContinuousInput();
     turningPIDController.setPID(0.018, 0.001, 0.00772); //setPID(0.04, 0.0025, 0.0175);
-    turningPIDController.setTolerance(1);
+    turningPIDController.setTolerance(3);
 
     drivingPIDController.setPID(0.3, 0, 0);
 
