@@ -143,7 +143,8 @@ public class RobotContainer {
     m_chooser.addOption("Auto Turn Left", Autos.autoTurnLeft(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     m_chooser.addOption("Mobility Auto", Autos.mobilityAuto(m_drivetrainSubsystem, m_handSubsystem));
     m_chooser.addOption("Over Charge Mobility", Autos.overChargeMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem, m_aprilTagTracking));
-    
+    m_chooser.addOption("Auto Turn Right W/ Cube", Autos.autoTurnRightWithCube(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem, m_aprilTagTracking));
+    m_chooser.addOption("Auto Turn Left W/ Cube", Autos.autoTurnLeftWithCube(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem, m_aprilTagTracking));
     //m_chooser.addOption("Toss Cube Auto Balance", Autos.tossCubeAutoBalanceWithMobility(m_drivetrainSubsystem, m_armSubsystem, m_handSubsystem));
     //m_chooser.addOption("PID Drive", Autos.autoPIDStraight(m_drivetrainSubsystem));
   
