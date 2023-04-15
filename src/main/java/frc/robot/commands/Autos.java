@@ -247,8 +247,8 @@ public final class Autos {
       new AutoTurn(drivetrainSubsystem, -180),
       new AutoDriveStraight(drivetrainSubsystem, -0.07, 0.35)
       .raceWith(new AutoArmMove(armSubsystem, -15)),
-      new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem, -0.025),
-      new GrabberOn(handSubsystem, -0.5)
+      new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem, -0.1)
+        .alongWith(new GrabberOn(handSubsystem, -0.5))
     );
   }
 
@@ -258,19 +258,19 @@ public final class Autos {
       new AutoArmMove(armSubsystem, Constants.Setpoints.kcubeHighSetpoint)
         .raceWith(new GrabberOn(handSubsystem, -0.5)),
       new AutoDriveStraight(drivetrainSubsystem, -0.008, 0.2),
-      new WaitCommand(2)
+      new WaitCommand(1)
         .raceWith(new GrabberOn(handSubsystem, 0.2)),
       new AutoDriveStraight(drivetrainSubsystem, 0.002, -0.3),
-      new WaitCommand(2),
+      new WaitCommand(1),
       new AutoTurn(drivetrainSubsystem, 90),
       new AutoArmMove(armSubsystem, 0)
         .raceWith(new GrabberOn(handSubsystem, 0)),
       new AutoDriveStraight(drivetrainSubsystem, -0.02, 0.35),
       new AutoTurn(drivetrainSubsystem, 180),
-      new AutoDriveStraight(drivetrainSubsystem, -0.07, 0.35)
+      new AutoDriveStraight(drivetrainSubsystem, -0.06, 0.35)
       .raceWith(new AutoArmMove(armSubsystem, -15)),
-      new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem, -0.025),
-      new GrabberOn(handSubsystem, -0.5)
+      new CubeTracking(drivetrainSubsystem, aprilTagTracking, handSubsystem, -0.025)
+        .alongWith(new GrabberOn(handSubsystem, -0.5))
     );
   }
 
